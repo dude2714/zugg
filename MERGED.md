@@ -1,0 +1,1 @@
+Merge pull request #2 by accepting the merge commit.
