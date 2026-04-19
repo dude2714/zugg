@@ -1,0 +1,10 @@
+<addon>
+    <id>venom</id>
+    <name>Venom Addon</name>
+    <version>1.0.0</version>
+    <description>This is the Venom addon.</description>
+    <repository>https://github.com/dude2714/zugg</repository>
+    <support>
+        <email>support@example.com</email>
+    </support>
+</addon>
