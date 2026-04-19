@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.example"
+       name="Example Video Addon"
+       version="1.0.0"
+       provider-name="YourName">
+
+    <!-- This addon is a video plugin (appears under Videos in Kodi) -->
+    <requires>
+        <!-- Minimum Kodi version required -->
+        <import addon="xbmc.python" version="3.0.0"/>
+        <!-- Kodi GUI/plugin API -->
+        <import addon="xbmc.gui" version="5.14.0"/>
+    </requires>
+
+    <!-- Declare the addon as a video plugin -->
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <!-- Supported content types: video, audio, image, executable -->
+        <provides>video</provides>
+    </extension>
+
+    <!-- General addon metadata -->
+    <extension point="xbmc.addon.metadata">
+        <!-- Short summary shown in the addon list -->
+        <summary lang="en_GB">A simple example video addon for Kodi</summary>
+        <!-- Longer description shown on the addon info page -->
+        <description lang="en_GB">
+            This is a starter template for building Kodi video addons.
+            Replace this description with information about your addon.
+        </description>
+        <!-- Disclaimer shown before the addon is enabled -->
+        <disclaimer lang="en_GB">
+            This addon is provided as a template. Use at your own risk.
+        </disclaimer>
+        <!-- Supported platforms: all | android | ios | linux | osx | windx | windx64 -->
+        <platform>all</platform>
+        <!-- License for this addon -->
+        <license>MIT</license>
+        <!-- URL of the addon forum thread or website -->
+        <forum>https://forum.kodi.tv</forum>
+        <website>https://kodi.tv</website>
+        <!-- Source code repository URL -->
+        <source>https://github.com/dude2714/zugg</source>
+        <!-- Email contact (optional) -->
+        <email></email>
+        <!-- Addon category shown in the addon browser -->
+        <news>
+            v1.0.0 - Initial release of the example addon template.
+        </news>
+    </extension>
+
+</addon>

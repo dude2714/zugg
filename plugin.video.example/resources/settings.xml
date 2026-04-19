@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    settings.xml  –  Addon user settings
+    ======================================
+    This file defines settings that the user can configure through
+    Kodi's addon settings dialog (System > Add-ons > [Your Addon] > Configure).
+
+    Each <setting> element represents one configurable option.
+    The 'id' attribute must be unique within this file and is the key used
+    to read/write the value in Python:
+
+        value = xbmcaddon.Addon().getSetting('my_setting_id')
+        xbmcaddon.Addon().setSetting('my_setting_id', 'new_value')
+
+    Supported types:
+        text       - free-form text input
+        number     - integer input
+        bool       - true/false toggle (checkbox)
+        select     - drop-down list
+        labelenum  - drop-down list with human-readable labels
+        slider     - numeric slider
+        fileenum   - file picker
+        folder     - folder picker
+        action     - clickable button that triggers an action
+        lsep       - visual separator / label (no value stored)
+-->
+<settings>
+
+    <!-- General settings category -->
+    <category label="General">
+
+        <!-- Text input: e.g. an API key or base URL -->
+        <setting id="api_key"
+                 type="text"
+                 label="API Key"
+                 default=""
+                 option="hidden"/>
+        <!--
+            option="hidden" masks the input like a password field.
+            Remove this attribute if the value should be visible.
+        -->
+
+        <!-- Boolean toggle: enable/disable a feature -->
+        <setting id="enable_hd"
+                 type="bool"
+                 label="Prefer HD streams"
+                 default="true"/>
+
+        <!-- Drop-down with human-readable labels -->
+        <setting id="video_quality"
+                 type="labelenum"
+                 label="Video Quality"
+                 lvalues="30000|30001|30002"
+                 default="0"/>
+        <!--
+            lvalues references string IDs from resources/language/…/strings.po.
+            For a simple approach without localisation you can use:
+                values="SD|HD|4K"
+            instead of lvalues.
+        -->
+
+    </category>
+
+    <!-- Playback settings category -->
+    <category label="Playback">
+
+        <!-- Slider: integer value between min and max -->
+        <setting id="max_bitrate"
+                 type="slider"
+                 label="Max Bitrate (Mbps)"
+                 default="8"
+                 range="1,1,50"
+                 option="int"/>
+
+        <!-- Number input -->
+        <setting id="timeout"
+                 type="number"
+                 label="Request Timeout (seconds)"
+                 default="30"/>
+
+    </category>
+
+    <!-- Advanced settings category -->
+    <category label="Advanced">
+
+        <!-- Boolean: verbose logging -->
+        <setting id="debug_logging"
+                 type="bool"
+                 label="Enable Debug Logging"
+                 default="false"/>
+
+    </category>
+
+</settings>
