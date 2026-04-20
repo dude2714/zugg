@@ -12,6 +12,6 @@ Kodi setup:
 2. Add source: https://dude2714.github.io/zugg/
 3. Go to Add-ons.
 4. Choose Install from zip file.
-5. Select repository.venom-1.6.zip.
+5. Select repository.venom-1.7.zip.
 6. After the repository installs, choose Install from repository.
 7. Install the add-on you want from the Venom repository.
