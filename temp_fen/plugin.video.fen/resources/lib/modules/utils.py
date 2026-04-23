@@ -16,7 +16,8 @@ from modules.settings_reader import get_setting
 days_translate = {'Monday': 32971, 'Tuesday': 32972, 'Wednesday': 32973, 'Thursday': 32974, 'Friday': 32975, 'Saturday': 32976, 'Sunday': 32977}
 
 def manual_function_import(location, function_name):
-	return getattr(import_module(location), function_name)
+	try: return getattr(import_module(location), function_name)
+	except (ImportError, ModuleNotFoundError, AttributeError): return None
 
 def make_thread_list(_target, _list, _thread):
 	for item in _list:

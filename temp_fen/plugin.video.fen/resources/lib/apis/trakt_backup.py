@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
-import requests
 import time
 from modules.settings_reader import get_setting, set_setting
 from modules.kodi_utils import translate_path, notification, sleep, ok_dialog, progressDialog, show_text
+from modules.requests_utils import make_session
 from modules.utils import jsondate_to_datetime
 
 trakt_icon = translate_path('special://home/addons/plugin.video.fen/resources/media/trakt.png')
+_session = make_session('https://api.trakt.tv')
 
 class Trakt():
 	def __init__(self):
-		self.api_endpoint = 'https://api-v2launch.trakt.tv/%s'
-		self.client_id = get_setting('trakt.client_id') # 'd4161a7a106424551add171e5470112e4afdaf2438e6ef2fe0548edc75924868'
-		self.client_secret = get_setting('trakt.client_secret') # 'b5fcd7cb5d9bb963784d11bbf8535bc0d25d46225016191eb48e50792d2155c0'
-		self.expires_at = get_setting('trakt.expires')
+		self.api_endpoint = 'https://api.trakt.tv/%s'
+		self.client_id = get_setting('trakt.client_id') or '5dd9e3603df7cb000a249219447e7bf1581cbf9577f25fbc2b73ebd2a8cc22a8'
+		self.client_secret = get_setting('trakt.client_secret') or '6bd3cc8d726b0b8090628d559ffe87b4ffbdcbd636ad24dd788003ced3a8298a'
+		try: self.expires_at = float(get_setting('trakt.expires'))
+		except: self.expires_at = 0.0
 		self.token = get_setting('trakt.token')
 
 	def call(self, path, data=None, with_auth=True, method=None, return_str=False, suppress_error_notification=False):
@@ -28,20 +30,24 @@ class Trakt():
 					except: pass
 					headers['Authorization'] = 'Bearer ' + self.token
 				try:
-					if data is not None: resp = requests.post(self.api_endpoint % path, json=data, headers=headers, timeout=timeout)
-					else: resp = requests.get(self.api_endpoint % path, headers=headers, timeout=timeout)
-				except requests.exceptions.RequestException as e:
-					error_notification('Trakt Error', str(e))
+					if data is not None: resp = _session.post(self.api_endpoint % path, json=data, headers=headers, timeout=timeout)
+					else: resp = _session.get(self.api_endpoint % path, headers=headers, timeout=timeout)
 				except Exception as e:
-					error_notification('', str(e))
+					error_notification('Trakt Error', str(e))
 				return resp
 			timeout = 15.0
 			headers = {'Content-Type': 'application/json', 'trakt-api-version': '2', 'trakt-api-key': self.client_id}
 			response = send_query()
+			if response is None: return None
 			response.encoding = 'utf-8'
 			if return_str: return response
 			try: result = response.json()
 			except: result = None
+			if response.status_code in (303, 403):
+				if isinstance(result, dict):
+					result['status_code'] = response.status_code
+					return result
+				return {'error': 'request_rejected', 'status_code': response.status_code}
 			return result
 		except:
 			self.error()
@@ -64,17 +70,17 @@ class Trakt():
 			try:
 				time_passed = 0
 				while not progressDialog.iscanceled() and time_passed < expires_in:
-					try:
-						response = self.call("oauth/device/token", data=data, with_auth=False, suppress_error_notification=True)
-					except requests.HTTPError as e:
-#						log_utils.log('Request Error: %s' % str(e), __name__, control.LOGDEBUG)
-						if e.response.status_code != 400: raise e
-						progress = int(100 * time_passed / expires_in)
-						progressDialog.update(progress)
-						sleep(max(device_codes['interval'], 1)*1000)
-					else:
-						if not response: continue
-						else: return response
+					response = self.call("oauth/device/token", data=data, with_auth=False, suppress_error_notification=True)
+					if response and isinstance(response, dict) and 'access_token' in response:
+						return response
+					if response and isinstance(response, dict):
+						status_code = response.get('status_code', 400)
+						if status_code in (303, 403):
+							notification('Trakt authorization blocked (%s). Re-authorize and try again.' % status_code, icon=trakt_icon)
+							return None
+					progress = int(100 * time_passed / expires_in)
+					progressDialog.update(progress)
+					sleep(max(device_codes['interval'], 1)*1000)
 					time_passed = time.time() - start
 			finally:
 				progressDialog.close()
@@ -83,9 +89,6 @@ class Trakt():
 			self.error()
 
 	def refresh_token(self):
-		traktToken = None
-		traktRefresh = None
-		traktExpires = None
 		data = {
 			"client_id": self.client_id,
 			"client_secret": self.client_secret,
@@ -95,19 +98,24 @@ class Trakt():
 		}
 
 		response = self.call("oauth/token", data=data, with_auth=False, return_str=True)
-		try: code = str(response[1])
-		except: code = ''
+		if not response:
+			notification('Temporary Trakt Server Problems', icon=trakt_icon)
+			return False
+		code = str(response.status_code)
 
-		if code.startswith('5') or (response and isinstance(response, str) and '<html' in response) or not response: # covers Maintenance html responses ["Bad Gateway", "We're sorry, but something went wrong (500)"])
+		if code.startswith('5'): # covers temporary server responses
 #			log_utils.log('Temporary Trakt Server Problems', level=control.LOGNOTICE)
 			notification('Temporary Trakt Server Problems', icon=trakt_icon)
 			return False
-		elif response and code in ['423']:
+		elif code in ['423']:
 #			log_utils.log('Locked User Account - Contact Trakt Support: %s' % str(response[0]), level=control.LOGWARNING)
 			notification('Locked User Account', icon=trakt_icon)
 			return False
+		elif code in ['303', '403']:
+			notification('Trakt token request rejected (%s). Please re-authorize.' % code, icon=trakt_icon)
+			return False
 
-		if response and code not in ['401', '405']:
+		if code not in ['401', '405']:
 			try:
 				response = response.json()
 			except:
@@ -118,17 +126,28 @@ class Trakt():
 				notification('Please Re-Authorize your Trakt Account', icon=trakt_icon)
 				return False
 
-			traktToken = response["access_token"]
-			traktRefresh = response["refresh_token"]
-			traktExpires = time.time() + 7776000
-			set_setting('trakt.token', traktToken)
-			set_setting('trakt.refresh', traktRefresh)
-			set_setting('trakt.expires', str(traktExpires))
-		self.token = traktToken
+			trakt_token = response.get("access_token")
+			trakt_refresh = response.get("refresh_token")
+			if not trakt_token or not trakt_refresh: return False
+			trakt_expires = time.time() + 7776000
+			set_setting('trakt.token', trakt_token)
+			set_setting('trakt.refresh', trakt_refresh)
+			set_setting('trakt.expires', str(trakt_expires))
+			self.token = trakt_token
+			self.expires_at = trakt_expires
+			return True
+		return False
 
 	def auth(self):
 		try:
 			code = self.get_device_code()
+			if not code or not isinstance(code, dict) or 'device_code' not in code:
+				status_code = code.get('status_code') if isinstance(code, dict) else None
+				if status_code in (303, 403):
+					notification('Trakt device code request rejected (%s). Please try again later.' % status_code, icon=trakt_icon)
+				else:
+					notification('Trakt Error Authorizing', icon=trakt_icon)
+				return False
 			token = self.get_device_token(code)
 			if token:
 				expires_at = time.time() + 7776000

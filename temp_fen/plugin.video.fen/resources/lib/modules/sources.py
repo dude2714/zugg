@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 import time
 import json
+import sys
+from os.path import exists
 from threading import Thread
 from urllib.parse import unquote
 import metadata
-from fenomscrapers import sources
 from windows import open_window, create_window
 from scrapers import external, folders
 from modules import debrid, resolver, kodi_utils, settings
 from modules.player import FenPlayer
 from modules.settings_reader import get_setting
-from modules.source_utils import internal_sources, internal_folders_import, scraper_names, get_cache_expiry
-from modules.utils import clean_file_name, string_to_float, safe_string, remove_accents, get_datetime
+from modules.source_utils import internal_sources, internal_folders_import, scraper_names, get_cache_expiry, set_default_scrapers
+from modules.utils import clean_file_name, string_to_float, safe_string, remove_accents, get_datetime, manual_function_import
 from modules.kodi_utils import logger
 
 show_busy_dialog, hide_busy_dialog = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog
@@ -33,6 +34,11 @@ default_internal_scrapers = ('furk', 'easynews', 'rd_cloud', 'pm_cloud', 'ad_clo
 hevc_filter_key, hdr_filter_key, dolby_vision_filter_key = '[B]HEVC[/B]', '[B]HDR[/B]', '[B]D/VISION[/B]'
 dialog_format, remaining_format = '[COLOR %s][B]%s[/B][/COLOR] 4K: %s | 1080p: %s | 720p: %s | SD: %s | Total: %s', ls(32676)
 main_line = '%s[CR]%s[CR]%s'
+
+def ensure_external_lib_path(addon_id):
+	addon_lib = translate_path('special://home/addons/%s/lib' % addon_id)
+	if addon_lib and exists(addon_lib) and addon_lib not in sys.path:
+		sys.path.append(addon_lib)
 
 class Sources():
 	def __init__(self):
@@ -108,8 +114,20 @@ class Sources():
 				self.activate_external_providers()
 			self.orig_results = self.collect_results()
 			results = self.process_results(self.orig_results)
+			if not results and not self.autoplay and self.orig_results:
+				try:
+					self.filters_ignored = True
+					results = self.sort_results(self.orig_results)
+					results = self._sort_first(results)
+				except:
+					results = []
 			playable_results = [i for i in results if not 'Uncached' in i.get('cache_provider', '')]
-			if not playable_results: return self._process_post_results()
+			if not playable_results:
+				has_uncached_results = any('Uncached' in i.get('cache_provider', '') for i in results)
+				if not has_uncached_results and self.orig_results:
+					has_uncached_results = any('Uncached' in i.get('cache_provider', '') for i in self.orig_results)
+				if self.autoplay or not has_uncached_results:
+					return self._process_post_results()
 		self.play_source(results)
 
 	def collect_results(self):
@@ -213,10 +231,45 @@ class Sources():
 			if len(self.active_internal_scrapers) == 1 and 'external' in self.active_internal_scrapers: notification(32854, 2000)
 			self.active_external = False
 		else:
+			import xbmc as _xbmc
+			_xbmc.log('###FEN DIAG### activate_external: debrid_enabled=%s torrent=%s hoster=%s' % (self.debrid_enabled, self.debrid_torrent_enabled, self.debrid_hoster_enabled), 1)
 			if not self.debrid_torrent_enabled: self.exclude_list.extend(scraper_names('torrents'))
 			elif not self.debrid_hoster_enabled: self.exclude_list.extend(scraper_names('hosters'))
-			external_providers = sources(ret_all=self.disabled_ignored)
+			external_sources = None
+			for addon_id in ('script.module.fenomscrapers', 'script.module.cocoscrapers', 'script.module.viperscrapers'):
+				ensure_external_lib_path(addon_id)
+			package_choices = [settings.external_scraper_package(), 'fenomscrapers', 'cocoscrapers', 'viperscrapers']
+			seen = []
+			package_choices = [i for i in package_choices if not (i in seen or seen.append(i))]
+			for package_name in package_choices:
+				try:
+					external_sources = manual_function_import(package_name, 'sources')
+					if external_sources: break
+				except Exception:
+					pass
+			if not external_sources:
+				notification('No scraper module found. Install FenomScrapers, CocoScrapers, or ViperScrapers.', 4000)
+				self.active_external = False
+				return
+			external_providers = external_sources(ret_all=self.disabled_ignored)
 			self.external_providers = [i for i in external_providers if not i[0] in self.exclude_list]
+			if not self.external_providers:
+				try:
+					set_default_scrapers()
+					external_providers = external_sources(ret_all=self.disabled_ignored)
+					self.external_providers = [i for i in external_providers if not i[0] in self.exclude_list]
+				except:
+					pass
+			if not self.external_providers:
+				try:
+					external_providers = external_sources(ret_all=True)
+					self.external_providers = [i for i in external_providers if not i[0] in self.exclude_list]
+				except:
+					pass
+			if not self.external_providers:
+				notification(32854, 2000)
+				self.active_external = False
+				return
 
 	def play_source(self, results):
 		if self.background: return self.play_execute_background(results)
@@ -265,17 +318,42 @@ class Sources():
 		_scraperDialog()
 
 	def display_results(self, results):
-		window_style = results_xml_style()
-		action, chosen_item = open_window(('windows.sources', 'SourceResults'), 'sources_results.xml',
-							window_style=window_style, window_id=results_xml_window_number(window_style), results=results,
-							meta=self.meta, scraper_settings=self.scraper_settings, prescrape=self.prescrape, filters_ignored=self.filters_ignored)
-		if not action: self._kill_progress_dialog()
-		elif action == 'play':
+		results = self._debrid_top(results)
+		if not results:
 			self._kill_progress_dialog()
-			return self.play_file(results, chosen_item)
-		elif self.prescrape and action == 'perform_full_search':
-			self.prescrape, self.clear_properties = False, False
-			return self.playback_prep()
+			return self._no_results()
+		self._kill_progress_dialog()
+		labels = []
+		append_label = labels.append
+		for item in results:
+			quality = item.get('quality', 'SD')
+			provider = item.get('provider', item.get('scrape_provider', 'source'))
+			name = item.get('name') or item.get('URLName') or item.get('source', 'stream')
+			cache_provider = item.get('cache_provider')
+			debrid_provider = item.get('debrid')
+			debrid_names = ('Real-Debrid', 'Premiumize.me', 'AllDebrid')
+			is_debrid_item = bool(cache_provider in debrid_names or debrid_provider in debrid_names)
+			if cache_provider:
+				if cache_provider in debrid_names:
+					cache_provider = '[COLOR lightgreen]%s[/COLOR]' % cache_provider
+				provider_display = '%s | %s' % (provider, cache_provider)
+			elif debrid_provider:
+				if debrid_provider in debrid_names:
+					debrid_provider = '[COLOR lightgreen]%s[/COLOR]' % debrid_provider
+				provider_display = '%s | %s' % (provider, debrid_provider)
+			else:
+				provider_display = provider
+			label = '[%s] %s | %s' % (quality, provider_display, name)
+			if is_debrid_item:
+				append_label(label)
+			else:
+				append_label('[COLOR lightblue]%s[/COLOR]' % label)
+		chosen_index = kodi_utils.dialog.select('Fen Sources', labels)
+		if chosen_index in (-1, None):
+			return None
+		if chosen_index >= len(results):
+			return None
+		return self.play_file(results, results[chosen_index])
 
 	def play_execute_background(self, results):
 		background_url = self.play_file(results, autoplay=True, background=True)
@@ -435,6 +513,15 @@ class Sources():
 		cached = [i for i in results if not i in uncached]
 		return cached + uncached
 
+	def _debrid_top(self, items):
+		debrid_names = ('Real-Debrid', 'Premiumize.me', 'AllDebrid')
+		rd_cached = [i for i in items if i.get('cache_provider') == 'Real-Debrid']
+		other_cached = [i for i in items if i.get('cache_provider') in debrid_names and i not in rd_cached]
+		rd_hoster = [i for i in items if i.get('debrid') == 'Real-Debrid' and i not in rd_cached and i not in other_cached]
+		other_debrid = [i for i in items if i.get('debrid') in debrid_names and i not in rd_cached and i not in other_cached and i not in rd_hoster]
+		non_debrid = [i for i in items if i not in rd_cached and i not in other_cached and i not in rd_hoster and i not in other_debrid]
+		return rd_cached + other_cached + rd_hoster + other_debrid + non_debrid
+
 	def _special_filter(self, results, key, enable_setting):
 		if enable_setting == 1:
 			if key == dolby_vision_filter_key and self.hybrid_allowed:
@@ -549,7 +636,9 @@ class Sources():
 					if url:
 						self.url = url
 						break
-				except: pass
+				except Exception as e:
+					logger('FEN play_file _resolve_dialog Exception', str(e))
+					pass
 			self._kill_progress_dialog()
 		def _uncached_confirm(item):
 			if not confirm_dialog(text=ls(32831) % item['debrid'].upper()): return None
@@ -560,9 +649,17 @@ class Sources():
 			self._kill_progress_dialog()
 			if autoplay:
 				items = [i for i in results if not 'Uncached' in i.get('cache_provider', '')]
+				items = self._debrid_top(items)
 				if self.filters_ignored: notification(32686)
+				if not items:
+					return None
 			else:
 				results = [i for i in results if not 'Uncached' in i.get('cache_provider', '') or i == source]
+				results = self._debrid_top(results)
+				if not results:
+					return None
+				if source not in results:
+					source = results[0]
 				source_index = results.index(source)
 				leading_index = max(source_index-20, 0)
 				items_prev = results[leading_index:source_index]
@@ -570,12 +667,19 @@ class Sources():
 				items_next = results[source_index+1:source_index+trailing_index]
 				items = [source] + items_next + items_prev
 			total_items = len(items)
+			if total_items == 0:
+				return None
 			if not background: self._make_progress_dialog()
 			_resolve_dialog()
 			if background: return self.url
 			if self.caching_confirmed: return self.resolve_sources(self.url, self.meta, cache_item=True)
+			if not self.url:
+				notification(32760, 2000)
+				return None
 			return FenPlayer().run(self.url)
-		except: pass
+		except Exception as e:
+			logger('FEN play_file Exception', str(e))
+			return None
 
 	def resolve_sources(self, item, meta, cache_item=False):
 		try:

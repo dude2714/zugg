@@ -23,8 +23,8 @@
         <setting label="32101" type="lsep" />
         <setting id="datetime.offset" label="32045" type="slider" default="0" range="-15,1,15" option="int" />
         <!-- Hidden -->
-        <setting id="trakt.client_id" type="text" default="d4161a7a106424551add171e5470112e4afdaf2438e6ef2fe0548edc75924868" visible="false" />
-        <setting id="trakt.client_secret" type="text" default="b5fcd7cb5d9bb963784d11bbf8535bc0d25d46225016191eb48e50792d2155c0" visible="false" />
+        <setting id="trakt.client_id" type="text" default="5dd9e3603df7cb000a249219447e7bf1581cbf9577f25fbc2b73ebd2a8cc22a8" visible="false" />
+        <setting id="trakt.client_secret" type="text" default="6bd3cc8d726b0b8090628d559ffe87b4ffbdcbd636ad24dd788003ced3a8298a" visible="false" />
         <setting id="trakt.expires" type="text" default="" visible="false" />
         <setting id="trakt.token" type="text" default="" visible="false" />
         <setting id="trakt.refresh" type="text" default="" visible="false" />
@@ -163,7 +163,8 @@
         <!-- External Scrapers -->
         <setting label="32119" type="lsep" />
         <setting id="provider.external" type="bool" label="32055" default="true" />
-        <setting id="external.open" type="action" option="close" label="32680" default="" action="RunPlugin(plugin://plugin.video.fen/?mode=external_settings&amp;query=0.0&amp;ext_addon=script.module.fenomscrapers)" />
+        <setting id="external.scraper.module" type="enum" label="32238" default="0" values="FenomScrapers|CocoScrapers|ViperScrapers" visible="eq(-1,true)" />
+        <setting id="external.open" type="action" option="close" label="32680" default="" action="RunPlugin(plugin://plugin.video.fen/?mode=external_settings_dynamic&amp;query=0.0)" visible="eq(-2,true)" />
         <!-- Real Debrid -->
         <setting label="32054" type="lsep" />
         <setting id="rd.token" label="rd token" type="text" default="" visible="hidden" />

@@ -101,7 +101,9 @@ def clean_settings():
 	kodi_utils.progressDialog.create(ls(32577), '')
 	kodi_utils.progressDialog.update(0)
 #	addon_ids = ('plugin.video.fen', 'script.module.fenomscrapers', 'script.module.myaccounts')
-	addon_ids = ('plugin.video.fen', 'script.module.fenomscrapers')
+	from modules.settings import external_scraper_module
+	external_addon = external_scraper_module()
+	addon_ids = ('plugin.video.fen', external_addon)
 	addon_settings = 'special://home/addons/%s/resources/settings.xml'
 	addon_data_settings = 'special://profile/addon_data/%s/settings.xml'
 	addon_names = [kodi_utils.addon(i).getAddonInfo('name') for i in addon_ids]

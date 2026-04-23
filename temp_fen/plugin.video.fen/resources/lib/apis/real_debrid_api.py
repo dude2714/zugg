@@ -4,7 +4,8 @@ from sys import exit as sysexit
 from caches.main_cache import cache_object
 from modules.settings_reader import get_setting, set_setting
 from modules.requests_utils import make_session
-from modules.kodi_utils import sleep, confirm_dialog, ok_dialog, monitor, progressDialog, dialog, local_string as ls
+from modules.kodi_utils import sleep, confirm_dialog, ok_dialog, monitor, progressDialog, dialog, notification, local_string as ls
+import xbmcgui as _xbmcgui
 from modules.kodi_utils import logger
 
 base_url = 'https://api.real-debrid.com/rest/1.0/'
@@ -31,40 +32,69 @@ class RealDebridAPI:
 		sleep(1000 * self.auth_step)
 		url = 'client_id=%s&code=%s' % (self.client_ID, self.device_code)
 		url = auth_url + credentials_url % url
-		response = session.get(url, timeout=timeout).json()
-		if 'error' in response:
-			return
-		try:
-			progressDialog.close()
-			set_setting('rd.client_id', response['client_id'])
-			set_setting('rd.secret', response['client_secret'])
-			self.secret = response['client_secret']
-			self.client_ID = response['client_id']
+		try: response = session.get(url, timeout=timeout).json()
 		except:
-			 ok_dialog(text=ls(32574), top_space=True)
-			 self.break_auth_loop = True
-		return
+			return 'pending'
+		if not isinstance(response, dict):
+			return 'pending'
+		if 'error' in response:
+			# Only abort on errors that mean the code itself is dead
+			if response['error'] in ('bad_verification_code', 'expired_token', 'access_denied'):
+				self.break_auth_loop = True
+				return 'failed'
+			# authorization_pending, slow_down, or any transient error — keep waiting
+			return 'pending'
+		client_id = response.get('client_id')
+		client_secret = response.get('client_secret')
+		if not client_id or not client_secret:
+			return 'pending'
+		set_setting('rd.client_id', client_id)
+		set_setting('rd.secret', client_secret)
+		self.secret = client_secret
+		self.client_ID = client_id
+		return 'authorized'
 
 	def auth(self):
+		self.break_auth_loop = False
 		self.secret = ''
 		self.client_ID = 'X245A4XAIBGVM'
 		line = '%s[CR]%s[CR]%s'
 		url = 'client_id=%s&new_credentials=yes' % self.client_ID
 		url = auth_url + device_url % url
-		response = session.get(url, timeout=timeout).json()
-		progressDialog.create('%s %s' % (ls(32054), ls(32057)), line % ('', '', ''))
-		progressDialog.update(-1, line % (ls(32517),ls(32700) % 'https://real-debrid.com/device', ls(32701) % response['user_code']))
-		self.auth_timeout = int(response['expires_in'])
-		self.auth_step = int(response['interval'])
+		try: response = session.get(url, timeout=timeout).json()
+		except:
+			ok_dialog(text=ls(32574), top_space=True)
+			return
+		if not isinstance(response, dict):
+			ok_dialog(text=ls(32574), top_space=True)
+			return
+		if response.get('error') or not all(i in response for i in ('user_code', 'expires_in', 'interval', 'device_code')):
+			ok_dialog(text=ls(32574), top_space=True)
+			return
+		self.auth_timeout = max(int(response['expires_in']), 600)
+		self.auth_step = max(int(response['interval']), 5)
 		self.device_code = response['device_code']
-
-		while self.secret == '':
-			if self.break_auth_loop:
+		user_code = response['user_code']
+		msg = line % (ls(32517), ls(32700) % 'https://real-debrid.com/device', ls(32701) % user_code)
+		# Use a fresh DialogProgress each time — the module-level singleton
+		# retains iscanceled()=True after being closed once in Kodi Omega.
+		pd = _xbmcgui.DialogProgress()
+		pd.create('%s %s' % (ls(32054), ls(32057)), msg)
+		pd.update(1, msg)
+		notification('real-debrid.com/device  |  Code: %s' % user_code, time=30000)
+		time_passed = 0
+		while self.secret == '' and time_passed < self.auth_timeout:
+			if pd.iscanceled():
+				try: pd.close()
+				except: pass
 				break
-			if progressDialog.iscanceled():
-				progressDialog.close()
-				break
-			self.auth_loop()
+			status = self.auth_loop()
+			if self.break_auth_loop: break
+			time_passed += self.auth_step
+			try: pd.update(1, msg)
+			except: pass
+		try: pd.close()
+		except: pass
 		self.get_token()
 
 	def get_token(self):
@@ -201,7 +231,8 @@ class RealDebridAPI:
 			extensions = supported_video_extensions()
 			extras_filtering_list = extras_filter()
 			torrent_files = self.check_hash(info_hash)
-			if not info_hash in torrent_files: return None
+			if not isinstance(torrent_files, dict) or not info_hash in torrent_files:
+				return self._resolve_magnet_no_cache_api(magnet_url, store_to_cloud, title, season, episode, extensions, extras_filtering_list, seas_ep_filter)
 			torrent = self.add_magnet(magnet_url)
 			torrent_id = torrent['id']
 			torrent_files = torrent_files[info_hash]['rd']
@@ -264,6 +295,70 @@ class RealDebridAPI:
 			logger('main exception', str(e))
 			if torrent_id: self.delete_torrent(torrent_id)
 			return None
+
+	def _resolve_magnet_no_cache_api(self, magnet_url, store_to_cloud, title, season, episode, extensions, extras_filtering_list, seas_ep_filter):
+		"""Resolve a magnet without using instantAvailability endpoint."""
+		torrent_id = None
+		try:
+			torrent = self.add_magnet(magnet_url)
+			torrent_id = torrent.get('id')
+			if not torrent_id:
+				return None
+			torrent_info = self.torrent_info(torrent_id)
+			if not isinstance(torrent_info, dict) or torrent_info.get('error') or torrent_info.get('error_code'):
+				return None
+			all_files = torrent_info.get('files', [])
+			video_files = [i for i in all_files if any(i.get('path', '').lower().endswith(x) for x in extensions)]
+			if not video_files:
+				return None
+			if season:
+				video_files = [i for i in video_files if seas_ep_filter(season, episode, i.get('path', ''))]
+				if not video_files:
+					return None
+			compare_title = re.sub(r'[^A-Za-z0-9]+', '.', title.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower() if title else ''
+			candidate_files = []
+			for item in sorted(video_files, key=lambda x: x.get('bytes', 0), reverse=True):
+				filename = item.get('path', '').rsplit('/', 1)[-1]
+				norm_name = re.sub(r'[^A-Za-z0-9-]+', '.', filename.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
+				if compare_title:
+					norm_name = norm_name.replace(compare_title, '')
+				if any(x in norm_name for x in extras_filtering_list):
+					continue
+				candidate_files.append(item)
+			if not candidate_files:
+				candidate_files = sorted(video_files, key=lambda x: x.get('bytes', 0), reverse=True)
+			selected_ids = ','.join([str(i['id']) for i in candidate_files if i.get('id') is not None])
+			if not selected_ids:
+				return None
+			self.add_torrent_select(torrent_id, selected_ids)
+			for _ in range(8):
+				torrent_info = self.torrent_info(torrent_id)
+				if not isinstance(torrent_info, dict) or torrent_info.get('error') or torrent_info.get('error_code'):
+					break
+				links = torrent_info.get('links') or []
+				if links:
+					rd_link = links[0]
+					file_url = self.unrestrict_link(rd_link)
+					if not file_url:
+						break
+					if file_url.endswith('rar'):
+						break
+					if not any(file_url.lower().endswith(x) for x in extensions):
+						break
+					if not store_to_cloud:
+						self.delete_torrent(torrent_id)
+					return file_url
+				sleep(1000)
+			return None
+		except Exception as e:
+			logger('fallback resolve exception', str(e))
+			return None
+		finally:
+			if torrent_id and not store_to_cloud:
+				try:
+					self.delete_torrent(torrent_id)
+				except:
+					pass
 
 	def display_magnet_pack(self, magnet_url, info_hash):
 		from modules.source_utils import supported_video_extensions
@@ -449,7 +544,7 @@ class RealDebridAPI:
 		if '?' not in url: url += '?auth_token=%s' % self.token
 		else: url += '&auth_token=%s' % self.token
 		response = session.get(url, timeout=timeout)
-		if any(value in response.text for value in ('bad_token', 'Bad Request')):
+		if response.status_code in (401, 403) or any(value in response.text for value in ('bad_token', 'revoked', 'Bad Request')):
 			if self.refreshToken(): response = self._get(original_url)
 			else: return None
 		try: return response.json()
@@ -462,7 +557,7 @@ class RealDebridAPI:
 		if '?' not in url: url += '?auth_token=%s' % self.token
 		else: url += '&auth_token=%s' % self.token
 		response = session.post(url, data=post_data, timeout=timeout)
-		if any(value in response.text for value in ('bad_token', 'Bad Request')):
+		if response.status_code in (401, 403) or any(value in response.text for value in ('bad_token', 'revoked', 'Bad Request')):
 			if self.refreshToken(): response = self._post(original_url, post_data)
 			else: return None
 		try: return response.json()

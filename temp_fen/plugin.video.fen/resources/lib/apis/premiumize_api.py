@@ -43,7 +43,7 @@ class PremiumizeAPI:
 		url = 'https://www.premiumize.me/token'
 		response = self._post(url, data)
 		progressDialog.create('Fen', '')
-		progressDialog.update(-1, line % (ls(32517), ls(32700) % response.get('verification_uri'), ls(32701) % response.get('user_code')))
+		progressDialog.update(0, line % (ls(32517), ls(32700) % response.get('verification_uri'), ls(32701) % response.get('user_code')))
 		self.device_code = response['device_code']
 		while self.token == '':
 			self.auth_loop()

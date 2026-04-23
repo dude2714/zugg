@@ -238,6 +238,31 @@ def show_unaired():
 def thumb_fanart():
 	return get_setting('thumb_fanart') == 'true'
 
+def external_scraper_module():
+	addon_id = get_setting('external.scraper.module', 'script.module.fenomscrapers')
+	value_map = {
+		'0': 'script.module.fenomscrapers',
+		'1': 'script.module.cocoscrapers',
+		'2': 'script.module.viperscrapers',
+		'FenomScrapers': 'script.module.fenomscrapers',
+		'CocoScrapers': 'script.module.cocoscrapers',
+		'ViperScrapers': 'script.module.viperscrapers'
+	}
+	addon_id = value_map.get(addon_id, addon_id)
+	if addon_id:
+		addon_id = addon_id.strip().lower()
+	if addon_id in ('script.module.fenomscrapers', 'script.module.cocoscrapers', 'script.module.viperscrapers'):
+		return addon_id
+	return 'script.module.fenomscrapers'
+
+def external_scraper_package():
+	package_map = {
+		'script.module.fenomscrapers': 'fenomscrapers',
+		'script.module.cocoscrapers': 'cocoscrapers',
+		'script.module.viperscrapers': 'viperscrapers'
+	}
+	return package_map.get(external_scraper_module(), 'fenomscrapers')
+
 def single_ep_format():
 	return {0: '%d-%m-%Y', 1: '%Y-%m-%d', 2: '%m-%d-%Y'}[int(get_setting('single_ep_format', '1'))]
 

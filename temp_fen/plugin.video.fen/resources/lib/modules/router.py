@@ -293,6 +293,10 @@ def routing(argv2):
 		elif mode == 'external_settings':
 			from modules.nav_utils import open_settings
 			open_settings(params.get('query', '0.0'), params.get('ext_addon'))
+		elif mode == 'external_settings_dynamic':
+			from modules.nav_utils import open_settings
+			from modules.settings import external_scraper_module
+			open_settings(params.get('query', '0.0'), external_scraper_module())
 		elif mode == 'clear_settings_window_properties':
 			from modules.kodi_utils import clear_settings_window_properties
 			clear_settings_window_properties()

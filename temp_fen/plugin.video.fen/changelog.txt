@@ -4,6 +4,19 @@
 [COLOR dodgerblue][B]CREDITS[/B][/COLOR]
 - Tikipeter.
 
+[COLOR dodgerblue][B]Version 2.10.11[/B][/COLOR]
+- Added external provider fallback to load all providers when selected module has none enabled.
+- Improved scraper activation resilience to reduce false no-results states.
+
+[COLOR dodgerblue][B]Version 2.10.10[/B][/COLOR]
+- Added crash-safe source handling for malformed/empty stream entries.
+- Added external scraper runtime import path handling for Fenom/Coco/Viper modules.
+- Added safer fallback behavior for filtered/uncached source display in manual mode.
+
+[COLOR dodgerblue][B]Version 2.10.9[/B][/COLOR]
+- Added selectable external scraper module support for FenomScrapers or CocoScrapers.
+- Fixed Real-Debrid device code popup closing before the authorization window expires.
+
 [COLOR dodgerblue][B]Version 2.10.8[/B][/COLOR]
 - Trakt/Easynews/Furk functions are beta at this time.
 - Removed dependency for separate accounts management, added ability to authorize/revoke directly from addon.

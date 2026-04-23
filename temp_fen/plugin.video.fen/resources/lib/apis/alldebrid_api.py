@@ -43,7 +43,7 @@ class AllDebridAPI:
 		response = response['data']
 		line = '%s[CR]%s[CR]%s'
 		kodi_utils.progressDialog.create('Fen', '')
-		kodi_utils.progressDialog.update(-1, line % (ls(32517), ls(32700) % response.get('base_url'), ls(32701) % response.get('pin')))
+		kodi_utils.progressDialog.update(0, line % (ls(32517), ls(32700) % response.get('base_url'), ls(32701) % response.get('pin')))
 		self.check_url = response.get('check_url')
 		kodi_utils.sleep(2000)
 		while not self.token:

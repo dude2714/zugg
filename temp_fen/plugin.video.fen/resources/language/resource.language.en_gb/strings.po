@@ -1811,7 +1811,7 @@ msgid "Filter Title"
 msgstr ""
 
 msgctxt "#32680"
-msgid "[I]Please visit Fenom Scrapers to change settings[/I]"
+msgid "[I]Please visit External Scrapers to change settings[/I]"
 msgstr ""
 
 msgctxt "#32681"

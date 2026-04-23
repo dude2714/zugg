@@ -10,7 +10,6 @@ from modules.utils import make_thread_list
 from modules.settings_reader import get_setting
 from modules.settings import display_sleep_time, enabled_debrids_check
 from modules.kodi_utils import sleep, show_busy_dialog, hide_busy_dialog, notification, monitor, local_string as ls
-# from modules.kodi_utils import logger
 
 rd_api, pm_api, ad_api = RealDebridAPI(), PremiumizeAPI(), AllDebridAPI()
 plswait_str, checking_debrid_str, remaining_debrid_str = ls(32577), ls(32578), ls(32579)
@@ -73,25 +72,12 @@ class DebridCheck:
 		return cached_list, unchecked_list
 
 	def RD_check(self):
-		self.rd_cached_hashes, unchecked_hashes = self.cached_check('rd')
-		if not unchecked_hashes: return
-		rd_cache = rd_api.check_cache(unchecked_hashes)
-		if not rd_cache: return
-		cached_append = self.rd_cached_hashes.append
-		process_list = []
-		process_append = process_list.append
-		try:
-			for h in unchecked_hashes:
-				cached = 'False'
-				if h in rd_cache:
-					info = rd_cache[h]
-					if isinstance(info, dict) and len(info.get('rd')) > 0:
-						cached_append(h)
-						cached = 'True'
-				process_append((h, cached))
-		except:
-			for i in unchecked_hashes: process_append((i, 'False'))
-		self._add_to_local_cache(process_list, 'rd')
+		# RD deprecated the /torrents/instantAvailability endpoint (returns 403 disabled_endpoint).
+		# Ignore local RD cache state entirely so stale False rows cannot suppress results.
+		self.rd_cached_hashes = list(set(self.hash_list))
+		self.processing_hashes = bool(self.rd_cached_hashes)
+		debrid_cache.clear_debrid_results('rd')
+		self._add_to_local_cache([(h, 'True') for h in self.rd_cached_hashes], 'rd')
 
 	def PM_check(self):
 		self.pm_cached_hashes, unchecked_hashes = self.cached_check('pm')

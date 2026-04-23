@@ -12,7 +12,7 @@ from modules.requests_utils import make_session
 from modules.utils import sort_list, sort_for_article, make_thread_list, jsondate_to_datetime as js2date
 
 ls, logger = kodi_utils.local_string, kodi_utils.logger
-CLIENT_ID = get_setting('trakt.client_id') # 'd4161a7a106424551add171e5470112e4afdaf2438e6ef2fe0548edc75924868'
+CLIENT_ID = get_setting('trakt.client_id') or '5dd9e3603df7cb000a249219447e7bf1581cbf9577f25fbc2b73ebd2a8cc22a8'
 trakt_icon = kodi_utils.translate_path('special://home/addons/plugin.video.fen/resources/media/trakt.png')
 trakt_str = ls(32037)
 API_ENDPOINT = 'https://api.trakt.tv/%s'

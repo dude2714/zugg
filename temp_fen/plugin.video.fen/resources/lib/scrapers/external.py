@@ -10,7 +10,7 @@ from modules.debrid import debrid_check
 from modules.utils import clean_file_name
 from modules.settings import display_sleep_time, date_offset
 from modules.settings_reader import get_setting
-# logger = kodi_utils.logger
+import xbmc as _xbmc
 
 ls, sleep, monitor, get_property, set_property = kodi_utils.local_string, kodi_utils.sleep, kodi_utils.monitor, kodi_utils.get_property, kodi_utils.set_property
 notification, hide_busy_dialog, clear_property = kodi_utils.notification, kodi_utils.hide_busy_dialog, kodi_utils.clear_property
@@ -222,6 +222,7 @@ class source:
 		if len(self.final_sources) > 0: self.final_sources = list(_process(self.final_sources))
 
 	def process_filters(self):
+		_xbmc.log('###FEN DIAG### process_filters: final_sources=%s debrid_torrents=%s debrid_hosters=%s' % (len(self.final_sources), self.debrid_torrents, [list(h.keys()) for h in self.debrid_hosters]), 1)
 		def _process(result_list, target):
 			for item in result_list:
 				obj = Thread(target=target, args=(item,))
@@ -234,6 +235,7 @@ class source:
 		def _process_hosters(item):
 			for k, v in item.items():
 				valid_hosters = [i for i in result_hosters if i in v]
+				_xbmc.log('###FEN DIAG### _process_hosters: k=%s valid=%s result_hosters=%s' % (k, len(valid_hosters), result_hosters[:5]), 1)
 				self.filter += [dict(i, **{'debrid':k}) for i in hoster_sources if i['source'] in valid_hosters]
 		threads = []
 		threads_append = threads.append
@@ -245,6 +247,7 @@ class source:
 		if self.debrid_hosters and hoster_sources: _process(self.debrid_hosters, _process_hosters)
 		if threads: [i.join() for i in threads]
 		self.final_sources = self.filter
+		_xbmc.log('###FEN DIAG### process_filters: after filter=%s' % len(self.final_sources), 1)
 
 	def process_sources(self, provider, sources):
 		try:
@@ -298,14 +301,20 @@ class source:
 			return []
 		hash_list = [i['hash'] for i in torrent_sources]
 		torrent_results = []
+		uncached_results = []
 		try:
 			hash_list = list(set(hash_list))
 			cached_hashes = debrid_check.run(hash_list, self.background, self.debrid_torrents, self.meta, self.progress_dialog)
 			for item in debrid_hash_tuple:
 				if item[0] in self.debrid_torrents:
 					torrent_results.extend([dict(i, **{'cache_provider':item[0]}) for i in torrent_sources if i['hash'] in cached_hashes[item[1]]])
+					debrid_uncached = [dict(i, **{'cache_provider':'Uncached %s' % item[0], 'debrid': item[0]}) for i in torrent_sources if not i['hash'] in cached_hashes[item[1]]]
 					if self.display_uncached_torrents:
-						torrent_results.extend([dict(i, **{'cache_provider':'Uncached %s' % item[0]}) for i in torrent_sources if not i['hash'] in cached_hashes[item[1]]])
+						torrent_results.extend(debrid_uncached)
+					elif not self.background:
+						uncached_results.extend(debrid_uncached)
+			if not torrent_results and uncached_results:
+				torrent_results.extend(uncached_results)
 		except:
 			self.kill_progress_dialog()
 			notification(32574, 2500)

@@ -220,9 +220,10 @@ class Navigator:
 		settings_str = ls(32247)
 #		fen_str, fenom_scr_str, myaccounts_str = ls(32036), ls(32522), ls(33025)
 		fen_str, fenom_scr_str = ls(32036), ls(32522)
+		external_addon = s.external_scraper_module()
 		n_ins, lst_ins = _in_str % (settings_str.upper(), '%s'), (_in_str % (settings_str, '%s')).replace('[B]', '').replace(': [/B]', ' ')
 		self.AD({'mode': 'open_settings', 'query': '0.0', 'list_name': lst_ins % fen_str}, n_ins % fen_str, 'settings.png', False)
-		self.AD({'mode': 'external_settings', 'ext_addon': 'script.module.fenomscrapers', 'list_name': lst_ins % fenom_scr_str},
+		self.AD({'mode': 'external_settings', 'ext_addon': external_addon, 'list_name': lst_ins % fenom_scr_str},
 																				n_ins % fenom_scr_str, 'settings.png', False)
 #		self.AD({'mode': 'external_settings', 'ext_addon': 'script.module.myaccounts', 'list_name': lst_ins % myaccounts_str},
 #																				n_ins % myaccounts_str, 'settings.png', False)
@@ -281,11 +282,13 @@ class Navigator:
 		fen_str, cl_str, fs_str, lut_str, k_str = ls(32036), ls(32508), ls(32522), ls(32777), ls(32538)
 		lv_str, lu_str = ls(32509), ls(32853)
 		fen_vstr = addon().getAddonInfo('version')
+		external_addon = s.external_scraper_module()
 #		sc_v, ma_v = addon('script.module.fenomscrapers').getAddonInfo('version'), addon('script.module.myaccounts').getAddonInfo('version')
-		sc_v = addon('script.module.fenomscrapers').getAddonInfo('version')
+		try: sc_v = addon(external_addon).getAddonInfo('version')
+		except: sc_v = '0.0.0'
 		mt_str, mh_str = tp(log_path % 'plugin.video.fen'), '[B]%s[/B]: %s  [I](v.%s)[/I]' % (cl_str.upper(), fen_str, fen_vstr)
 #		sct_str, mat_str = tp(log_path % 'script.module.fenomscrapers'), tp(log_path % 'script.module.myaccounts')
-		sct_str = tp(log_path % 'script.module.fenomscrapers')
+		sct_str = tp(log_path % external_addon)
 #		sch_str, mah_str = '[B]%s[/B]: %s  [I](v.%s)[/I]' % (cl_str.upper(), fs_str, sc_v), '[B]%s[/B]: %s  [I](v.%s)[/I]' % (cl_str.upper(), ma_str, ma_v)
 		sch_str = '[B]%s[/B]: %s  [I](v.%s)[/I]' % (cl_str.upper(), fs_str, sc_v)
 		klv_h, klu_h, kl_loc = '[B]%s[/B]: %s %s' % (lut_str.upper(), k_str, lv_str), '[B]%s[/B]: %s' % (lut_str.upper(), lu_str), tp('special://logpath/kodi.log')

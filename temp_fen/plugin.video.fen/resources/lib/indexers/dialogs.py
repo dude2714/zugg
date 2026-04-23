@@ -375,7 +375,7 @@ def favorites_choice(params):
 	action()
 
 def external_scrapers_choice():
-	icon = translate_path('special://home/addons/script.module.fenomscrapers/icon.png')
+	icon = translate_path('special://home/addons/%s/icon.png' % settings.external_scraper_module())
 	all_color, hosters_color, torrent_color = 'mediumvioletred', get_setting('hoster.identify'), get_setting('torrent.identify')
 	enable_string, disable_string, specific_string, all_string = ls(32055), ls(32024), ls(32536), ls(32525)
 	scrapers_string, hosters_string, torrent_string = ls(32533), ls(33031), ls(32535)
@@ -495,7 +495,7 @@ def options_menu(params, meta=None):
 	elif choice == 'clear_trakt_cache': return clear_cache('trakt')
 	elif choice == 'clear_scrapers_cache': return source_utils.clear_scrapers_cache()
 	elif choice == 'open_external_scrapers_choice': return external_scrapers_choice()
-	elif choice == 'open_scraper_settings': return execute_builtin('Addon.OpenSettings(script.module.fenomscrapers)')
+	elif choice == 'open_scraper_settings': return execute_builtin('Addon.OpenSettings(%s)' % settings.external_scraper_module())
 	elif choice == 'open_fen_settings': return open_settings('0.0')
 	if choice == 'clear_trakt_cache' and content in ('movie', 'tvshow', 'season', 'episode'): execute_builtin('Container.Refresh')
 	show_busy_dialog()

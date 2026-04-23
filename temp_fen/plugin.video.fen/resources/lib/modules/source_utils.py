@@ -1,16 +1,46 @@
 # -*- coding: utf-8 -*-
 import re
 import json
+import sys
+from os.path import exists
 from urllib.parse import unquote, unquote_plus
-from fenomscrapers.modules.control import getSettingDefault as fenom_default_settings, setting as fenom_getSetting, setSetting as fenom_setSetting
 from metadata import season_episodes_meta
-from modules import kodi_utils
+from modules import kodi_utils, settings
 from modules.settings import check_prescrape_sources, date_offset, metadata_user_info
 from modules.utils import manual_function_import, adjust_premiered_date, get_datetime, jsondate_to_datetime, subtract_dates
 # from modules.kodi_utils import logger
 
 string = str
-source_folder_location = 'special://home/addons/script.module.fenomscrapers/lib/fenomscrapers/sources_fenomscrapers/%s'
+
+def _ensure_external_lib_path():
+	addon_id = settings.external_scraper_module()
+	addon_lib = kodi_utils.translate_path('special://home/addons/%s/lib' % addon_id)
+	if addon_lib and exists(addon_lib) and addon_lib not in sys.path:
+		sys.path.append(addon_lib)
+
+def _control_function(function_name):
+	_ensure_external_lib_path()
+	module = '%s.modules.control' % settings.external_scraper_package()
+	return manual_function_import(module, function_name)
+
+def scraper_get_setting(setting_id):
+	function = _control_function('setting')
+	if function: return function(setting_id)
+	return ''
+
+def scraper_set_setting(setting_id, setting_value):
+	function = _control_function('setSetting')
+	if function: function(setting_id, setting_value)
+
+def scraper_default_setting(setting_id):
+	function = _control_function('getSettingDefault')
+	if function: return function(setting_id)
+	return 'false'
+
+def source_folder_location():
+	addon_id = settings.external_scraper_module()
+	package_name = settings.external_scraper_package()
+	return 'special://home/addons/%s/lib/%s/sources_%s/%%s' % (addon_id, package_name, package_name)
 RES_4K = ('.4k', 'hd4k', '4khd', '.uhd', 'ultrahd', 'ultra.hd', 'hd2160', '2160hd', '2160', '2160p', '216o', '216op')
 RES_1080 = ('1080', '1080p', '1080i', 'hd1080', '1080hd', 'hd1080p', 'm1080p', 'fullhd', 'full.hd', '1o8o', '1o8op', '108o', '108op', '1o80', '1o80p')
 RES_720 = ('720', '720p', '720i', 'hd720', '720hd', 'hd720p', '72o', '72op')
@@ -109,7 +139,7 @@ def toggle_all(folder, setting, silent=False):
 		sourcelist = scraper_names(folder)
 		for i in sourcelist:
 			source_setting = 'provider.' + i
-			fenom_setSetting(source_setting, setting)
+			scraper_set_setting(source_setting, setting)
 		if silent: return
 		return _ext_scrapers_notice(32576)
 	except:
@@ -118,7 +148,7 @@ def toggle_all(folder, setting, silent=False):
 
 def enable_disable(folder):
 	try:
-		icon = kodi_utils.translate_path('special://home/addons/script.module.fenomscrapers/icon.png')
+		icon = kodi_utils.translate_path('special://home/addons/%s/icon.png' % settings.external_scraper_module())
 		enabled, disabled = scrapers_status(folder)
 		all_sources = sorted(enabled + disabled)
 		preselect = [all_sources.index(i) for i in enabled]
@@ -127,8 +157,8 @@ def enable_disable(folder):
 		chosen = kodi_utils.select_dialog(all_sources, **kwargs)
 		if chosen == None: return
 		for i in all_sources:
-			if i in chosen: fenom_setSetting('provider.' + i, 'true')
-			else: fenom_setSetting('provider.' + i, 'false')
+			if i in chosen: scraper_set_setting('provider.' + i, 'true')
+			else: scraper_set_setting('provider.' + i, 'false')
 		return _ext_scrapers_notice(32576)
 	except: return _ext_scrapers_notice(32574)
 
@@ -136,23 +166,22 @@ def set_default_scrapers():
 	all_scrapers = scraper_names('all')
 	for i in all_scrapers:
 		scraper = 'provider.' + i
-		default_setting = fenom_default_settings(scraper)
-		fenom_setSetting(scraper, default_setting)
+		default_setting = scraper_default_setting(scraper)
+		scraper_set_setting(scraper, default_setting)
 
 def scrapers_status(folder='all'):
 	providers = scraper_names(folder)
-	enabled = [i for i in providers if fenom_getSetting('provider.' + i) == 'true']
+	enabled = [i for i in providers if scraper_get_setting('provider.' + i) == 'true']
 	disabled = [i for i in providers if i not in enabled]
 	return enabled, disabled
 
 def scraper_names(folder):
 	providerList = []
 	append = providerList.append
-	source_folder_location = 'special://home/addons/script.module.fenomscrapers/lib/fenomscrapers/sources_fenomscrapers/%s'
 	sourceSubFolders = ('hosters', 'torrents')
 	if folder != 'all': sourceSubFolders = [i for i in sourceSubFolders if i == folder]
 	for item in sourceSubFolders:
-		files = kodi_utils.list_dirs(kodi_utils.translate_path(source_folder_location % item))[1]
+		files = kodi_utils.list_dirs(kodi_utils.translate_path(source_folder_location() % item))[1]
 		for m in files:
 			module_name = m.split('.')[0]
 			if module_name == '__init__': continue
