@@ -160,7 +160,7 @@
         </assets>
     </extension>
 </addon>
-<addon id="plugin.video.fenfork" name="Fen Fork" provider-name="Tikipeter, The Red Wizard" version="3.5.06">
+<addon id="plugin.video.fenfork" name="Fen Fork" provider-name="Tikipeter, The Red Wizard" version="3.5.07">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.19.1"/>
