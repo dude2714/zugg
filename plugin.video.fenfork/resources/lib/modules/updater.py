@@ -17,11 +17,8 @@ destination_check = translate_path('special://home/addons/plugin.video.fenfork/'
 repo_base_url = 'https://dude2714.github.io/zugg/'
 
 def get_versions():
-	result = requests.get(repo_base_url + 'fenfork_version')
-	if result.status_code != 200: return
-	online_version = result.text.replace('\n', '')
 	current_version = addon_info('version')
-	return current_version, online_version
+	return current_version, current_version
 
 def update_check(action=4):
 	if action == 3: return
