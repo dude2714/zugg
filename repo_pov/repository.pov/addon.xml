@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.pov" name="[B][COLOR red]POV[/COLOR] Repo[/B]" version="1.0.0" provider-name="kodifitzwell">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+  </requires>
+  <extension point="xbmc.addon.repository" name="POV Repo">
+    <dir>
+      <info compressed="false">https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/addons.xml</info>
+      <checksum>https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/addons.xml.md5</checksum>
+      <datadir zip="true">https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/</datadir>
+    </dir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">[B][COLOR red]POV[/COLOR][/B] repository</summary>
+    <description lang="en">Repository package for POV only.</description>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>
