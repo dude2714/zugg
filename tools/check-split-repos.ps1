@@ -9,6 +9,12 @@ $repos = @(
     @{ Name = 'FenFork'; Path = (Join-Path $base 'repo_fenfork') }
 )
 
+[xml]$povFeed = Get-Content -LiteralPath (Join-Path $base 'repo_pov\addons.xml')
+$povRepoVersion = ($povFeed.addons.addon | Where-Object { $_.id -eq 'repository.pov' } | Select-Object -First 1).version
+
+[xml]$fenforkFeed = Get-Content -LiteralPath (Join-Path $base 'repo_fenfork\addons.xml')
+$fenforkRepoVersion = ($fenforkFeed.addons.addon | Where-Object { $_.id -eq 'repository.fenfork' } | Select-Object -First 1).version
+
 Write-Output '=== Local Feed Validation ==='
 foreach ($repo in $repos) {
     Write-Output ("-- {0}" -f $repo.Name)
@@ -18,7 +24,7 @@ foreach ($repo in $repos) {
 $urls = @(
     'https://dude2714.github.io/zugg/repo_pov/addons.xml',
     'https://dude2714.github.io/zugg/repo_pov/addons.xml.md5',
-    'https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.0.zip',
+    ("https://dude2714.github.io/zugg/repo_pov/repository.pov-{0}.zip" -f $povRepoVersion),
     'https://dude2714.github.io/zugg/repo_pov/plugin.video.pov-6.05.11.zip',
     'https://dude2714.github.io/zugg/repo_pov/script.module.requests-2.31.0.zip',
     'https://dude2714.github.io/zugg/repo_pov/script.module.certifi-2023.5.7.zip',
@@ -27,7 +33,7 @@ $urls = @(
     'https://dude2714.github.io/zugg/repo_pov/script.module.urllib3-1.26.16+matrix.1.zip',
     'https://dude2714.github.io/zugg/repo_fenfork/addons.xml',
     'https://dude2714.github.io/zugg/repo_fenfork/addons.xml.md5',
-    'https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-1.0.0.zip',
+    ("https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-{0}.zip" -f $fenforkRepoVersion),
     'https://dude2714.github.io/zugg/repo_fenfork/plugin.video.fenfork-3.5.08.zip',
     'https://dude2714.github.io/zugg/repo_fenfork/script.module.requests-2.31.0.zip',
     'https://dude2714.github.io/zugg/repo_fenfork/script.module.certifi-2023.5.7.zip',
