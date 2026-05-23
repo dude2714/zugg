@@ -31,11 +31,17 @@ foreach ($repo in @('repo_pov', 'repo_fenfork')) {
     Set-Content -LiteralPath (Join-Path $path 'addons.xml.md5') -Value $md5 -NoNewline
 }
 
+[xml]$povRepoAddon = Get-Content -LiteralPath (Join-Path $base 'repo_pov\repository.pov\addon.xml')
+$povRepoVersion = $povRepoAddon.addon.version
+
+[xml]$fenforkRepoAddon = Get-Content -LiteralPath (Join-Path $base 'repo_fenfork\repository.fenfork\addon.xml')
+$fenforkRepoVersion = $fenforkRepoAddon.addon.version
+
 $zipTargets = @(
     @{ Folder = Join-Path $base '_pov_check\plugin.video.pov'; Zip = Join-Path $base 'repo_pov\plugin.video.pov-6.05.11.zip' },
     @{ Folder = Join-Path $base 'plugin.video.fenfork'; Zip = Join-Path $base 'repo_fenfork\plugin.video.fenfork-3.5.08.zip' },
-    @{ Folder = Join-Path $base 'repo_pov\repository.pov'; Zip = Join-Path $base 'repo_pov\repository.pov-1.0.0.zip' },
-    @{ Folder = Join-Path $base 'repo_fenfork\repository.fenfork'; Zip = Join-Path $base 'repo_fenfork\repository.fenfork-1.0.0.zip' }
+    @{ Folder = Join-Path $base 'repo_pov\repository.pov'; Zip = Join-Path $base ("repo_pov\repository.pov-{0}.zip" -f $povRepoVersion) },
+    @{ Folder = Join-Path $base 'repo_fenfork\repository.fenfork'; Zip = Join-Path $base ("repo_fenfork\repository.fenfork-{0}.zip" -f $fenforkRepoVersion) }
 )
 
 foreach ($target in $zipTargets) {
