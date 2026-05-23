@@ -39,4 +39,68 @@
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
     </extension>
 </addon>
+<addon id="script.module.requests" name="requests" version="2.31.0" provider-name="Python Software Foundation">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+    <import addon="script.module.certifi" version="2023.5.7"/>
+    <import addon="script.module.chardet" version="5.1.0"/>
+    <import addon="script.module.idna" version="3.4.0"/>
+    <import addon="script.module.urllib3" version="1.26.16+matrix.1"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <license>Apache License 2.0</license>
+    <platform>all</platform>
+    <summary lang="en">requests</summary>
+    <description lang="en">Python HTTP library for humans</description>
+  </extension>
+</addon>
+<addon id="script.module.certifi" name="certifi" version="2023.5.7" provider-name="Python Software Foundation">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <license>Mozilla Public License 2.0</license>
+    <platform>all</platform>
+    <summary lang="en">certifi</summary>
+    <description lang="en">Python package for providing Mozilla's CA Bundle</description>
+  </extension>
+</addon>
+<addon id="script.module.chardet" name="chardet" version="5.1.0" provider-name="Python Software Foundation">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <license>LGPL 2.1</license>
+    <platform>all</platform>
+    <summary lang="en">chardet</summary>
+    <description lang="en">Universal character encoding detector</description>
+  </extension>
+</addon>
+<addon id="script.module.idna" name="idna" version="3.4.0" provider-name="Python Software Foundation">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <license>BSD 3-Clause</license>
+    <platform>all</platform>
+    <summary lang="en">idna</summary>
+    <description lang="en">Internationalized Domain Names in Applications</description>
+  </extension>
+</addon>
+<addon id="script.module.urllib3" name="urllib3" version="1.26.16+matrix.1" provider-name="Python Software Foundation">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <license>MIT</license>
+    <platform>all</platform>
+    <summary lang="en">urllib3</summary>
+    <description lang="en">HTTP library for Python</description>
+  </extension>
+</addon>
 </addons>
