@@ -20,10 +20,20 @@ $urls = @(
     'https://dude2714.github.io/zugg/repo_pov/addons.xml.md5',
     'https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.0.zip',
     'https://dude2714.github.io/zugg/repo_pov/plugin.video.pov-6.05.11.zip',
+    'https://dude2714.github.io/zugg/repo_pov/script.module.requests-2.31.0.zip',
+    'https://dude2714.github.io/zugg/repo_pov/script.module.certifi-2023.5.7.zip',
+    'https://dude2714.github.io/zugg/repo_pov/script.module.chardet-5.1.0.zip',
+    'https://dude2714.github.io/zugg/repo_pov/script.module.idna-3.4.0.zip',
+    'https://dude2714.github.io/zugg/repo_pov/script.module.urllib3-1.26.16+matrix.1.zip',
     'https://dude2714.github.io/zugg/repo_fenfork/addons.xml',
     'https://dude2714.github.io/zugg/repo_fenfork/addons.xml.md5',
     'https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-1.0.0.zip',
-    'https://dude2714.github.io/zugg/repo_fenfork/plugin.video.fenfork-3.5.08.zip'
+    'https://dude2714.github.io/zugg/repo_fenfork/plugin.video.fenfork-3.5.08.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/script.module.requests-2.31.0.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/script.module.certifi-2023.5.7.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/script.module.chardet-5.1.0.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/script.module.idna-3.4.0.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/script.module.urllib3-1.26.16+matrix.1.zip'
 )
 
 Write-Output '=== Remote URL Checks ==='

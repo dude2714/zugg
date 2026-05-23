@@ -5,7 +5,17 @@ $copies = @(
     @{ Source = Join-Path $base 'repository.venom\icon.png'; Destination = Join-Path $base 'repo_pov\repository.pov\icon.png' },
     @{ Source = Join-Path $base 'repository.venom\fanart.jpg'; Destination = Join-Path $base 'repo_pov\repository.pov\fanart.jpg' },
     @{ Source = Join-Path $base 'repository.venom\icon.png'; Destination = Join-Path $base 'repo_fenfork\repository.fenfork\icon.png' },
-    @{ Source = Join-Path $base 'repository.venom\fanart.jpg'; Destination = Join-Path $base 'repo_fenfork\repository.fenfork\fanart.jpg' }
+    @{ Source = Join-Path $base 'repository.venom\fanart.jpg'; Destination = Join-Path $base 'repo_fenfork\repository.fenfork\fanart.jpg' },
+    @{ Source = Join-Path $base 'script.module.requests-2.31.0.zip'; Destination = Join-Path $base 'repo_pov\script.module.requests-2.31.0.zip' },
+    @{ Source = Join-Path $base 'script.module.certifi-2023.5.7.zip'; Destination = Join-Path $base 'repo_pov\script.module.certifi-2023.5.7.zip' },
+    @{ Source = Join-Path $base 'script.module.chardet-5.1.0.zip'; Destination = Join-Path $base 'repo_pov\script.module.chardet-5.1.0.zip' },
+    @{ Source = Join-Path $base 'script.module.idna-3.4.0.zip'; Destination = Join-Path $base 'repo_pov\script.module.idna-3.4.0.zip' },
+    @{ Source = Join-Path $base 'script.module.urllib3-1.26.16+matrix.1.zip'; Destination = Join-Path $base 'repo_pov\script.module.urllib3-1.26.16+matrix.1.zip' },
+    @{ Source = Join-Path $base 'script.module.requests-2.31.0.zip'; Destination = Join-Path $base 'repo_fenfork\script.module.requests-2.31.0.zip' },
+    @{ Source = Join-Path $base 'script.module.certifi-2023.5.7.zip'; Destination = Join-Path $base 'repo_fenfork\script.module.certifi-2023.5.7.zip' },
+    @{ Source = Join-Path $base 'script.module.chardet-5.1.0.zip'; Destination = Join-Path $base 'repo_fenfork\script.module.chardet-5.1.0.zip' },
+    @{ Source = Join-Path $base 'script.module.idna-3.4.0.zip'; Destination = Join-Path $base 'repo_fenfork\script.module.idna-3.4.0.zip' },
+    @{ Source = Join-Path $base 'script.module.urllib3-1.26.16+matrix.1.zip'; Destination = Join-Path $base 'repo_fenfork\script.module.urllib3-1.26.16+matrix.1.zip' }
 )
 
 foreach ($copy in $copies) {
