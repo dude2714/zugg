@@ -1,17 +1,40 @@
 # dude2714/zugg
-Repository installation
 
-Source path:
-https://raw.githubusercontent.com/dude2714/zugg/master/
+Repository feeds hosted from this repository.
 
-Install URL:
-https://dude2714.github.io/zugg/
+## Split Repositories (Active)
 
-Kodi setup:
-1. Open Kodi and go to File manager.
-2. Add source: https://dude2714.github.io/zugg/
-3. Go to Add-ons.
-4. Choose Install from zip file.
-5. Select repository.venom-2.0.zip.
-6. After the repository installs, choose Install from repository.
-7. Install the add-on you want from the Venom repository.
+### POV
+
+- Repository zip:
+	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/repository.pov-1.0.0.zip
+- Feed XML:
+	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/addons.xml
+- Data directory:
+	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/
+
+### Fen Fork
+
+- Repository zip:
+	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenfork/repository.fenfork-1.0.0.zip
+- Feed XML:
+	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenfork/addons.xml
+- Data directory:
+	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenfork/
+
+## Kodi Setup (Split Repos)
+
+1. Open Kodi and go to Add-ons.
+2. Choose Install from zip file.
+3. Install one or both repository zips above:
+	 - `repository.pov-1.0.0.zip`
+	 - `repository.fenfork-1.0.0.zip`
+4. Open Install from repository.
+5. Install POV from POV Repo, and/or Fen Fork from Fen Fork Repo.
+
+## Maintenance
+
+- Rebuild split repo artifacts:
+	- `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\build-split-repos.ps1`
+- Run split health checks:
+	- `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\check-split-repos.ps1`
