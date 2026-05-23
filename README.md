@@ -7,20 +7,20 @@ Repository feeds hosted from this repository.
 ### POV
 
 - Repository zip:
-	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/repository.pov-1.0.0.zip
+	- https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.0.zip
 - Feed XML:
-	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/addons.xml
+	- https://dude2714.github.io/zugg/repo_pov/addons.xml
 - Data directory:
-	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/
+	- https://dude2714.github.io/zugg/repo_pov/
 
 ### Fen Fork
 
 - Repository zip:
-	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenfork/repository.fenfork-1.0.0.zip
+	- https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-1.0.0.zip
 - Feed XML:
-	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenfork/addons.xml
+	- https://dude2714.github.io/zugg/repo_fenfork/addons.xml
 - Data directory:
-	- https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenfork/
+	- https://dude2714.github.io/zugg/repo_fenfork/
 
 ## Kodi Setup (Split Repos)
 

@@ -16,14 +16,14 @@ foreach ($repo in $repos) {
 }
 
 $urls = @(
-    'https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/addons.xml',
-    'https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/addons.xml.md5',
-    'https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/repository.pov-1.0.0.zip',
-    'https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/plugin.video.pov-6.05.11.zip',
-    'https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenfork/addons.xml',
-    'https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenfork/addons.xml.md5',
-    'https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenfork/repository.fenfork-1.0.0.zip',
-    'https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenfork/plugin.video.fenfork-3.5.08.zip'
+    'https://dude2714.github.io/zugg/repo_pov/addons.xml',
+    'https://dude2714.github.io/zugg/repo_pov/addons.xml.md5',
+    'https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.0.zip',
+    'https://dude2714.github.io/zugg/repo_pov/plugin.video.pov-6.05.11.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/addons.xml',
+    'https://dude2714.github.io/zugg/repo_fenfork/addons.xml.md5',
+    'https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-1.0.0.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/plugin.video.fenfork-3.5.08.zip'
 )
 
 Write-Output '=== Remote URL Checks ==='
