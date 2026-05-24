@@ -16,7 +16,7 @@ Repository feeds hosted from this repository.
 ### Fen Fork
 
 - Repository zip:
-	- https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-1.0.8.zip
+	- https://github.com/dude2714/zugg/raw/master/repo_fenfork/repository.fenfork-1.0.9.zip
 - Feed XML:
 	- https://dude2714.github.io/zugg/repo_fenfork/addons.xml
 - Data directory:
@@ -28,7 +28,7 @@ Repository feeds hosted from this repository.
 2. Choose Install from zip file.
 3. Install one or both repository zips above:
 	- `repository.pov-1.0.9.zip`
-	- `repository.fenfork-1.0.8.zip`
+	- `repository.fenfork-1.0.9.zip`
 4. Open Install from repository.
 5. Install POV from POV Repo, and/or Fen Fork from Fen Fork Repo.
 
