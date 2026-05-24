@@ -3217,6 +3217,450 @@
 				"tools/publish-fenjr-repo.ps1"
 			],
 			"isBackground": false
+		},
+		{
+			"label": "Git Commit Fen Jr Task Hardening",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Add Fen Jr validation and one-click publish tasks"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Fen Jr Task Hardening",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Inspect Fen Jr 2.10.11 Zip Layout",
+			"type": "shell",
+			"command": "tar",
+			"args": [
+				"-tf",
+				"plugin.video.fenjr/plugin.video.fenjr-2.10.11.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Fen Jr Addon Zip 2.10.12",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$ErrorActionPreference='Stop'; Set-Location 'C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io'; $stage='_fenjr_addon_stage'; Remove-Item -Recurse -Force $stage -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Path (Join-Path $stage 'plugin.video.fenjr') -Force | Out-Null; Copy-Item -LiteralPath 'plugin.video.fenjr\\addon.xml' -Destination (Join-Path $stage 'plugin.video.fenjr\\addon.xml') -Force; if(Test-Path 'plugin.video.fenjr\\changelog.txt'){ Copy-Item -LiteralPath 'plugin.video.fenjr\\changelog.txt' -Destination (Join-Path $stage 'plugin.video.fenjr\\changelog.txt') -Force }; Copy-Item -LiteralPath 'plugin.video.fenjr\\resources' -Destination (Join-Path $stage 'plugin.video.fenjr\\resources') -Recurse -Force; if(Test-Path 'plugin.video.fenjr\\icon.png'){ Copy-Item -LiteralPath 'plugin.video.fenjr\\icon.png' -Destination (Join-Path $stage 'plugin.video.fenjr\\icon.png') -Force }; if(Test-Path 'plugin.video.fenjr\\fanart.png'){ Copy-Item -LiteralPath 'plugin.video.fenjr\\fanart.png' -Destination (Join-Path $stage 'plugin.video.fenjr\\fanart.png') -Force }; $zip='plugin.video.fenjr\\plugin.video.fenjr-2.10.12.zip'; if(Test-Path $zip){ Remove-Item $zip -Force }; Set-Location $stage; tar.exe -a -c -f '..\\'+$zip 'plugin.video.fenjr'; Set-Location ..; tar -tf $zip | Select-Object -First 15 | Out-String | Write-Output"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Fen Jr Repo Payload with 2.10.12",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"tools\\build-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Fen Jr Addon Script",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"tools\\build-fenjr-addon.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Fen Jr Repo Payload New Addon",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"tools\\build-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Rebuild Fen Jr Repo Payload",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"tools\\build-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Validate Fen Jr Repo After Rebuild",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"tools\\validate-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kodi Log Fen Jr Runtime Check",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$log=Join-Path $env:APPDATA 'Kodi\\kodi.log'; if(Test-Path $log){ Select-String -Path $log -Pattern 'plugin.video.fenjr|repository.fenjr|CCurlFile::Open failed|CRepository: failed read|ERROR|Traceback' | Select-Object -Last 120 | ForEach-Object { $_.Line } } else { Write-Host 'kodi.log not found' }"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kodi Fen Jr Log Scan",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"findstr /I /C:\"plugin.video.fenjr\" /C:\"repository.fenjr\" /C:\"CCurlFile::Open\" /C:\"CRepository: failed read\" /C:\"Traceback\" \"%APPDATA%\\Kodi\\kodi.log\""
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status Fen Jr Final Prep",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				"plugin.video.fenjr",
+				"repo_fenjr",
+				"tools/build-fenjr-repo.ps1",
+				"tools/build-fenjr-addon.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Seed Fen Jr Icon Fanart",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$ErrorActionPreference='Stop'; Set-Location 'C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io'; Copy-Item -LiteralPath 'temp_fen\\plugin.video.fen\\icon.png' -Destination 'plugin.video.fenjr\\icon.png' -Force; Copy-Item -LiteralPath 'temp_fen\\plugin.video.fen\\fanart.png' -Destination 'plugin.video.fenjr\\fanart.png' -Force; Get-Item 'plugin.video.fenjr\\icon.png','plugin.video.fenjr\\fanart.png' | Select-Object Name,Length | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Rebuild Fen Jr Addon and Repo",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"powershell -NoProfile -ExecutionPolicy Bypass -File tools\\build-fenjr-addon.ps1; powershell -NoProfile -ExecutionPolicy Bypass -File tools\\build-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Validate Fen Jr Repo Final",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"tools\\validate-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Fen Jr Final Bundle",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"tools\\build-fenjr-bundle.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status Fen Jr Final Scope",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				"plugin.video.fenjr",
+				"repo_fenjr",
+				"tools/build-fenjr-addon.ps1",
+				"tools/build-fenjr-repo.ps1",
+				"tools/validate-fenjr-repo.ps1",
+				"tools/build-fenjr-bundle.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Fen Jr Final Publish Scope",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"plugin.video.fenjr/addon.xml",
+				"plugin.video.fenjr/changelog.txt",
+				"plugin.video.fenjr/icon.png",
+				"plugin.video.fenjr/fanart.png",
+				"plugin.video.fenjr/plugin.video.fenjr-2.10.12.zip",
+				"repo_fenjr/addons.xml",
+				"repo_fenjr/addons.xml.md5",
+				"repo_fenjr/repository.fenjr-1.0.1.zip",
+				"repo_fenjr/repository.fenjr/repository.fenjr-1.0.1.zip",
+				"repo_fenjr/plugin.video.fenjr-2.10.12.zip",
+				"repo_fenjr/plugin.video.fenjr/plugin.video.fenjr-2.10.12.zip",
+				"repo_fenjr/plugin.video.fenjr/icon.png",
+				"repo_fenjr/plugin.video.fenjr/fanart.png"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit Fen Jr Final Publish",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Publish Fen Jr 2.10.12 with final repository payload refresh"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Fen Jr Final Publish",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr feed post publish",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/addons.xml?cb=1779651800"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr addon zip 2.10.12 post publish",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/plugin.video.fenjr/plugin.video.fenjr-2.10.12.zip?cb=1779651800"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr repo zip post publish",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/repository.fenjr-1.0.1.zip?cb=1779651800"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr icon in datadir",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/plugin.video.fenjr/icon.png?cb=1779651800"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status After Fen Jr Final",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status Fen Jr Tools Scope",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				"tools/build-fenjr-repo.ps1",
+				"tools/validate-fenjr-repo.ps1",
+				"tools/build-fenjr-addon.ps1",
+				"tools/build-fenjr-bundle.ps1",
+				".vscode/tasks.json"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Diff Fen Jr Tools Scope",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"diff",
+				"--",
+				"tools/build-fenjr-repo.ps1",
+				"tools/validate-fenjr-repo.ps1",
+				"tools/build-fenjr-addon.ps1",
+				"tools/build-fenjr-bundle.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Fen Jr Tools Only",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"tools/build-fenjr-repo.ps1",
+				"tools/validate-fenjr-repo.ps1",
+				"tools/build-fenjr-addon.ps1",
+				"tools/build-fenjr-bundle.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit Fen Jr Tools Only",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Fen Jr tools: add addon/bundle builders and strengthen repo validation"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Fen Jr Tools Only",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status Remaining After Tools Commit",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				".vscode/tasks.json"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Fen Jr Smoke Check",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\smoke-fenjr.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr addons smoke debug",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr addons smoke debug cb",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/addons.xml?cb=1779652500"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr addons by latest commit",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$h=(git rev-parse HEAD).Trim(); curl.exe -I (\"https://raw.githubusercontent.com/dude2714/zugg/\"+$h+\"/repo_fenjr/addons.xml\")"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Tiny Smoke Commit",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				".vscode/tasks.json",
+				"tools/smoke-fenjr.ps1"
+			],
+			"isBackground": false
 		}
 	]
 }
