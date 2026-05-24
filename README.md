@@ -7,7 +7,7 @@ Repository feeds hosted from this repository.
 ### POV
 
 - Repository zip:
-	- https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.9.zip
+	- https://raw.githubusercontent.com/dude2714/zugg/master/repository.pov-1.0.9.zip
 - Feed XML:
 	- https://dude2714.github.io/zugg/repo_pov/addons.xml
 - Data directory:
