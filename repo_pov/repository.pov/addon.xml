@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.pov" name="[B][COLOR red]POV[/COLOR] Repo[/B]" version="1.0.8" provider-name="kodifitzwell">
+<addon id="repository.pov" name="[B][COLOR red]POV[/COLOR] Repo[/B]" version="1.0.9" provider-name="kodifitzwell">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
