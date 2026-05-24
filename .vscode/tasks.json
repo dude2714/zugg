@@ -316,6 +316,2907 @@
 				"C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\check-split-repos.ps1"
 			],
 			"isBackground": false
+		},
+		{
+			"label": "Build Split Repos",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check Split Repos",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\check-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status Short",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Split Cache Bust",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"repo_pov/addons.xml",
+				"repo_pov/addons.xml.md5",
+				"repo_pov/repository.pov/addon.xml",
+				"repo_pov/repository.pov-1.0.1.zip",
+				"repo_pov/plugin.video.pov-6.05.11.zip",
+				"repo_fenfork/addons.xml",
+				"repo_fenfork/addons.xml.md5",
+				"repo_fenfork/repository.fenfork/addon.xml",
+				"repo_fenfork/repository.fenfork-1.0.1.zip",
+				"repo_fenfork/plugin.video.fenfork-3.5.08.zip",
+				"tools/build-split-repos.ps1",
+				"tools/check-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit Split Cache Bust",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Bump split repository zips to 1.0.1 to force Kodi refresh"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Master Split Cache Bust",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Master to Main Split Cache Bust",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master:main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Sync Main Via Worktree",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$ErrorActionPreference='Stop'; Set-Location 'C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io'; $wt='C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\.tmp-main-sync'; if(Test-Path $wt){ Remove-Item -Recurse -Force $wt }; git fetch origin main master; git worktree add --force $wt origin/main; Push-Location $wt; git checkout -B main origin/main; git merge --no-edit origin/master; git push origin main; Pop-Location; git worktree remove --force $wt"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Worktree Fetch",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"fetch",
+				"origin"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Worktree Checkout",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"checkout",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Worktree Pull",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"pull",
+				"--ff-only",
+				"origin",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Worktree Merge Origin Master",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"merge",
+				"--no-edit",
+				"origin/master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Resolve Main Merge Conflicts To Master",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"checkout",
+				"--theirs",
+				"--",
+				"addons.xml",
+				"addons.xml.md5",
+				"repo_fenfork/addons.xml",
+				"repo_fenfork/addons.xml.md5",
+				"repo_fenfork/plugin.video.fenfork-3.5.08.zip",
+				"repo_fenfork/repository.fenfork/addon.xml",
+				"repo_pov/addons.xml",
+				"repo_pov/addons.xml.md5",
+				"repo_pov/plugin.video.pov-6.05.11.zip",
+				"repo_pov/repository.pov/addon.xml",
+				"tools/build-split-repos.ps1",
+				"tools/check-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Commit Main Merge Resolution",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"add",
+				"--",
+				"addons.xml",
+				"addons.xml.md5",
+				"repo_fenfork/addons.xml",
+				"repo_fenfork/addons.xml.md5",
+				"repo_fenfork/plugin.video.fenfork-3.5.08.zip",
+				"repo_fenfork/repository.fenfork/addon.xml",
+				"repo_pov/addons.xml",
+				"repo_pov/addons.xml.md5",
+				"repo_pov/plugin.video.pov-6.05.11.zip",
+				"repo_pov/repository.pov/addon.xml",
+				"tools/build-split-repos.ps1",
+				"tools/check-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Worktree Status",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"status",
+				"--short"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Finalize Main Merge Commit",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"commit",
+				"--no-edit"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Push Main After Merge",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Split 1.0.1 URLs",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$urls=@('https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.1.zip','https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-1.0.1.zip','https://dude2714.github.io/zugg/repo_pov/addons.xml','https://dude2714.github.io/zugg/repo_fenfork/addons.xml'); foreach($u in $urls){ try{ $r=Invoke-WebRequest -UseBasicParsing -Method Head -Uri $u -TimeoutSec 30; Write-Output (\"OK {0} {1}\" -f $r.StatusCode,$u)} catch { $code=$_.Exception.Response.StatusCode.value__; Write-Output (\"ERR {0} {1}\" -f $code,$u) } }"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD POV Repo 1.0.1",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.1.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD FenFork Repo 1.0.1",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-1.0.1.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD POV Feed",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD FenFork Feed",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_fenfork/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check Main Worktree 1.0.1 Files",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"ls-files",
+				"repo_pov/repository.pov-1.0.1.zip",
+				"repo_fenfork/repository.fenfork-1.0.1.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Main POV 1.0.1",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/repository.pov-1.0.1.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Master POV 1.0.1",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/repository.pov-1.0.1.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Main FenFork 1.0.1",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/repository.fenfork-1.0.1.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Master FenFork 1.0.1",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenfork/repository.fenfork-1.0.1.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV Repo 1.0.1",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.1.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages FenFork Repo 1.0.1",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-1.0.1.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV Feed Current",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages FenFork Feed Current",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_fenfork/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run Split Repo Checks",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\check-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Verify Remote MD5 POV",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$xml='https://dude2714.github.io/zugg/repo_pov/addons.xml'; $md5='https://dude2714.github.io/zugg/repo_pov/addons.xml.md5'; $c=(Invoke-WebRequest -UseBasicParsing $xml).Content; $b=[Text.Encoding]::UTF8.GetBytes($c); $h=([BitConverter]::ToString([Security.Cryptography.MD5]::Create().ComputeHash($b)) -replace '-','').ToLower(); $remote=(Invoke-WebRequest -UseBasicParsing $md5).Content.Trim(); Write-Output ('POV computed='+$h); Write-Output ('POV remote  ='+$remote); if($h -eq $remote){Write-Output 'POV_MD5_MATCH'} else {Write-Output 'POV_MD5_MISMATCH'}"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Verify Remote MD5 FenFork",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$xml='https://dude2714.github.io/zugg/repo_fenfork/addons.xml'; $md5='https://dude2714.github.io/zugg/repo_fenfork/addons.xml.md5'; $c=(Invoke-WebRequest -UseBasicParsing $xml).Content; $b=[Text.Encoding]::UTF8.GetBytes($c); $h=([BitConverter]::ToString([Security.Cryptography.MD5]::Create().ComputeHash($b)) -replace '-','').ToLower(); $remote=(Invoke-WebRequest -UseBasicParsing $md5).Content.Trim(); Write-Output ('FENFORK computed='+$h); Write-Output ('FENFORK remote  ='+$remote); if($h -eq $remote){Write-Output 'FENFORK_MD5_MATCH'} else {Write-Output 'FENFORK_MD5_MISMATCH'}"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Split Repos 1.0.2",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check Split Repos 1.0.2",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\check-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status Short Before Publish",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Split 1.0.2 Publish",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"repo_pov/addons.xml",
+				"repo_pov/addons.xml.md5",
+				"repo_pov/repository.pov/addon.xml",
+				"repo_pov/repository.pov-1.0.2.zip",
+				"repo_pov/plugin.video.pov-6.05.11.zip",
+				"repo_fenfork/addons.xml",
+				"repo_fenfork/addons.xml.md5",
+				"repo_fenfork/repository.fenfork/addon.xml",
+				"repo_fenfork/repository.fenfork-1.0.2.zip",
+				"repo_fenfork/plugin.video.fenfork-3.5.08.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit Split 1.0.2",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Split repos 1.0.2: switch repo metadata to raw endpoints"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Master Split 1.0.2",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Fetch After Split 1.0.2",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"fetch",
+				"origin"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Checkout Stable",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"checkout",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Merge Origin Master Split 1.0.2",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"merge",
+				"--no-edit",
+				"origin/master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Push Main Split 1.0.2",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV Repo 1.0.2",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.2.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages FenFork Repo 1.0.2",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-1.0.2.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Main POV Feed",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Main FenFork Feed",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Main POV Repo 1.0.2",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/repository.pov-1.0.2.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Main FenFork Repo 1.0.2",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/repository.fenfork-1.0.2.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Main POV Addon Zip",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/plugin.video.pov-6.05.11.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Main FenFork Addon Zip",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/plugin.video.fenfork-3.5.08.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD jsDelivr POV Feed",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_pov/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD jsDelivr FenFork Feed",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_fenfork/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD jsDelivr POV Repo Zip",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_pov/repository.pov-1.0.2.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD jsDelivr FenFork Repo Zip",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_fenfork/repository.fenfork-1.0.2.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Split Repos 1.0.3",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Split 1.0.3",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"repo_pov/addons.xml",
+				"repo_pov/addons.xml.md5",
+				"repo_pov/repository.pov/addon.xml",
+				"repo_pov/repository.pov-1.0.3.zip",
+				"repo_pov/plugin.video.pov-6.05.11.zip",
+				"repo_fenfork/addons.xml",
+				"repo_fenfork/addons.xml.md5",
+				"repo_fenfork/repository.fenfork/addon.xml",
+				"repo_fenfork/repository.fenfork-1.0.3.zip",
+				"repo_fenfork/plugin.video.fenfork-3.5.08.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit Split 1.0.3",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Split repos 1.0.3: switch metadata URLs to jsDelivr"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Master Split 1.0.3",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Fetch Split 1.0.3",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"fetch",
+				"origin"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Merge Master Split 1.0.3",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"merge",
+				"--no-edit",
+				"origin/master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Push Split 1.0.3",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD jsDelivr POV Repo 1.0.3",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_pov/repository.pov-1.0.3.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD jsDelivr FenFork Repo 1.0.3",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_fenfork/repository.fenfork-1.0.3.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw POV Repo 1.0.3",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/repository.pov-1.0.3.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw FenFork Repo 1.0.3",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/repository.fenfork-1.0.3.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Inspect Local POV 1.0.3 Zip Entries",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Add-Type -AssemblyName System.IO.Compression.FileSystem; $zip='c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\repo_pov\\repository.pov-1.0.3.zip'; $z=[IO.Compression.ZipFile]::OpenRead($zip); Write-Output ('COUNT='+$z.Entries.Count); $z.Entries | Select-Object -First 20 -ExpandProperty FullName; $z.Dispose()"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Inspect Local FenFork 1.0.3 Zip Entries",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Add-Type -AssemblyName System.IO.Compression.FileSystem; $zip='c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\repo_fenfork\\repository.fenfork-1.0.3.zip'; $z=[IO.Compression.ZipFile]::OpenRead($zip); Write-Output ('COUNT='+$z.Entries.Count); $z.Entries | Select-Object -First 20 -ExpandProperty FullName; $z.Dispose()"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "List Zip Entries 1.0.3",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Add-Type -AssemblyName System.IO.Compression.FileSystem; $zip1 = \"C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\repo_pov\\repository.pov-1.0.3.zip\"; $z1 = [IO.Compression.ZipFile]::OpenRead($zip1); Write-Output \"POV_COUNT=$($z1.Entries.Count)\"; $z1.Entries | Select-Object -ExpandProperty FullName; $z1.Dispose(); $zip2 = \"C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\repo_fenfork\\repository.fenfork-1.0.3.zip\"; $z2 = [IO.Compression.ZipFile]::OpenRead($zip2); Write-Output \"FENFORK_COUNT=$($z2.Entries.Count)\"; $z2.Entries | Select-Object -ExpandProperty FullName; $z2.Dispose()"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "List POV Zip With Tar",
+			"type": "shell",
+			"command": "tar",
+			"args": [
+				"-tf",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\repo_pov\\repository.pov-1.0.3.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "List FenFork Zip With Tar",
+			"type": "shell",
+			"command": "tar",
+			"args": [
+				"-tf",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\repo_fenfork\\repository.fenfork-1.0.3.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Verify jsDelivr POV MD5 Against Served Bytes",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$tmp='C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\_md5_probe'; if(Test-Path $tmp){Remove-Item -Recurse -Force $tmp}; New-Item -ItemType Directory -Path $tmp | Out-Null; curl.exe -L -o \"$tmp\\pov_addons.xml\" \"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_pov/addons.xml\" | Out-Null; curl.exe -L -o \"$tmp\\pov_addons.xml.md5\" \"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_pov/addons.xml.md5\" | Out-Null; $h=(Get-FileHash -Algorithm MD5 \"$tmp\\pov_addons.xml\").Hash.ToLower(); $r=(Get-Content \"$tmp\\pov_addons.xml.md5\" -Raw).Trim().ToLower(); Write-Output (\"POV_FILE_MD5=\"+$h); Write-Output (\"POV_REMOTE_MD5=\"+$r); if($h -eq $r){Write-Output 'POV_MD5_OK'} else {Write-Output 'POV_MD5_MISMATCH'}"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download jsDelivr POV addons.xml",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_md5_probe_pov_addons.xml",
+				"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_pov/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download jsDelivr POV addons.md5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_md5_probe_pov_addons.xml.md5",
+				"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_pov/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download jsDelivr FenFork addons.xml",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_md5_probe_fen_addons.xml",
+				"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_fenfork/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download jsDelivr FenFork addons.md5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_md5_probe_fen_addons.xml.md5",
+				"https://cdn.jsdelivr.net/gh/dude2714/zugg@main/repo_fenfork/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Show POV md5 file content",
+			"type": "shell",
+			"command": "type",
+			"args": [
+				"_md5_probe_pov_addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Show FenFork md5 file content",
+			"type": "shell",
+			"command": "type",
+			"args": [
+				"_md5_probe_fen_addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Hash POV addons.xml local download",
+			"type": "shell",
+			"command": "certutil",
+			"args": [
+				"-hashfile",
+				"_md5_probe_pov_addons.xml",
+				"MD5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Hash FenFork addons.xml local download",
+			"type": "shell",
+			"command": "certutil",
+			"args": [
+				"-hashfile",
+				"_md5_probe_fen_addons.xml",
+				"MD5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw POV md5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw FenFork md5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV md5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages FenFork md5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_fenfork/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Split Repos 1.0.4",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Split 1.0.4",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"repo_pov/addons.xml",
+				"repo_pov/addons.xml.md5",
+				"repo_pov/repository.pov/addon.xml",
+				"repo_pov/repository.pov-1.0.4.zip",
+				"repo_pov/plugin.video.pov-6.05.11.zip",
+				"repo_fenfork/addons.xml",
+				"repo_fenfork/addons.xml.md5",
+				"repo_fenfork/repository.fenfork/addon.xml",
+				"repo_fenfork/repository.fenfork-1.0.4.zip",
+				"repo_fenfork/plugin.video.fenfork-3.5.08.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit Split 1.0.4 Hotfix",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Split repos 1.0.4: revert metadata URLs from jsDelivr to raw"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Master Split 1.0.4",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Fetch Split 1.0.4",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"fetch",
+				"origin"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Merge Master Split 1.0.4",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"merge",
+				"--no-edit",
+				"origin/master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Push Split 1.0.4",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw POV Repo 1.0.4",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/repository.pov-1.0.4.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw FenFork Repo 1.0.4",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/repository.fenfork-1.0.4.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw POV md5 live",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw FenFork md5 live",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Split Repos 1.0.5",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Split 1.0.5",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"repo_pov/addons.xml",
+				"repo_pov/addons.xml.md5",
+				"repo_pov/repository.pov/addon.xml",
+				"repo_pov/repository.pov-1.0.5.zip",
+				"repo_pov/plugin.video.pov-6.05.11.zip",
+				"repo_fenfork/addons.xml",
+				"repo_fenfork/addons.xml.md5",
+				"repo_fenfork/repository.fenfork/addon.xml",
+				"repo_fenfork/repository.fenfork-1.0.5.zip",
+				"repo_fenfork/plugin.video.fenfork-3.5.08.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit Split 1.0.5",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Split repos 1.0.5: add github.io and raw dual feed endpoints"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Master Split 1.0.5",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Fetch Split 1.0.5",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"fetch",
+				"origin"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Merge Master Split 1.0.5",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"merge",
+				"--no-edit",
+				"origin/master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Push Split 1.0.5",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw POV Repo 1.0.5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/repository.pov-1.0.5.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw FenFork Repo 1.0.5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/repository.fenfork-1.0.5.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV Repo 1.0.5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.5.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages FenFork Repo 1.0.5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-1.0.5.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Split Repos 1.0.6",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Split 1.0.6",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"repo_pov/addons.xml",
+				"repo_pov/addons.xml.md5",
+				"repo_pov/repository.pov/addon.xml",
+				"repo_pov/repository.pov-1.0.6.zip",
+				"repo_pov/plugin.video.pov-6.05.11.zip",
+				"repo_fenfork/addons.xml",
+				"repo_fenfork/addons.xml.md5",
+				"repo_fenfork/repository.fenfork/addon.xml",
+				"repo_fenfork/repository.fenfork-1.0.6.zip",
+				"repo_fenfork/plugin.video.fenfork-3.5.08.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit Split 1.0.6",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Split repos 1.0.6: prioritize raw feed URLs with github.io fallback"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Master Split 1.0.6",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Fetch Split 1.0.6",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"fetch",
+				"origin"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Merge Master Split 1.0.6",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"merge",
+				"--no-edit",
+				"origin/master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Push Split 1.0.6",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw POV Repo 1.0.6",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/repository.pov-1.0.6.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw FenFork Repo 1.0.6",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/repository.fenfork-1.0.6.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw POV md5 1.0.6 context",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw FenFork md5 1.0.6 context",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download Raw POV addons.xml for md5 check",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_md5_check_raw_pov_addons.xml",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download Raw POV addons.xml.md5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_md5_check_raw_pov_addons.xml.md5",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download Raw FenFork addons.xml for md5 check",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_md5_check_raw_fen_addons.xml",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download Raw FenFork addons.xml.md5",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_md5_check_raw_fen_addons.xml.md5",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Hash raw POV addons.xml bytes",
+			"type": "shell",
+			"command": "certutil",
+			"args": [
+				"-hashfile",
+				"_md5_check_raw_pov_addons.xml",
+				"MD5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Hash raw FenFork addons.xml bytes",
+			"type": "shell",
+			"command": "certutil",
+			"args": [
+				"-hashfile",
+				"_md5_check_raw_fen_addons.xml",
+				"MD5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Show raw POV md5 file text",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"type",
+				"_md5_check_raw_pov_addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Show raw FenFork md5 file text",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"type",
+				"_md5_check_raw_fen_addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Split Repos 1.0.7",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Split 1.0.7",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"repo_pov/addons.xml",
+				"repo_pov/addons.xml.md5",
+				"repo_pov/repository.pov/addon.xml",
+				"repo_pov/repository.pov-1.0.7.zip",
+				"repo_pov/plugin.video.pov-6.05.11.zip",
+				"repo_fenfork/addons.xml",
+				"repo_fenfork/addons.xml.md5",
+				"repo_fenfork/repository.fenfork/addon.xml",
+				"repo_fenfork/repository.fenfork-1.0.7.zip",
+				"repo_fenfork/plugin.video.fenfork-3.5.08.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit Split 1.0.7",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Split repos 1.0.7: remove checksum URLs from repository metadata"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Master Split 1.0.7",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Fetch Split 1.0.7",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"fetch",
+				"origin"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Merge Master Split 1.0.7",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"merge",
+				"--no-edit",
+				"origin/master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Push Split 1.0.7",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw POV Repo 1.0.7",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/repository.pov-1.0.7.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw FenFork Repo 1.0.7",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/repository.fenfork-1.0.7.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status Porcelain",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Log Master One",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"log",
+				"-1",
+				"--oneline",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Log Origin Master One",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"log",
+				"-1",
+				"--oneline",
+				"origin/master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Log Origin Main One",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"log",
+				"-1",
+				"--oneline",
+				"origin/main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Log Origin Main Ref",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"log",
+				"-1",
+				"--oneline",
+				"refs/remotes/origin/main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Create Desktop Split Backup Snapshot",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$ErrorActionPreference='Stop'; Set-Location 'C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io'; $stamp=Get-Date -Format 'yyyyMMdd-HHmmss'; $dest='C:\\Users\\johns\\OneDrive\\Desktop\\zugg-backups\\split-repos-'+$stamp; New-Item -ItemType Directory -Path $dest -Force | Out-Null; Copy-Item -Recurse -Force 'repo_pov' (Join-Path $dest 'repo_pov'); Copy-Item -Recurse -Force 'repo_fenfork' (Join-Path $dest 'repo_fenfork'); git log -1 --oneline master | Set-Content -LiteralPath (Join-Path $dest 'master-head.txt'); git log -1 --oneline refs/remotes/origin/main | Set-Content -LiteralPath (Join-Path $dest 'origin-main-head.txt'); Write-Output ('BACKUP_DIR='+$dest)"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "List Latest Desktop Backup",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$base='C:\\Users\\johns\\OneDrive\\Desktop\\zugg-backups'; if(!(Test-Path $base)){ Write-Output 'NO_BACKUP_BASE'; exit 1 }; $latest=Get-ChildItem -LiteralPath $base -Directory | Sort-Object LastWriteTime -Descending | Select-Object -First 1; if($null -eq $latest){ Write-Output 'NO_BACKUPS_FOUND'; exit 1 }; Write-Output ('LATEST_BACKUP='+$latest.FullName); Get-ChildItem -LiteralPath $latest.FullName | Select-Object Name,Length | Format-Table -AutoSize | Out-String -Width 200 | Write-Output"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run Split Backup Script",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\backup-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "List Desktop Backup Root",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"Get-ChildItem -LiteralPath 'C:\\Users\\johns\\OneDrive\\Desktop\\zugg-backups' -Directory | Sort-Object LastWriteTime -Descending | Select-Object -First 3 FullName,LastWriteTime | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Head refs origin master",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"log",
+				"-1",
+				"--oneline",
+				"refs/remotes/origin/master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Head refs origin main",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"log",
+				"-1",
+				"--oneline",
+				"refs/remotes/origin/main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Split Repos POV githubio first",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add POV 1.0.8 githubio",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"repo_pov/addons.xml",
+				"repo_pov/addons.xml.md5",
+				"repo_pov/repository.pov/addon.xml",
+				"repo_pov/repository.pov-1.0.8.zip",
+				"repo_pov/plugin.video.pov-6.05.11.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit POV 1.0.8 githubio",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"POV repo 1.0.8: prefer github.io with raw fallback"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Master POV 1.0.8",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Fetch POV 1.0.8",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"fetch",
+				"origin"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Merge POV 1.0.8",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"merge",
+				"--no-edit",
+				"origin/master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Push POV 1.0.8",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV 1.0.8",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.8.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw POV 1.0.8",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/repository.pov-1.0.8.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV Feed Current",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download Pages POV addons.xml probe",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_probe_pages_pov_addons.xml",
+				"https://dude2714.github.io/zugg/repo_pov/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download Raw POV addons.xml probe",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_probe_raw_pov_addons.xml",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download Pages POV addons.md5 probe",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_probe_pages_pov_addons.xml.md5",
+				"https://dude2714.github.io/zugg/repo_pov/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download Raw POV addons.md5 probe",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_probe_raw_pov_addons.xml.md5",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Show POV probe file sizes",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Item _probe_pages_pov_addons.xml,_probe_raw_pov_addons.xml,_probe_pages_pov_addons.xml.md5,_probe_raw_pov_addons.xml.md5 | Select-Object Name,Length | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Hash POV probe xml files",
+			"type": "shell",
+			"command": "certutil",
+			"args": [
+				"-hashfile",
+				"_probe_pages_pov_addons.xml",
+				"MD5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Hash POV probe raw xml",
+			"type": "shell",
+			"command": "certutil",
+			"args": [
+				"-hashfile",
+				"_probe_raw_pov_addons.xml",
+				"MD5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Show POV probe md5 text",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"type",
+				"_probe_pages_pov_addons.xml.md5",
+				"&",
+				"echo.",
+				"&",
+				"type",
+				"_probe_raw_pov_addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV repo zip 1.0.8 now",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.8.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV addon zip now",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/plugin.video.pov-6.05.11.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download Pages POV Repo Zip Full",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_probe_pages_repository.pov-1.0.8.zip",
+				"https://dude2714.github.io/zugg/repo_pov/repository.pov-1.0.8.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Download Pages POV Addon Zip Full",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-L",
+				"-o",
+				"_probe_pages_plugin.video.pov-6.05.11.zip",
+				"https://dude2714.github.io/zugg/repo_pov/plugin.video.pov-6.05.11.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "List downloaded repo zip entries",
+			"type": "shell",
+			"command": "tar",
+			"args": [
+				"-tf",
+				"_probe_pages_repository.pov-1.0.8.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "List downloaded POV zip entries head",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"tar -tf _probe_pages_plugin.video.pov-6.05.11.zip | Select-Object -First 20"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Split Repos POV 6.05.12",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check Split Repos POV 6.05.12",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\check-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add POV 6.05.12 publish",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"_pov_check/plugin.video.pov/addon.xml",
+				"repo_pov/addons.xml",
+				"repo_pov/addons.xml.md5",
+				"repo_pov/plugin.video.pov-6.05.12.zip",
+				"tools/build-split-repos.ps1",
+				"tools/check-split-repos.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit POV 6.05.12 publish",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Publish POV 6.05.12 and make split tooling version-aware"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Master POV 6.05.12",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Fetch POV 6.05.12",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"fetch",
+				"origin"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Merge POV 6.05.12",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"merge",
+				"--no-edit",
+				"origin/master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Main Push POV 6.05.12",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"-C",
+				"origin/main",
+				"push",
+				"origin",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw POV 6.05.12 zip",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/plugin.video.pov-6.05.12.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV 6.05.12 zip",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/plugin.video.pov-6.05.12.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV addons xml latest",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Offline POV Install Pack",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$ErrorActionPreference='Stop'; Set-Location 'C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io'; $dest='C:\\Users\\johns\\OneDrive\\Desktop\\POV_OFFLINE_INSTALL'; if(Test-Path $dest){ Remove-Item -Recurse -Force $dest }; New-Item -ItemType Directory -Path $dest | Out-Null; Copy-Item -LiteralPath 'repo_pov\\repository.pov-1.0.8.zip' -Destination $dest; Copy-Item -LiteralPath 'repo_pov\\plugin.video.pov-6.05.12.zip' -Destination $dest; Copy-Item -LiteralPath 'repo_pov\\script.module.requests-2.31.0.zip' -Destination $dest; Copy-Item -LiteralPath 'repo_pov\\script.module.certifi-2023.5.7.zip' -Destination $dest; Copy-Item -LiteralPath 'repo_pov\\script.module.chardet-5.1.0.zip' -Destination $dest; Copy-Item -LiteralPath 'repo_pov\\script.module.idna-3.4.0.zip' -Destination $dest; Copy-Item -LiteralPath 'repo_pov\\script.module.urllib3-1.26.16+matrix.1.zip' -Destination $dest; Write-Output ('OFFLINE_PACK='+$dest); Get-ChildItem -LiteralPath $dest | Select-Object Name,Length | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run POV Offline Pack Builder",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-pov-offline-pack.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "List POV Offline Pack",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"Get-ChildItem -LiteralPath 'C:\\Users\\johns\\OneDrive\\Desktop\\POV_OFFLINE_INSTALL' | Select-Object Name,Length | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Copy POV Offline Pack To L",
+			"type": "shell",
+			"command": "robocopy",
+			"args": [
+				"C:\\Users\\johns\\OneDrive\\Desktop\\POV_OFFLINE_INSTALL",
+				"L:\\POV_OFFLINE_INSTALL",
+				"/E",
+				"/NFL",
+				"/NDL",
+				"/NJH",
+				"/NJS",
+				"/NC",
+				"/NS",
+				"/NP"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "List Files On L POV Pack",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"Get-ChildItem -LiteralPath 'L:\\POV_OFFLINE_INSTALL' | Select-Object Name,Length | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Validate L zip structures",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$ErrorActionPreference='Stop'; $dir='L:\\POV_OFFLINE_INSTALL'; Get-ChildItem -LiteralPath $dir -Filter *.zip | ForEach-Object { Write-Output ('=== ' + $_.Name + ' ==='); tar -tf $_.FullName | Select-Object -First 12 }"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run L offline pack check script",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\check-l-offline-pack.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Compare Source vs L Hashes POV zips",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$pairs=@(@('C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\repo_pov\\repository.pov-1.0.8.zip','L:\\POV_OFFLINE_INSTALL\\repository.pov-1.0.8.zip'),@('C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\repo_pov\\plugin.video.pov-6.05.12.zip','L:\\POV_OFFLINE_INSTALL\\plugin.video.pov-6.05.12.zip')); foreach($p in $pairs){$h1=(Get-FileHash -Algorithm SHA256 $p[0]).Hash; $h2=(Get-FileHash -Algorithm SHA256 $p[1]).Hash; Write-Output ('SRC='+$p[0]); Write-Output ('DST='+$p[1]); Write-Output ('MATCH=' + ($h1 -eq $h2)); Write-Output ('SRC_SHA256='+$h1); Write-Output ('DST_SHA256='+$h2); Write-Output '---'}"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run Offline Hash Check",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\check-offline-hashes.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check Python availability",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"--version"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Repack repository.pov strict zip",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"tools\\repack-zip-strict.py",
+				"repo_pov\\repository.pov",
+				"repo_pov\\repository.pov-1.0.8.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Repack plugin.video.pov strict zip",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"tools\\repack-zip-strict.py",
+				"_pov_check\\plugin.video.pov",
+				"repo_pov\\plugin.video.pov-6.05.12.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Refresh L pack with strict POV zips",
+			"type": "shell",
+			"command": "robocopy",
+			"args": [
+				"C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\repo_pov",
+				"L:\\POV_OFFLINE_INSTALL",
+				"repository.pov-1.0.8.zip",
+				"plugin.video.pov-6.05.12.zip",
+				"/R:1",
+				"/W:1",
+				"/NFL",
+				"/NDL",
+				"/NJH",
+				"/NJS",
+				"/NC",
+				"/NS",
+				"/NP"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Re-run Offline Hash Check",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\check-offline-hashes.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build POV Kodi test zip 1.0.9",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-pov-kodi-test-zip.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Hash L drive test repo zip",
+			"type": "shell",
+			"command": "certutil",
+			"args": [
+				"-hashfile",
+				"L:\\repository.pov-1.0.9.kodi.zip",
+				"SHA256"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Inspect requests addon.xml from zip",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"tar -xOf script.module.requests-2.31.0.zip script.module.requests/addon.xml | Select-Object -First 80"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Inspect certifi addon.xml from zip",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"tar -xOf script.module.certifi-2023.5.7.zip script.module.certifi/addon.xml | Select-Object -First 80"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Inspect chardet addon.xml from zip",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"tar -xOf script.module.chardet-5.1.0.zip script.module.chardet/addon.xml | Select-Object -First 80"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Inspect idna addon.xml from zip",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"tar -xOf script.module.idna-3.4.0.zip script.module.idna/addon.xml | Select-Object -First 80"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Inspect urllib3 addon.xml from zip",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"tar -xOf script.module.urllib3-1.26.16+matrix.1.zip script.module.urllib3/addon.xml | Select-Object -First 100"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build POV standalone offline zip",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\build-pov-standalone-offline.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Inspect standalone zip head entries",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"tar -tf L:\\plugin.video.pov-6.05.13-standalone.zip | Select-Object -First 40"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check standalone addon.xml in zip",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"tar -xOf L:\\plugin.video.pov-6.05.13-standalone.zip plugin.video.pov/addon.xml | Select-Object -First 80"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Create short-name standalone zip on L",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"Copy-Item -LiteralPath 'L:\\plugin.video.pov-6.05.13-standalone.zip' -Destination 'L:\\POV613.zip' -Force; Get-Item 'L:\\plugin.video.pov-6.05.13-standalone.zip','L:\\POV613.zip' | Select-Object Name,Length | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Fen Jr Repo Payload",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$ErrorActionPreference='Stop'; Set-Location 'C:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io'; $repo='repo_fenjr'; $repoAddon=Join-Path $repo 'repository.fenjr'; (Get-FileHash -Algorithm MD5 (Join-Path $repo 'addons.xml')).Hash.ToLower() | Set-Content -LiteralPath (Join-Path $repo 'addons.xml.md5') -NoNewline; Copy-Item -LiteralPath 'plugin.video.fenjr\\plugin.video.fenjr-2.10.11.zip' -Destination (Join-Path $repo 'plugin.video.fenjr-2.10.11.zip') -Force; New-Item -ItemType Directory -Path (Join-Path $repo 'plugin.video.fenjr') -Force | Out-Null; Copy-Item -LiteralPath 'plugin.video.fenjr\\plugin.video.fenjr-2.10.11.zip' -Destination (Join-Path $repo 'plugin.video.fenjr\\plugin.video.fenjr-2.10.11.zip') -Force; $deps=@('script.module.requests-2.31.0.zip','script.module.certifi-2023.5.7.zip','script.module.chardet-5.1.0.zip','script.module.idna-3.4.0.zip','script.module.urllib3-1.26.16+matrix.1.zip'); foreach($d in $deps){ Copy-Item -LiteralPath $d -Destination (Join-Path $repo $d) -Force; $id=$d -replace '-[0-9].+$',''; New-Item -ItemType Directory -Path (Join-Path $repo $id) -Force | Out-Null; Copy-Item -LiteralPath $d -Destination (Join-Path $repo $id $d) -Force }; $stage='_fenjr_repo_stage'; Remove-Item -Recurse -Force $stage -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Path (Join-Path $stage 'repository.fenjr') -Force | Out-Null; Copy-Item -LiteralPath (Join-Path $repoAddon 'addon.xml') -Destination (Join-Path $stage 'repository.fenjr\\addon.xml') -Force; Copy-Item -LiteralPath (Join-Path $repoAddon 'icon.png') -Destination (Join-Path $stage 'repository.fenjr\\icon.png') -Force; Copy-Item -LiteralPath (Join-Path $repoAddon 'fanart.jpg') -Destination (Join-Path $stage 'repository.fenjr\\fanart.jpg') -Force; Set-Location $stage; if(Test-Path 'repository.fenjr-1.0.0.zip'){ Remove-Item 'repository.fenjr-1.0.0.zip' -Force }; tar.exe -a -c -f 'repository.fenjr-1.0.0.zip' 'repository.fenjr'; Set-Location ..; Copy-Item -LiteralPath (Join-Path $stage 'repository.fenjr-1.0.0.zip') -Destination (Join-Path $repo 'repository.fenjr-1.0.0.zip') -Force; Copy-Item -LiteralPath (Join-Path $stage 'repository.fenjr-1.0.0.zip') -Destination (Join-Path $repoAddon 'repository.fenjr-1.0.0.zip') -Force; $desk='C:\\Users\\johns\\OneDrive\\Desktop\\Kodi Updates'; New-Item -ItemType Directory -Path $desk -Force | Out-Null; Copy-Item -LiteralPath (Join-Path $repo 'repository.fenjr-1.0.0.zip') -Destination (Join-Path $desk 'repository.fenjr-1.0.0.zip') -Force; if(Test-Path 'L:\\'){ Copy-Item -LiteralPath (Join-Path $repo 'repository.fenjr-1.0.0.zip') -Destination 'L:\\repository.fenjr-1.0.0.zip' -Force }; Write-Host 'Fen Jr repo payload built successfully.'"
+			]
+		},
+		{
+			"label": "Build Fen Jr Repo Payload Script",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"tools\\build-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Verify Fen Jr Repo Zip Structure",
+			"type": "shell",
+			"command": "tar",
+			"args": [
+				"-tf",
+				"repo_fenjr/repository.fenjr-1.0.0.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status Fen Jr Build",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Fen Jr Repo Publish Files",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"repo_fenjr",
+				"tools/build-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit Fen Jr Repo Publish Files",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Publish standalone Fen Jr repository feed and packages"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Fen Jr Repo Publish Files",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr addons.xml",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr repo zip",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/repository.fenjr-1.0.0.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr addon zip",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/plugin.video.fenjr/plugin.video.fenjr-2.10.11.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages Fen Jr addons.xml",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_fenjr/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages Fen Jr repo zip",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_fenjr/repository.fenjr-1.0.0.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr addons.xml recheck",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr md5 recheck",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/addons.xml.md5"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr repo zip recheck",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/repository.fenjr-1.0.0.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages Fen Jr addons.xml recheck",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_fenjr/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status Fen Jr Connect Debug",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				"repo_fenjr"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Log Fen Jr Path",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"log",
+				"--oneline",
+				"-n",
+				"6",
+				"--",
+				"repo_fenjr"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Show Fen Jr add-ons path",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"show",
+				"HEAD:repo_fenjr/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git LS-Tree Fen Jr",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"ls-tree",
+				"-r",
+				"--name-only",
+				"HEAD",
+				"repo_fenjr"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr addons cachebust",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/addons.xml?cb=1779650200"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr addons by commit",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/063612d/repo_fenjr/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages Fenfork addons.xml sanity",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_fenfork/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Pages POV addons.xml sanity",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://dude2714.github.io/zugg/repo_pov/addons.xml"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kodi Log Fen Jr Connect Errors",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$log='C:\\Users\\johns\\AppData\\Roaming\\Kodi\\kodi.log'; if(Test-Path $log){ Select-String -Path $log -Pattern 'repository.fenjr|repo_fenjr|unable to connect|CCurlFile::Open failed|addons.xml' | Select-Object -Last 80 | ForEach-Object { $_.Line } } else { Write-Host 'kodi.log not found' }"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kodi Log Fen Jr Connect Errors 2",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$log='C:\\Users\\johns\\AppData\\Roaming\\Kodi\\kodi.log'; if(Test-Path $log){ Select-String -Path $log -Pattern \"repository.fenjr|repo_fenjr|unable to connect|CCurlFile::Open failed|addons.xml\" | Select-Object -Last 120 | ForEach-Object { $_.Line } } else { Write-Host 'kodi.log not found' }"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kodi Log Fen Jr Connect Errors cmd",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"findstr /I /C:\"repository.fenjr\" /C:\"repo_fenjr\" /C:\"unable to connect\" /C:\"CCurlFile::Open failed\" \"%APPDATA%\\Kodi\\kodi.log\""
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build Fen Jr Repo Payload 1.0.1",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"tools\\build-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Verify Fen Jr Repo 1.0.1 Zip Structure",
+			"type": "shell",
+			"command": "tar",
+			"args": [
+				"-tf",
+				"repo_fenjr/repository.fenjr-1.0.1.zip"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Fen Jr 1.0.1 Fix",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				"repo_fenjr",
+				"tools/build-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Commit Fen Jr Connect Fix",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Fix Fen Jr repository connectivity by using raw-only feed and bumping to 1.0.1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Fen Jr Connect Fix",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr addons.xml final",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/addons.xml?cb=1779650500"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr md5 final",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/addons.xml.md5?cb=1779650500"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "HEAD Raw Fen Jr repo zip 1.0.1 final",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/repository.fenjr-1.0.1.zip?cb=1779650500"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Fen Jr Validate Pre-Push",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\validate-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Fen Jr Build and Publish",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\johns\\OneDrive\\Desktop\\123Venom.github.io\\tools\\publish-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status Fen Jr Task Hardening",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				".vscode/tasks.json",
+				"tools/validate-fenjr-repo.ps1",
+				"tools/publish-fenjr-repo.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Fen Jr Task Hardening",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				".vscode/tasks.json",
+				"tools/validate-fenjr-repo.ps1",
+				"tools/publish-fenjr-repo.ps1"
+			],
+			"isBackground": false
 		}
 	]
 }
