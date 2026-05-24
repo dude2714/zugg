@@ -11,6 +11,7 @@ $repos = @(
 
 [xml]$povFeed = Get-Content -LiteralPath (Join-Path $base 'repo_pov\addons.xml')
 $povRepoVersion = ($povFeed.addons.addon | Where-Object { $_.id -eq 'repository.pov' } | Select-Object -First 1).version
+$povAddonVersion = ($povFeed.addons.addon | Where-Object { $_.id -eq 'plugin.video.pov' } | Select-Object -First 1).version
 
 [xml]$fenforkFeed = Get-Content -LiteralPath (Join-Path $base 'repo_fenfork\addons.xml')
 $fenforkRepoVersion = ($fenforkFeed.addons.addon | Where-Object { $_.id -eq 'repository.fenfork' } | Select-Object -First 1).version
@@ -25,7 +26,7 @@ $urls = @(
     'https://dude2714.github.io/zugg/repo_pov/addons.xml',
     'https://dude2714.github.io/zugg/repo_pov/addons.xml.md5',
     ("https://dude2714.github.io/zugg/repo_pov/repository.pov-{0}.zip" -f $povRepoVersion),
-    'https://dude2714.github.io/zugg/repo_pov/plugin.video.pov-6.05.11.zip',
+    ("https://dude2714.github.io/zugg/repo_pov/plugin.video.pov-{0}.zip" -f $povAddonVersion),
     'https://dude2714.github.io/zugg/repo_pov/script.module.requests-2.31.0.zip',
     'https://dude2714.github.io/zugg/repo_pov/script.module.certifi-2023.5.7.zip',
     'https://dude2714.github.io/zugg/repo_pov/script.module.chardet-5.1.0.zip',
