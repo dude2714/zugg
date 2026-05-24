@@ -3,6 +3,7 @@ Set-Location 'C:\Users\johns\OneDrive\Desktop\123Venom.github.io'
 
 $repo = 'repo_fenjr'
 $repoAddon = Join-Path $repo 'repository.fenjr'
+$repoVersion = '1.0.1'
 
 # Refresh repository feed checksum.
 $md5 = (Get-FileHash -Algorithm MD5 (Join-Path $repo 'addons.xml')).Hash.ToLower()
@@ -39,21 +40,21 @@ Copy-Item -LiteralPath (Join-Path $repoAddon 'icon.png') -Destination (Join-Path
 Copy-Item -LiteralPath (Join-Path $repoAddon 'fanart.jpg') -Destination (Join-Path $stage 'repository.fenjr\fanart.jpg') -Force
 
 Set-Location $stage
-if (Test-Path 'repository.fenjr-1.0.0.zip') {
-    Remove-Item 'repository.fenjr-1.0.0.zip' -Force
+if (Test-Path ("repository.fenjr-" + $repoVersion + ".zip")) {
+    Remove-Item ("repository.fenjr-" + $repoVersion + ".zip") -Force
 }
-tar.exe -a -c -f 'repository.fenjr-1.0.0.zip' 'repository.fenjr'
+tar.exe -a -c -f ("repository.fenjr-" + $repoVersion + ".zip") 'repository.fenjr'
 Set-Location ..
 
-Copy-Item -LiteralPath (Join-Path $stage 'repository.fenjr-1.0.0.zip') -Destination (Join-Path $repo 'repository.fenjr-1.0.0.zip') -Force
-Copy-Item -LiteralPath (Join-Path $stage 'repository.fenjr-1.0.0.zip') -Destination (Join-Path $repoAddon 'repository.fenjr-1.0.0.zip') -Force
+Copy-Item -LiteralPath (Join-Path $stage ("repository.fenjr-" + $repoVersion + ".zip")) -Destination (Join-Path $repo ("repository.fenjr-" + $repoVersion + ".zip")) -Force
+Copy-Item -LiteralPath (Join-Path $stage ("repository.fenjr-" + $repoVersion + ".zip")) -Destination (Join-Path $repoAddon ("repository.fenjr-" + $repoVersion + ".zip")) -Force
 
 # Convenience copies for local Kodi testing.
 $desk = 'C:\Users\johns\OneDrive\Desktop\Kodi Updates'
 New-Item -ItemType Directory -Path $desk -Force | Out-Null
-Copy-Item -LiteralPath (Join-Path $repo 'repository.fenjr-1.0.0.zip') -Destination (Join-Path $desk 'repository.fenjr-1.0.0.zip') -Force
+Copy-Item -LiteralPath (Join-Path $repo ("repository.fenjr-" + $repoVersion + ".zip")) -Destination (Join-Path $desk ("repository.fenjr-" + $repoVersion + ".zip")) -Force
 if (Test-Path 'L:\') {
-    Copy-Item -LiteralPath (Join-Path $repo 'repository.fenjr-1.0.0.zip') -Destination 'L:\repository.fenjr-1.0.0.zip' -Force
+    Copy-Item -LiteralPath (Join-Path $repo ("repository.fenjr-" + $repoVersion + ".zip")) -Destination ("L:\repository.fenjr-" + $repoVersion + ".zip") -Force
 }
 
 Write-Host 'Fen Jr repository payload built.'

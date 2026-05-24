@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="repository.fenjr" name="[B][COLOR red]Fen Jr[/COLOR] Repo[/B]" version="1.0.0" provider-name="Tiki">
+<addon id="repository.fenjr" name="[B][COLOR red]Fen Jr[/COLOR] Repo[/B]" version="1.0.1" provider-name="Tiki">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
@@ -9,11 +9,6 @@
       <info compressed="false">https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/addons.xml</info>
       <checksum>https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/addons.xml.md5</checksum>
       <datadir zip="true">https://raw.githubusercontent.com/dude2714/zugg/master/repo_fenjr/</datadir>
-    </dir>
-    <dir>
-      <info compressed="false">https://dude2714.github.io/zugg/repo_fenjr/addons.xml</info>
-      <checksum>https://dude2714.github.io/zugg/repo_fenjr/addons.xml.md5</checksum>
-      <datadir zip="true">https://dude2714.github.io/zugg/repo_fenjr/</datadir>
     </dir>
   </extension>
   <extension point="xbmc.addon.metadata">
