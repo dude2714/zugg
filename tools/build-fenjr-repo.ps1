@@ -4,15 +4,25 @@ Set-Location 'C:\Users\johns\OneDrive\Desktop\123Venom.github.io'
 $repo = 'repo_fenjr'
 $repoAddon = Join-Path $repo 'repository.fenjr'
 $repoVersion = '1.0.1'
+$addonXmlPath = 'plugin.video.fenjr\addon.xml'
+[xml]$addonXml = Get-Content -LiteralPath $addonXmlPath
+$addonVersion = $addonXml.addon.version
+$addonZipName = 'plugin.video.fenjr-' + $addonVersion + '.zip'
 
 # Refresh repository feed checksum.
 $md5 = (Get-FileHash -Algorithm MD5 (Join-Path $repo 'addons.xml')).Hash.ToLower()
 Set-Content -LiteralPath (Join-Path $repo 'addons.xml.md5') -Value $md5 -NoNewline
 
 # Copy Fen Jr addon zip at root and Kodi datadir subfolder.
-Copy-Item -LiteralPath 'plugin.video.fenjr\plugin.video.fenjr-2.10.11.zip' -Destination (Join-Path $repo 'plugin.video.fenjr-2.10.11.zip') -Force
+Copy-Item -LiteralPath (Join-Path 'plugin.video.fenjr' $addonZipName) -Destination (Join-Path $repo $addonZipName) -Force
 New-Item -ItemType Directory -Path (Join-Path $repo 'plugin.video.fenjr') -Force | Out-Null
-Copy-Item -LiteralPath 'plugin.video.fenjr\plugin.video.fenjr-2.10.11.zip' -Destination (Join-Path $repo 'plugin.video.fenjr\plugin.video.fenjr-2.10.11.zip') -Force
+Copy-Item -LiteralPath (Join-Path 'plugin.video.fenjr' $addonZipName) -Destination (Join-Path (Join-Path $repo 'plugin.video.fenjr') $addonZipName) -Force
+if (Test-Path 'plugin.video.fenjr\icon.png') {
+    Copy-Item -LiteralPath 'plugin.video.fenjr\icon.png' -Destination (Join-Path $repo 'plugin.video.fenjr\icon.png') -Force
+}
+if (Test-Path 'plugin.video.fenjr\fanart.png') {
+    Copy-Item -LiteralPath 'plugin.video.fenjr\fanart.png' -Destination (Join-Path $repo 'plugin.video.fenjr\fanart.png') -Force
+}
 
 # Copy dependency zips at root and nested addon-id subfolders.
 $deps = @(

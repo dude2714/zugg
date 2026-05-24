@@ -4,6 +4,8 @@ Set-Location 'C:\Users\johns\OneDrive\Desktop\123Venom.github.io'
 if (!(Test-Path 'repo_fenjr\addons.xml')) { throw 'Missing repo_fenjr/addons.xml' }
 if (!(Test-Path 'repo_fenjr\repository.fenjr\addon.xml')) { throw 'Missing repo_fenjr/repository.fenjr/addon.xml' }
 if (!(Test-Path 'repo_fenjr\repository.fenjr-1.0.1.zip')) { throw 'Missing repo_fenjr/repository.fenjr-1.0.1.zip' }
+if (!(Test-Path 'repo_fenjr\plugin.video.fenjr\icon.png')) { throw 'Missing repo_fenjr/plugin.video.fenjr/icon.png' }
+if (!(Test-Path 'repo_fenjr\plugin.video.fenjr\fanart.png')) { throw 'Missing repo_fenjr/plugin.video.fenjr/fanart.png' }
 
 Write-Host 'Repository zip entries:'
 tar -tf 'repo_fenjr\repository.fenjr-1.0.1.zip'
