@@ -3661,6 +3661,73 @@
 				"tools/smoke-fenjr.ps1"
 			],
 			"isBackground": false
+		},
+		{
+			"label": "Git Commit Tiny Smoke Commit",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"-m",
+				"Add Fen Jr smoke-check script and task"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Push Tiny Smoke Commit",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push",
+				"origin",
+				"master"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status After Tiny Commit",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				".vscode/tasks.json",
+				"tools/smoke-fenjr.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Status Tasks Cleanup Scope",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				".vscode/tasks.json"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Diff Tasks Cleanup Scope",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"diff",
+				"--",
+				".vscode/tasks.json"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Git Add Tasks Cleanup",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"--",
+				".vscode/tasks.json"
+			],
+			"isBackground": false
 		}
 	]
 }
