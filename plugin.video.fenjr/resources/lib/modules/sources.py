@@ -29,8 +29,8 @@ debrid_enabled, debrid_type_enabled, debrid_valid_hosts = debrid.debrid_enabled,
 resolve_cached_torrents, resolve_uncached_torrents = resolver.resolve_cached_torrents, resolver.resolve_uncached_torrents
 resolve_internal_sources, resolve_debrid = resolver.resolve_internal_sources, resolver.resolve_debrid
 quality_ranks = {'4K': 1, '1080p': 2, '720p': 3, 'SD': 4, 'SCR': 5, 'CAM': 5, 'TELE': 5}
-cloud_scrapers, folder_scrapers = ('rd_cloud', 'pm_cloud'), ('folder1', 'folder2', 'folder3', 'folder4', 'folder5')
-default_internal_scrapers = ('furk', 'easynews', 'rd_cloud', 'pm_cloud', 'folders')
+cloud_scrapers, folder_scrapers = ('rd_cloud', 'pm_cloud', 'ad_cloud'), ('folder1', 'folder2', 'folder3', 'folder4', 'folder5')
+default_internal_scrapers = ('furk', 'easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'folders')
 hevc_filter_key, hdr_filter_key, dolby_vision_filter_key = '[B]HEVC[/B]', '[B]HDR[/B]', '[B]D/VISION[/B]'
 dialog_format, remaining_format = '[COLOR %s][B]%s[/B][/COLOR] 4K: %s | 1080p: %s | 720p: %s | SD: %s | Total: %s', ls(32676)
 main_line = '%s[CR]%s[CR]%s'
@@ -341,7 +341,7 @@ class Sources():
 			size_label = self._format_size_label(item)
 			cache_provider = item.get('cache_provider')
 			debrid_provider = item.get('debrid')
-			debrid_names = ('Real-Debrid', 'Premiumize.me')
+			debrid_names = ('Real-Debrid', 'Premiumize.me', 'AllDebrid', 'TorBox')
 			is_debrid_item = bool(cache_provider in debrid_names or debrid_provider in debrid_names)
 			item_color = 'lightgreen' if is_debrid_item else 'lightblue'
 			if cache_provider:
@@ -551,7 +551,7 @@ class Sources():
 			return sorted(results, key=lambda i: (_rd_quality_bucket(i), -self._size_value(i)))
 		def _sort_by_size(results):
 			return sorted(results, key=lambda i: (self._size_value(i), i.get('quality_rank', 999)), reverse=True)
-		debrid_names = ('Real-Debrid', 'Premiumize.me')
+		debrid_names = ('Real-Debrid', 'Premiumize.me', 'AllDebrid', 'TorBox')
 		rd_cached = _sort_rd([i for i in items if i.get('cache_provider') == 'Real-Debrid'])
 		other_cached = _sort_by_size([i for i in items if i.get('cache_provider') in debrid_names and i not in rd_cached])
 		rd_hoster = _sort_rd([i for i in items if i.get('debrid') == 'Real-Debrid' and i not in rd_cached and i not in other_cached])
@@ -628,6 +628,12 @@ class Sources():
 		elif debrid_provider == 'Premiumize.me':
 			from apis.premiumize_api import PremiumizeAPI as debrid_function
 			icon = 'premiumize.png'
+		elif debrid_provider == 'AllDebrid':
+			from apis.alldebrid_api import AllDebridAPI as debrid_function
+			icon = 'alldebrid.png'
+		elif debrid_provider == 'TorBox':
+			from apis.torbox_api import TorBoxAPI as debrid_function
+			icon = 'premiumize.png'
 		else:
 			return notification(32574)
 		show_busy_dialog()
@@ -648,6 +654,8 @@ class Sources():
 			link = debrid_function().unrestrict_link(url_dl)
 		elif debrid_provider == 'Premiumize.me':
 			link = debrid_function().add_headers_to_url(url_dl)
+		else:
+			link = debrid_function().unrestrict_link(url_dl)
 		name = chosen_result['filename']
 		return FenPlayer().run(link, 'video')
 
@@ -726,7 +734,7 @@ class Sources():
 				cache_provider = item['cache_provider']
 				if meta['media_type'] == 'episode': title, season, episode = meta['ep_name'], meta.get('season'), meta.get('episode')
 				else: title, season, episode = self._get_search_title(meta), None, None
-				if cache_provider in ('Real-Debrid', 'Premiumize.me'):
+				if cache_provider in ('Real-Debrid', 'Premiumize.me', 'AllDebrid', 'TorBox'):
 					url = resolve_cached_torrents(cache_provider, item['url'], item['hash'], title, season, episode)
 					return url
 				if 'Uncached' in cache_provider:
@@ -743,7 +751,7 @@ class Sources():
 			if item.get('scrape_provider', None) in default_internal_scrapers:
 				url = resolve_internal_sources(item['scrape_provider'], item['id'], item['url_dl'], item.get('direct_debrid_link', False))
 				return url
-			if item.get('debrid') in ('Real-Debrid', 'Premiumize.me') and not item['source'].lower() == 'torrent':
+			if item.get('debrid') in ('Real-Debrid', 'Premiumize.me', 'AllDebrid', 'TorBox') and not item['source'].lower() == 'torrent':
 				url = resolve_debrid(item['debrid'], item['provider'], item['url'])
 				if url is not None: return url
 				else: return None

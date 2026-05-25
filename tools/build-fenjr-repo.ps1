@@ -1,6 +1,9 @@
 $ErrorActionPreference = 'Stop'
 Set-Location 'C:\Users\johns\OneDrive\Desktop\123Venom.github.io'
 
+# Always rebuild addon zip from current working source so repo payload can't pick up a stale package.
+powershell -NoProfile -ExecutionPolicy Bypass -File 'tools\build-fenjr-addon.ps1'
+
 $repo = 'repo_fenjr'
 $repoAddon = Join-Path $repo 'repository.fenjr'
 $repoVersion = '1.0.1'
@@ -8,15 +11,17 @@ $addonXmlPath = 'plugin.video.fenjr\addon.xml'
 [xml]$addonXml = Get-Content -LiteralPath $addonXmlPath
 $addonVersion = $addonXml.addon.version
 $addonZipName = 'plugin.video.fenjr-' + $addonVersion + '.zip'
+$addonZipPath = Join-Path 'plugin.video.fenjr' $addonZipName
+if (!(Test-Path $addonZipPath)) { throw ('Missing built addon zip: ' + $addonZipPath) }
 
 # Refresh repository feed checksum.
 $md5 = (Get-FileHash -Algorithm MD5 (Join-Path $repo 'addons.xml')).Hash.ToLower()
 Set-Content -LiteralPath (Join-Path $repo 'addons.xml.md5') -Value $md5 -NoNewline
 
 # Copy Fen Jr addon zip at root and Kodi datadir subfolder.
-Copy-Item -LiteralPath (Join-Path 'plugin.video.fenjr' $addonZipName) -Destination (Join-Path $repo $addonZipName) -Force
+Copy-Item -LiteralPath $addonZipPath -Destination (Join-Path $repo $addonZipName) -Force
 New-Item -ItemType Directory -Path (Join-Path $repo 'plugin.video.fenjr') -Force | Out-Null
-Copy-Item -LiteralPath (Join-Path 'plugin.video.fenjr' $addonZipName) -Destination (Join-Path (Join-Path $repo 'plugin.video.fenjr') $addonZipName) -Force
+Copy-Item -LiteralPath $addonZipPath -Destination (Join-Path (Join-Path $repo 'plugin.video.fenjr') $addonZipName) -Force
 if (Test-Path 'plugin.video.fenjr\icon.png') {
     Copy-Item -LiteralPath 'plugin.video.fenjr\icon.png' -Destination (Join-Path $repo 'plugin.video.fenjr\icon.png') -Force
 }

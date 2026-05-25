@@ -201,6 +201,30 @@
 <!--
         <setting id="amble.pm.myaccounts" label="33029" type="action" option="close" action="RunPlugin(plugin://plugin.video.fenjr/?mode=myaccounts.open&amp;query=1.13)" />
 -->
+        <!-- AllDebrid -->
+        <setting label="32063" type="lsep" />
+        <setting id="ad.token" label="ad token" type="text" default="" visible="hidden" />
+        <setting id="ad.enabled" type="bool" label="32055" default="true" visible="!eq(-1,)" />
+        <setting id="ad.account_id" label="32056" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+        <setting id="ad.torrent.enabled" type="bool" label="33015" default="true" visible="eq(-2,true)+!eq(-3,)" />
+        <setting id="ad.hoster.enabled" type="bool" label="33016" default="true" visible="eq(-3,true)+!eq(-4,)" />
+        <setting id="store_torrent.alldebrid" label="32060" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
+        <setting id="provider.ad_cloud" type="bool" label="$ADDON[plugin.video.fenjr 32450] $ADDON[plugin.video.fenjr 32063]" default="false" visible="eq(-5,true)+!eq(-6,)" />
+        <setting id="check.ad_cloud" type="bool" label="32104" default="false" subsetting="true" visible="eq(-1,true)+eq(-6,true)+!eq(-7,)" />
+        <setting id="results.sort_adcloud_first" type="bool" label="32103" default="true" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
+        <setting id="ad.priority" label="32011" type="slider" range="1,1,10" option="int" default="9" visible="eq(-8,true)+!eq(-9,)" />
+        <setting id="amble.myaccounts.adauth" label="Authorize" type="action" action="RunPlugin(plugin://plugin.video.fenjr/?mode=myaccounts.ad_auth)" />
+        <setting id="amble.myaccounts.adrevoke" label="Revoke" type="action" action="RunPlugin(plugin://plugin.video.fenjr/?mode=myaccounts.ad_revoke)" />
+        <!-- TorBox -->
+        <setting label="TorBox" type="lsep" />
+        <setting id="tb.token" label="tb token" type="text" default="" visible="hidden" />
+        <setting id="tb.enabled" type="bool" label="32055" default="false" visible="!eq(-1,)" />
+        <setting id="tb.account_id" label="32056" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+        <setting id="tb.torrent.enabled" type="bool" label="33015" default="true" visible="eq(-2,true)+!eq(-3,)" />
+        <setting id="tb.hoster.enabled" type="bool" label="33016" default="false" visible="eq(-3,true)+!eq(-4,)" />
+        <setting id="tb.api_key" type="text" label="32053" option="hidden" default="" visible="eq(-4,true)+!eq(-5,)" />
+        <setting id="amble.myaccounts.tbauth" label="Authorize" type="action" action="RunPlugin(plugin://plugin.video.fenjr/?mode=myaccounts.tb_auth)" />
+        <setting id="amble.myaccounts.tbrevoke" label="Revoke" type="action" action="RunPlugin(plugin://plugin.video.fenjr/?mode=myaccounts.tb_revoke)" />
         <!-- Easynews -->
         <setting label="32070" type="lsep" />
         <setting id="provider.easynews" type="bool" label="32055" default="false" />

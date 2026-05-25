@@ -4,6 +4,8 @@
 def import_debrid(debrid_provider):
 	if debrid_provider == 'Real-Debrid': from apis.real_debrid_api import RealDebridAPI as debrid_function
 	elif debrid_provider == 'Premiumize.me': from apis.premiumize_api import PremiumizeAPI as debrid_function
+	elif debrid_provider == 'AllDebrid': from apis.alldebrid_api import AllDebridAPI as debrid_function
+	elif debrid_provider == 'TorBox': from apis.torbox_api import TorBoxAPI as debrid_function
 	return debrid_function
 
 def resolve_cached_torrents(debrid_provider, item_url, _hash, title, season, episode):

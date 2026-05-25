@@ -1,6 +1,7 @@
 $ErrorActionPreference = 'Stop'
 Set-Location 'C:\Users\johns\OneDrive\Desktop\123Venom.github.io'
 
+powershell -NoProfile -ExecutionPolicy Bypass -File 'tools\build-fenjr-addon.ps1'
 powershell -NoProfile -ExecutionPolicy Bypass -File 'tools\build-fenjr-repo.ps1'
 powershell -NoProfile -ExecutionPolicy Bypass -File 'tools\validate-fenjr-repo.ps1'
 git add -- repo_fenjr tools\build-fenjr-repo.ps1 tools\validate-fenjr-repo.ps1 tools\publish-fenjr-repo.ps1 .vscode\tasks.json

@@ -49,13 +49,14 @@ class Navigator:
 	def premium(self):
 		from modules.debrid import debrid_enabled
 		n_ins = _in_str % (ls(32488).upper(), '%s')
-		furk_str, easy_str, rd_str, pm_str = ls(32069), ls(32070), ls(32054), ls(32061)
+		furk_str, easy_str, rd_str, pm_str, ad_str = ls(32069), ls(32070), ls(32054), ls(32061), ls(32063)
 		furk, easynews = furk_active(), easynews_active()
 		debrids = debrid_enabled()
 		if furk: self.AD({'mode': 'navigator.furk', 'list_name': furk_str}, n_ins % furk_str, 'furk.png')
 		if easynews: self.AD({'mode': 'navigator.easynews', 'list_name': easy_str}, n_ins % easy_str, 'easynews.png')
 		if 'Real-Debrid' in debrids: self.AD({'mode': 'navigator.real_debrid', 'list_name': rd_str}, n_ins % rd_str, 'realdebrid.png')
 		if 'Premiumize.me' in debrids: self.AD({'mode': 'navigator.premiumize', 'list_name': pm_str}, n_ins % pm_str, 'premiumize.png')
+		if 'AllDebrid' in debrids: self.AD({'mode': 'navigator.alldebrid', 'list_name': ad_str}, n_ins % ad_str, 'alldebrid.png')
 		self._end_directory()
 
 	def furk(self):
@@ -92,6 +93,14 @@ class Navigator:
 		self.AD({'mode': 'premiumize.pm_transfers', 'list_name': lst_ins % his_str}, n_ins % his_str, 'premiumize.png')
 		self.AD({'mode': 'premiumize.pm_account_info', 'list_name': lst_ins % acc_str}, n_ins % acc_str, 'premiumize.png', False)
 		self.AD({'mode': 'clear_cache', 'cache': 'pm_cloud', 'list_name': lst_ins % clca_str}, n_ins % clca_str, 'premiumize.png', False)
+		self._end_directory()
+
+	def alldebrid(self):
+		ad_str, acc_str, cloud_str = ls(32063), ls(32494), ls(32496)
+		clca_str, n_ins, lst_ins = ls(32497) % ad_str, _in_str % (ad_str.upper(), '%s'), (_in_str % (ad_str, '%s')).replace('[B]', '').replace(': [/B]', ' ')
+		self.AD({'mode': 'alldebrid.ad_torrent_cloud', 'list_name': lst_ins % cloud_str}, n_ins % cloud_str, 'alldebrid.png')
+		self.AD({'mode': 'alldebrid.ad_account_info', 'list_name': lst_ins % acc_str}, n_ins % acc_str, 'alldebrid.png', False)
+		self.AD({'mode': 'clear_cache', 'cache': 'ad_cloud', 'list_name': lst_ins % clca_str}, n_ins % clca_str, 'alldebrid.png', False)
 		self._end_directory()
 
 	def favourites(self):
