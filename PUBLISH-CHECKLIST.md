@@ -4,7 +4,7 @@
 
 Run this from PowerShell:
 
-powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\set-publish-target.ps1 -Owner dude2714 -Repo zugg -Branch master
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\set-publish-target.ps1 -Owner dude2714 -Repo zugg -Branch HEAD
 
 Adjust Owner/Repo/Branch to match your real remote.
 

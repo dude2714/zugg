@@ -1,7 +1,7 @@
 param(
     [string]$Owner = "dude2714",
     [string]$Repo = "zugg",
-    [string]$Branch = "master"
+    [string]$Branch = "HEAD"
 )
 
 $ErrorActionPreference = "Stop"
