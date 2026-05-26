@@ -1,6 +1,6 @@
 param(
     [string]$Owner = "dude2714",
-    [string]$Repo = "thepromise",
+    [string]$Repo = "zugg",
     [string]$Branch = "master"
 )
 
