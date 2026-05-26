@@ -49,6 +49,9 @@ foreach ($path in $pathsToUpdate) {
     )
 
     if ($path -like '*addons.xml') {
+        if ($content.Length -gt 0 -and [int][char]$content[0] -eq 0xFEFF) {
+            $content = $content.Substring(1)
+        }
         $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
         [System.IO.File]::WriteAllText($path, $content, $utf8NoBom)
     } else {
