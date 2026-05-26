@@ -48,7 +48,12 @@ foreach ($path in $pathsToUpdate) {
         $datadirReplacement
     )
 
-    Set-Content -LiteralPath $path -Value $content -Encoding UTF8
+    if ($path -like '*addons.xml') {
+        $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+        [System.IO.File]::WriteAllText($path, $content, $utf8NoBom)
+    } else {
+        Set-Content -LiteralPath $path -Value $content -Encoding UTF8
+    }
 }
 
 # Refresh addons.xml.md5
