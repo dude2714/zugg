@@ -1,0 +1,64 @@
+$ErrorActionPreference = 'Stop'
+
+$base = 'C:\Users\johns\OneDrive\Desktop\123Venom.github.io'
+$validateScript = Join-Path $base 'tools\validate-repo.ps1'
+
+$repos = @(
+    @{ Name = 'Root'; Path = $base },
+    @{ Name = 'POV'; Path = (Join-Path $base 'repo_pov') },
+    @{ Name = 'FenFork'; Path = (Join-Path $base 'repo_fenfork') }
+)
+
+[xml]$povFeed = Get-Content -LiteralPath (Join-Path $base 'repo_pov\addons.xml')
+$povRepoVersion = ($povFeed.addons.addon | Where-Object { $_.id -eq 'repository.pov' } | Select-Object -First 1).version
+$povAddonVersion = ($povFeed.addons.addon | Where-Object { $_.id -eq 'plugin.video.pov' } | Select-Object -First 1).version
+
+[xml]$fenforkFeed = Get-Content -LiteralPath (Join-Path $base 'repo_fenfork\addons.xml')
+$fenforkRepoVersion = ($fenforkFeed.addons.addon | Where-Object { $_.id -eq 'repository.fenfork' } | Select-Object -First 1).version
+
+Write-Output '=== Local Feed Validation ==='
+foreach ($repo in $repos) {
+    Write-Output ("-- {0}" -f $repo.Name)
+    & powershell -NoProfile -ExecutionPolicy Bypass -File $validateScript -RepoRoot $repo.Path
+}
+
+$urls = @(
+    'https://dude2714.github.io/zugg/repo_pov/addons.xml',
+    'https://dude2714.github.io/zugg/repo_pov/addons.xml.md5',
+    ("https://dude2714.github.io/zugg/repo_pov/repository.pov-{0}.zip" -f $povRepoVersion),
+    ("https://dude2714.github.io/zugg/repo_pov/plugin.video.pov-{0}.zip" -f $povAddonVersion),
+    'https://dude2714.github.io/zugg/repo_pov/script.module.requests-2.31.0.zip',
+    'https://dude2714.github.io/zugg/repo_pov/script.module.certifi-2023.5.7.zip',
+    'https://dude2714.github.io/zugg/repo_pov/script.module.chardet-5.1.0.zip',
+    'https://dude2714.github.io/zugg/repo_pov/script.module.idna-3.4.0.zip',
+    'https://dude2714.github.io/zugg/repo_pov/script.module.urllib3-1.26.16+matrix.1.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/addons.xml',
+    'https://dude2714.github.io/zugg/repo_fenfork/addons.xml.md5',
+    ("https://dude2714.github.io/zugg/repo_fenfork/repository.fenfork-{0}.zip" -f $fenforkRepoVersion),
+    'https://dude2714.github.io/zugg/repo_fenfork/plugin.video.fenfork-3.5.08.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/script.module.requests-2.31.0.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/script.module.certifi-2023.5.7.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/script.module.chardet-5.1.0.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/script.module.idna-3.4.0.zip',
+    'https://dude2714.github.io/zugg/repo_fenfork/script.module.urllib3-1.26.16+matrix.1.zip'
+)
+
+Write-Output '=== Remote URL Checks ==='
+foreach ($url in $urls) {
+    try {
+        $response = Invoke-WebRequest -UseBasicParsing -Uri $url -Method Head -TimeoutSec 30
+        Write-Output ("OK  {0} STATUS={1} LEN={2}" -f $url, $response.StatusCode, $response.Headers.'Content-Length')
+    }
+    catch {
+        $code = $_.Exception.Response.StatusCode.value__
+        if ($code) {
+            Write-Output ("ERR {0} STATUS={1}" -f $url, $code)
+        }
+        else {
+            Write-Output ("ERR {0} MSG={1}" -f $url, $_.Exception.Message)
+        }
+        exit 1
+    }
+}
+
+Write-Output 'SPLIT_REPO_CHECKS_PASSED'

@@ -1,0 +1,4 @@
+[B]2.10.12[/B]
+- Release refresh for Fen Jr packaging.
+- Repository update-path hardening and feed consistency fixes.
+- No feature behavior changes.

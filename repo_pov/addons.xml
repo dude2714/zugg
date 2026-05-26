@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons>
+<addon id="repository.pov" name="[B][COLOR red]POV[/COLOR] Repo[/B]" version="1.0.10" provider-name="kodifitzwell">
+  <extension point="xbmc.addon.repository" name="POV Repo">
+    <dir>
+      <info compressed="false">https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/addons.xml</info>
+      <checksum>https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/addons.xml.md5</checksum>
+      <datadir zip="true">https://raw.githubusercontent.com/dude2714/zugg/master/repo_pov/</datadir>
+    </dir>
+    <dir>
+      <info compressed="false">https://dude2714.github.io/zugg/repo_pov/addons.xml</info>
+      <checksum>https://dude2714.github.io/zugg/repo_pov/addons.xml.md5</checksum>
+      <datadir zip="true">https://dude2714.github.io/zugg/repo_pov/</datadir>
+    </dir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">[B][COLOR red]POV[/COLOR][/B] repository</summary>
+    <description lang="en">Repository package for POV only.</description>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+  </extension>
+</addon>
+<addon id="plugin.video.pov" version="6.05.13" name="POV" provider-name="kodifitzwell">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="resources/lib/router.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.service" library="resources/lib/service.py" />
+    <extension point="xbmc.addon.metadata">
+        <reuselanguageinvoker>true</reuselanguageinvoker>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+        <disclaimer lang="en">The author of this addon does not host any of the content which is found and has no affiliation with any of the content providers.[CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.</disclaimer>
+        <summary>What you like to watch.[CR]</summary>
+        <description lang="en">This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</description>
+        <news>INFO: For latest changes see Changelog within add-on.</news>
+        <assets><icon>pov.png</icon><fanart>pov_fanart.png</fanart></assets>
+    </extension>
+</addon>
+<addon id="script.module.requests" name="requests" version="2.31.0" provider-name="Python Software Foundation">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+    <import addon="script.module.certifi" version="2023.5.7"/>
+    <import addon="script.module.chardet" version="5.1.0"/>
+    <import addon="script.module.idna" version="3.4.0"/>
+    <import addon="script.module.urllib3" version="1.26.16+matrix.1"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <license>Apache License 2.0</license>
+    <platform>all</platform>
+    <summary lang="en">requests</summary>
+    <description lang="en">Python HTTP library for humans</description>
+  </extension>
+</addon>
+<addon id="script.module.certifi" name="certifi" version="2023.5.7" provider-name="Python Software Foundation">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <license>Mozilla Public License 2.0</license>
+    <platform>all</platform>
+    <summary lang="en">certifi</summary>
+    <description lang="en">Python package for providing Mozilla's CA Bundle</description>
+  </extension>
+</addon>
+<addon id="script.module.chardet" name="chardet" version="5.1.0" provider-name="Python Software Foundation">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <license>LGPL 2.1</license>
+    <platform>all</platform>
+    <summary lang="en">chardet</summary>
+    <description lang="en">Universal character encoding detector</description>
+  </extension>
+</addon>
+<addon id="script.module.idna" name="idna" version="3.4.0" provider-name="Python Software Foundation">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <license>BSD 3-Clause</license>
+    <platform>all</platform>
+    <summary lang="en">idna</summary>
+    <description lang="en">Internationalized Domain Names in Applications</description>
+  </extension>
+</addon>
+<addon id="script.module.urllib3" name="urllib3" version="1.26.16+matrix.1" provider-name="Python Software Foundation">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <license>MIT</license>
+    <platform>all</platform>
+    <summary lang="en">urllib3</summary>
+    <description lang="en">HTTP library for Python</description>
+  </extension>
+</addon>
+</addons>
