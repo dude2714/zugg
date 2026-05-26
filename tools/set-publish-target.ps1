@@ -1,7 +1,7 @@
-param(
+﻿param(
     [string]$Owner = "dude2714",
     [string]$Repo = "zugg",
-    [string]$Branch = "HEAD"
+    [string]$Branch = "refs/heads/master"
 )
 
 $ErrorActionPreference = "Stop"
@@ -68,3 +68,4 @@ Write-Output "info     : $infoUrl"
 Write-Output "checksum : $checksumUrl"
 Write-Output "datadir  : $datadirUrl"
 Write-Output "addons.md5: $hash"
+

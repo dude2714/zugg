@@ -1,4 +1,4 @@
-# ThePromise Publish Checklist
+﻿# ThePromise Publish Checklist
 
 ## 1) Set the GitHub publish target
 
@@ -50,3 +50,4 @@ All should return HTTP 200.
 
 - If versions change, rebuild/add new zip names and update addons.xml entries.
 - Keep addons.xml.md5 synchronized every time addons.xml changes.
+
