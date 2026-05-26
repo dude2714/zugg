@@ -4,7 +4,7 @@
 
 Run this from PowerShell:
 
-powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\set-publish-target.ps1 -Owner dude2714 -Repo zugg -Branch HEAD
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\set-publish-target.ps1 -Owner dude2714 -Repo zugg -Branch master
 
 Adjust Owner/Repo/Branch to match your real remote.
 
@@ -34,9 +34,9 @@ Expected files at repository root:
 ## 5) Validate live URLs
 
 After pushing, check:
-- https://raw.githubusercontent.com/<owner>/<repo>/<branch>/addons.xml
-- https://raw.githubusercontent.com/<owner>/<repo>/<branch>/addons.xml.md5
-- https://raw.githubusercontent.com/<owner>/<repo>/<branch>/repository.thepromise-1.0.0.zip
+- https://<owner>.github.io/<repo>/addons.xml
+- https://<owner>.github.io/<repo>/addons.xml.md5
+- https://<owner>.github.io/<repo>/repository.thepromise-1.0.0.zip
 
 All should return HTTP 200.
 

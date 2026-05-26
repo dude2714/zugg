@@ -1,7 +1,7 @@
 ﻿param(
     [string]$Owner = "dude2714",
     [string]$Repo = "zugg",
-    [string]$Branch = "refs/heads/master"
+    [string]$Branch = "master"
 )
 
 $ErrorActionPreference = "Stop"
@@ -18,7 +18,7 @@ if (-not (Test-Path $addonsXmlPath)) {
     throw "Missing addons.xml: $addonsXmlPath"
 }
 
-$base = "https://raw.githubusercontent.com/$Owner/$Repo/$Branch"
+$base = "https://$Owner.github.io/$Repo"
 $infoUrl = "$base/addons.xml"
 $checksumUrl = "$base/addons.xml.md5"
 $datadirUrl = "$base/"
@@ -34,17 +34,17 @@ foreach ($path in $pathsToUpdate) {
 
     $content = [regex]::Replace(
         $content,
-        '<info compressed="false">https://raw\.githubusercontent\.com/[^<]+/addons\.xml</info>',
+        '<info compressed="false">https://(?:raw\.githubusercontent\.com|[A-Za-z0-9\-]+\.github\.io)/[^<]+/addons\.xml</info>',
         $infoReplacement
     )
     $content = [regex]::Replace(
         $content,
-        '<checksum>https://raw\.githubusercontent\.com/[^<]+/addons\.xml\.md5</checksum>',
+        '<checksum>https://(?:raw\.githubusercontent\.com|[A-Za-z0-9\-]+\.github\.io)/[^<]+/addons\.xml\.md5</checksum>',
         $checksumReplacement
     )
     $content = [regex]::Replace(
         $content,
-        '<datadir zip="true">https://raw\.githubusercontent\.com/[^<]+/</datadir>',
+        '<datadir zip="true">https://(?:raw\.githubusercontent\.com|[A-Za-z0-9\-]+\.github\.io)/[^<]+/</datadir>',
         $datadirReplacement
     )
 
