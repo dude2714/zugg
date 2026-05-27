@@ -22,7 +22,7 @@
 
 <addon id="plugin.video.thepromise"
        name="ThePromise"
-    version="22.4.30"
+    version="22.4.31"
     provider-name="Tech E Coyote">
     <requires>
      <import addon="xbmc.python" version="3.0.0" />
