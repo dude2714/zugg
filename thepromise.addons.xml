@@ -22,7 +22,7 @@
 
 <addon id="plugin.video.thepromise"
        name="ThePromise"
-    version="22.4.29"
+    version="22.4.30"
     provider-name="Tech E Coyote">
     <requires>
      <import addon="xbmc.python" version="3.0.0" />
@@ -62,7 +62,7 @@
 
 <addon id="script.module.promisescrapers"
        name="PromiseScrapers Module"
-    version="22.4.29"
+    version="22.4.30"
     provider-name="Tech E Coyote">
     <requires>
      <import addon="xbmc.python" version="3.0.0" />
