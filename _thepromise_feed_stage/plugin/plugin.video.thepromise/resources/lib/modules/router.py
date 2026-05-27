@@ -438,6 +438,14 @@ def routing(_argv):
         from resources.lib.modules import control
         control.openSettings('0.0', 'script.module.orion')
 
+    elif action == 'openScraperSettings':
+        from resources.lib.modules import control
+        scraper_module = 'script.module.promisescrapers' if control.setting('external.scraper.module') == '0' else 'script.module.viperscrapers'
+        if not control.condVisibility('System.HasAddon(%s)' % scraper_module):
+            control.installAddon(scraper_module)
+            control.sleep(200)
+        control.openSettings('0.0', scraper_module)
+
     elif action == 'download':
         import simplejson as json
         from resources.lib.modules import sources

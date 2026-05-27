@@ -91,7 +91,8 @@
         <setting id="paramount" subsetting="true" type="bool" label="PARAMOUNT+" default="true" visible="eq(-11,true)" enable="System.HasAddon(slyguy.paramount.plus)" />
         <setting type="lsep" label="32636" />
         <setting id="external.providers" type="bool" label="32637" default="true" />
-        <setting id="open.Osettings" subsetting="true" type="action" label="32085" option="close" action="RunPlugin(plugin://script.module.viperscrapers/?action=ViperScrapersSettings)" enable="eq(-1,true)" />
+        <setting id="external.scraper.module" type="enum" label="Scraper Module" values="PromiseScrapers|ViperScrapers" default="1" visible="eq(-1,true)" />
+        <setting id="open.Osettings" subsetting="true" type="action" label="Open Scraper Settings" option="close" action="RunPlugin(plugin://plugin.video.thepromise/?action=openScraperSettings)" visible="eq(-2,true)" />
     </category>
 
     <category label="32315">

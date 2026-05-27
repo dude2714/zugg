@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.thepromise"
        name="ThePromise"
-    version="22.4.32"
+    version="22.4.33"
     provider-name="Tech E Coyote">
     <requires>
      <import addon="xbmc.python" version="3.0.0" />
@@ -9,7 +9,8 @@
      <import addon="script.thepromise.artwork" optional="true" />
         <import addon="script.module.resolveurl" />
         <import addon="script.module.requests" />
-        <import addon="script.module.viperscrapers" />
+        <import addon="script.module.promisescrapers" optional="true" />
+        <import addon="script.module.viperscrapers" optional="true" />
         <import addon="script.module.six" />
         <import addon="script.module.kodi-six" />
         <import addon="script.module.simplejson" />
