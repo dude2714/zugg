@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<addon id="repository.thecrewsolo" name="[COLOR orchid]THE CREW SOLO REPO[/COLOR]" provider-name="johns" version="1.0.0">
+  <extension point="xbmc.addon.repository" name="The Crew Solo Repo">
+    <dir>
+      <info compressed="false">https://raw.githubusercontent.com/dude2714/zugg/master/repo_thecrew/addons.xml</info>
+      <checksum>https://raw.githubusercontent.com/dude2714/zugg/master/repo_thecrew/addons.xml.md5</checksum>
+      <datadir zip="true">https://raw.githubusercontent.com/dude2714/zugg/master/repo_thecrew/</datadir>
+    </dir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Standalone repository for The Crew addon.</summary>
+    <description lang="en">Contains The Crew addon and Crew-owned companion modules mirrored from the public Crew source feed.</description>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>
