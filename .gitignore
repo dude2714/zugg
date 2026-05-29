@@ -1,0 +1,11 @@
+# Temporary build folders
+_work/
+_extract_*/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
