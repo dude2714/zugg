@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="repository.fenjr" name="[B][COLOR red]Fen Jr[/COLOR] Repo[/B]" version="1.0.1" provider-name="Tiki">
+<addon id="repository.fenjr" name="[B][COLOR red]Fen Jr[/COLOR] Repo[/B]" version="1.0.4" provider-name="Tiki">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
@@ -22,7 +22,7 @@
     </assets>
   </extension>
 </addon>
-<addon id="plugin.video.fenjr" version="2.10.13" name="Fen Jr" provider-name="Tiki">
+<addon id="plugin.video.fenjr" version="2.10.14" name="Fen Jr" provider-name="Tiki">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />
