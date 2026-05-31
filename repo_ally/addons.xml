@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons>
+<addon id="repository.ally" name="[B][COLOR red]Ally[/COLOR] Repo[/B]" version="1.0.0" provider-name="johns">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+  </requires>
+  <extension point="xbmc.addon.repository" name="Ally Repo">
+    <dir>
+      <info compressed="false">https://raw.githubusercontent.com/dude2714/zugg/master/repo_ally/addons.xml</info>
+      <checksum>https://raw.githubusercontent.com/dude2714/zugg/master/repo_ally/addons.xml.md5</checksum>
+      <datadir zip="true">https://raw.githubusercontent.com/dude2714/zugg/master/repo_ally/</datadir>
+    </dir>
+    <dir>
+      <info compressed="false">https://dude2714.github.io/zugg/repo_ally/addons.xml</info>
+      <checksum>https://dude2714.github.io/zugg/repo_ally/addons.xml.md5</checksum>
+      <datadir zip="true">https://dude2714.github.io/zugg/repo_ally/</datadir>
+    </dir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Ally repository</summary>
+    <description lang="en">Repository package for Ally only.</description>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>
+<addon id="plugin.program.rdbridge" name="Ally" version="0.0.1" provider-name="johns">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="script.module.resolveurl" version="5.1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Queue uncached magnets to Real-Debrid and play when ready.</summary>
+        <description lang="en_GB">MVP bridge addon for queuing a magnet/hash into RD cloud and returning a playable URL to Kodi or another addon callback.</description>
+        <platform>all</platform>
+        <license>GPL-3.0-or-later</license>
+        <source></source>
+    </extension>
+</addon>
+
+</addons>
+
