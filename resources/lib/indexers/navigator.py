@@ -83,7 +83,7 @@ class navigator:
             'tubi_tv': 'Tubi TV',
             'lg_tv': 'LG TV'
         }
-            self.addDirectoryItem('[I]Current Provider: %s[/I]' % provider_labels.get(last_provider, 'All Providers'), 'noop', 'iconT.png', 'DefaultAddonProgram.png', isFolder=False)
+        self.addDirectoryItem('[I]Current Provider: %s[/I]' % provider_labels.get(last_provider, 'All Providers'), 'noop', 'iconT.png', 'DefaultAddonProgram.png', isFolder=False)
         self.addDirectoryItem('Last Used - %s' % provider_labels.get(last_provider, 'All Providers'), 'channels&provider=%s' % last_provider, 'iconT.png', 'DefaultMovies.png')
         self.addDirectoryItem('All Providers', 'channels&provider=all', 'channels.png', 'DefaultMovies.png')
         self.addDirectoryItem('Google TV', 'channels&provider=google_tv', 'movies.png', 'DefaultMovies.png')

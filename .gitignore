@@ -1,0 +1,29 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Tooling/editor
+.vscode/
+
+# Kodi runtime artifacts
+*.log
+
+# Local compare/staging/extract work folders
+_compare_*/
+_thepromise_feed_stage/
+_tmp_*/
+_zipcheck/
+
+# Local scratch repos/checks
+repo_ally/
+repo_clean/
+repo_fenfork/
+repo_pov/
+_pov_check/
+
+temp_fen/
+
+# OS clutter
+Thumbs.db
+desktop.ini
