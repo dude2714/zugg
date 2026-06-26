@@ -20,7 +20,7 @@
       <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
     </extension>
   </addon>
-  <addon id="plugin.video.pov" version="6.05.17" name="Utopia" provider-name="kodifitzwell">
+  <addon id="plugin.video.pov" version="6.05.18" name="Utopia" provider-name="kodifitzwell">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
       <import addon="script.module.requests" />
@@ -107,4 +107,5 @@
     </extension>
   </addon>
 </addons>
+
 
