@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-  <addon id="repository.pov" name="[B][COLOR red]POV[/COLOR] Repo[/B]" version="1.0.12" provider-name="kodifitzwell">
-    <extension point="xbmc.addon.repository" name="POV Repo">
+  <addon id="repository.pov" name="[B][COLOR springgreen]UTOPIA[/COLOR] Repo[/B]" version="1.0.14" provider-name="kodifitzwell">
+    <extension point="xbmc.addon.repository" name="UTOPIA Repo">
       <dir>
         <info compressed="false">https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/addons.xml</info>
         <checksum>https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/addons.xml.md5</checksum>
@@ -14,13 +14,13 @@
       </dir>
     </extension>
     <extension point="xbmc.addon.metadata">
-      <summary lang="en">[B][COLOR red]POV[/COLOR][/B] repository</summary>
-      <description lang="en">Repository package for POV only.</description>
+      <summary lang="en">[B][COLOR springgreen]UTOPIA[/COLOR][/B] repository</summary>
+      <description lang="en">Repository package for UTOPIA only.</description>
       <platform>all</platform>
       <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
     </extension>
   </addon>
-  <addon id="plugin.video.pov" version="6.05.15" name="POV" provider-name="kodifitzwell">
+  <addon id="plugin.video.pov" version="6.05.16" name="Utopia" provider-name="kodifitzwell">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
       <import addon="script.module.requests" />
