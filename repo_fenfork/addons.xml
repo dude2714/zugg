@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="repository.fenfork" name="[B][COLOR red]Fen Fork[/COLOR] Repo[/B]" version="1.0.7" provider-name="Tikipeter, The Red Wizard">
   <extension point="xbmc.addon.repository" name="Fen Fork Repo">
@@ -15,10 +15,11 @@
     <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
   </extension>
 </addon>
-<addon id="plugin.video.fenfork" name="Fen Fork" provider-name="Tikipeter, The Red Wizard" version="3.5.08">
+<addon id="plugin.video.fenfork" name="Fen Fork" provider-name="Tikipeter, The Red Wizard" version="3.5.09">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.19.1"/>
+        <import addon="script.module.magneto" version="1.0.0"/>
     </requires>
     <extension library="resources/lib/fen.py" point="xbmc.python.pluginsource">
         <provides>video</provides>
@@ -103,4 +104,17 @@
     <description lang="en">HTTP library for Python</description>
   </extension>
 </addon>
-</addons>
+<addon id="script.module.magneto" name="magneto" version="1.0.0" provider-name="dude2714">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+    <import addon="script.module.requests" version="2.19.1"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+    <platform>all</platform>
+    <summary lang="en">Magneto Scrapers Module</summary>
+    <description lang="en">Torrent scraper module for Kodi addons</description>
+  </extension>
+</addon></addons>
+
