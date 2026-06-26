@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-  <addon id="repository.pov" name="[B][COLOR springgreen]UTOPIA[/COLOR] Repo[/B]" version="1.0.15" provider-name="kodifitzwell">
+  <addon id="repository.pov" name="[B][COLOR springgreen]UTOPIA[/COLOR] Repo[/B]" version="1.0.16" provider-name="dude2714">
     <extension point="xbmc.addon.repository" name="UTOPIA Repo">
       <dir>
         <info compressed="false">https://raw.githubusercontent.com/dude2714/zugg/main/repo_pov/addons.xml</info>
@@ -20,7 +20,7 @@
       <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
     </extension>
   </addon>
-  <addon id="plugin.video.pov" version="6.05.19" name="Utopia" provider-name="kodifitzwell">
+  <addon id="plugin.video.pov" version="6.05.20" name="Utopia" provider-name="dude2714">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
       <import addon="script.module.requests" />
@@ -107,6 +107,7 @@
     </extension>
   </addon>
 </addons>
+
 
 
 

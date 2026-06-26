@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.pov" name="[B][COLOR springgreen]UTOPIA[/COLOR] Repo[/B]" version="1.0.15" provider-name="kodifitzwell">
+<addon id="repository.pov" name="[B][COLOR springgreen]UTOPIA[/COLOR] Repo[/B]" version="1.0.16" provider-name="dude2714">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
@@ -26,5 +26,6 @@
     </assets>
   </extension>
 </addon>
+
 
 
