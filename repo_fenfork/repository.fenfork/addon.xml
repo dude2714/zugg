@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.fenfork" name="[B][COLOR red]Fen Fork[/COLOR] Repo[/B]" version="1.0.7" provider-name="Tikipeter, The Red Wizard">
+<addon id="repository.fenfork" name="[B][COLOR red]Fen Fork[/COLOR] Repo[/B]" version="1.0.8" provider-name="Tikipeter, The Red Wizard">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
   <extension point="xbmc.addon.repository" name="Fen Fork Repo">
     <dir>
-      <info compressed="false">https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/addons.xml</info>
-      <datadir zip="true">https://raw.githubusercontent.com/dude2714/zugg/main/repo_fenfork/</datadir>
-    </dir>
-    <dir>
       <info compressed="false">https://dude2714.github.io/zugg/repo_fenfork/addons.xml</info>
+      <checksum>https://dude2714.github.io/zugg/repo_fenfork/addons.xml.md5</checksum>
       <datadir zip="true">https://dude2714.github.io/zugg/repo_fenfork/</datadir>
     </dir>
   </extension>

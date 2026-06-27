@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.module.fenfork.magneto"
+  name="Magneto Scraper Module (Fen Fork)"
+  version="1.0.1"
+  provider-name="dude2714">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.requests" />
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Magneto Scraper Module</summary>
+    <description lang="en">Standalone torrent scraper module providing sources from Torrentio, PirateBay, DMM, Zilean, MediaFusion, Comet, and more.</description>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+    <assets>
+      <icon>icon.jpg</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>
