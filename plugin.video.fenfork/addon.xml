@@ -1,7 +1,8 @@
-<addon id="plugin.video.fenfork" name="Fen Fork" provider-name="Tikipeter, The Red Wizard" version="3.5.08">
+<addon id="plugin.video.fenfork" name="Fen Fork" provider-name="Tikipeter, The Red Wizard" version="3.5.09">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.19.1"/>
+        <import addon="script.module.magneto" version="1.0.1"/>
     </requires>
     <extension library="resources/lib/fen.py" point="xbmc.python.pluginsource">
         <provides>video</provides>
