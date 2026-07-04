@@ -16,7 +16,7 @@
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.thepromise" name="ThePromise" version="22.4.33" provider-name="Tech E Coyote">
+</addon><addon id="plugin.video.thepromise" name="ThePromise" version="22.4.35" provider-name="Tech E Coyote">
     <requires>
      <import addon="xbmc.python" version="3.0.0" />
         
@@ -24,6 +24,7 @@
         <import addon="script.module.resolveurl" />
         <import addon="script.module.requests" />
         <import addon="script.module.promisescrapers" optional="true" />
+        <import addon="script.module.thepromise.magneto" optional="true" />
         <import addon="script.module.viperscrapers" optional="true" />
         <import addon="script.module.six" />
         <import addon="script.module.kodi-six" />
@@ -52,6 +53,22 @@
 - See Changelog on Tools menu
         </news>
     </extension>
+</addon><addon id="script.module.thepromise.magneto" name="Magneto Scraper Module (ThePromise)" version="1.0.1" provider-name="dude2714">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.requests" />
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Magneto Scraper Module</summary>
+    <description lang="en">Standalone torrent scraper module providing sources from Torrentio, PirateBay, DMM, Zilean, MediaFusion, Comet, and more.</description>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+    <assets>
+      <icon>icon.jpg</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
 </addon><addon id="script.module.promisescrapers" name="PromiseScrapers Module" version="22.4.30" provider-name="[COLORpurple]• [COLORorchid]Tech [COLORdarkorchid]E [COLORplum]Coyote [COLORpurple]•[/COLOR]">
     <requires>
         

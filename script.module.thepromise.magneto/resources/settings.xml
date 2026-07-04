@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <category label="Magneto Providers">
+    <setting id="provider.torrentio" type="bool" label="Enable Torrentio" default="true" />
+    <setting id="provider.piratebay" type="bool" label="Enable PirateBay" default="true" />
+  </category>
+</settings>
