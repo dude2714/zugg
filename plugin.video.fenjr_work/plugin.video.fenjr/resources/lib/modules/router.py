@@ -209,6 +209,12 @@ def routing(argv2):
 		elif action == 'ad_revoke':
 			from apis.alldebrid_api import AllDebridAPI
 			AllDebridAPI().revoke_auth()
+		elif action == 'tb_auth':
+			from apis.torbox_api import TorBoxAPI
+			TorBoxAPI().auth()
+		elif action == 'tb_revoke':
+			from apis.torbox_api import TorBoxAPI
+			TorBoxAPI().revoke_auth()
 	elif 'toggle' in mode:
 		if mode == 'toggle_jump_to':
 			from modules.nav_utils import toggle_jump_to
@@ -270,7 +276,7 @@ def routing(argv2):
 	elif 'alldebrid' in mode:
 		if mode == 'alldebrid.ad_torrent_cloud':
 			from indexers.alldebrid import ad_torrent_cloud
-			ad_torrent_cloud(params.get('id', None))
+			ad_torrent_cloud()
 		elif mode == 'alldebrid.browse_ad_cloud':
 			from indexers.alldebrid import browse_ad_cloud
 			browse_ad_cloud(params['folder'])

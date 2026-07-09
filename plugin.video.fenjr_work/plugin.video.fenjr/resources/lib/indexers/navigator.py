@@ -56,7 +56,7 @@ class Navigator:
 		if easynews: self.AD({'mode': 'navigator.easynews', 'list_name': easy_str}, n_ins % easy_str, 'easynews.png')
 		if 'Real-Debrid' in debrids: self.AD({'mode': 'navigator.real_debrid', 'list_name': rd_str}, n_ins % rd_str, 'realdebrid.png')
 		if 'Premiumize.me' in debrids: self.AD({'mode': 'navigator.premiumize', 'list_name': pm_str}, n_ins % pm_str, 'premiumize.png')
-		if 'AllDebrid' in debrids: self.AD({'mode': 'navigator.all_debrid', 'list_name': ad_str}, n_ins % ad_str, 'alldebrid.png')
+		if 'AllDebrid' in debrids: self.AD({'mode': 'navigator.alldebrid', 'list_name': ad_str}, n_ins % ad_str, 'alldebrid.png')
 		self._end_directory()
 
 	def furk(self):
@@ -95,8 +95,8 @@ class Navigator:
 		self.AD({'mode': 'clear_cache', 'cache': 'pm_cloud', 'list_name': lst_ins % clca_str}, n_ins % clca_str, 'premiumize.png', False)
 		self._end_directory()
 
-	def all_debrid(self):
-		ad_str, acc_str, his_str, cloud_str = ls(32063), ls(32494), ls(32486), ls(32496)
+	def alldebrid(self):
+		ad_str, acc_str, cloud_str = ls(32063), ls(32494), ls(32496)
 		clca_str, n_ins, lst_ins = ls(32497) % ad_str, _in_str % (ad_str.upper(), '%s'), (_in_str % (ad_str, '%s')).replace('[B]', '').replace(': [/B]', ' ')
 		self.AD({'mode': 'alldebrid.ad_torrent_cloud', 'list_name': lst_ins % cloud_str}, n_ins % cloud_str, 'alldebrid.png')
 		self.AD({'mode': 'alldebrid.ad_account_info', 'list_name': lst_ins % acc_str}, n_ins % acc_str, 'alldebrid.png', False)
@@ -234,7 +234,7 @@ class Navigator:
 		clear_all_str, clear_meta_str = clca_str % all_str, clca_str % ls(32527)
 		clear_list_str, clear_trakt_str = clca_str % ls(32501), clca_str % ls(32037)
 		clear_imdb_str, clint_str, clext_str = clca_str % ls(32064), clca_str % ls(32096), clca_str % ls(32118)
-		clear_rd_str, clear_pm_str, clear_ad_str = clca_str % ls(32054), clca_str % ls(32061), clca_str % ls(32063)
+		clear_rd_str, clear_pm_str = clca_str % ls(32054), clca_str % ls(32061)
 		clear_fav_str, clear_search_str = clca_str % fav_str, clca_str % search_str
 		n_ins, lst_ins = _in_str % (cache_str.upper(), '%s'), (_in_str % (cache_str, '%s')).replace('[B]', '').replace(': [/B]', ' ')
 		clear_all_amble = '[B][I][COLOR=grey] (%s %s & %s)[/COLOR][/I][/B]' % (ls(32189), fav_str, search_str)
@@ -253,7 +253,6 @@ class Navigator:
 		self.AD({'mode': 'clear_cache', 'cache': 'external_scrapers', 'list_name': lst_ins % clint_str}, n_ins % clext_str, 'settings2.png', False)
 		self.AD({'mode': 'clear_cache', 'cache': 'rd_cloud', 'list_name': lst_ins % clear_rd_str}, n_ins % clear_rd_str, 'settings2.png', False)
 		self.AD({'mode': 'clear_cache', 'cache': 'pm_cloud', 'list_name': lst_ins % clear_pm_str}, n_ins % clear_pm_str, 'settings2.png', False)
-		self.AD({'mode': 'clear_cache', 'cache': 'ad_cloud', 'list_name': lst_ins % clear_ad_str}, n_ins % clear_ad_str, 'settings2.png', False)
 		self._end_directory()
 
 	def set_view_modes(self):

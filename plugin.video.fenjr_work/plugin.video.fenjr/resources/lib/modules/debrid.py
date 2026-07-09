@@ -6,14 +6,15 @@ from caches.debrid_cache import debrid_cache
 from apis.real_debrid_api import RealDebridAPI
 from apis.premiumize_api import PremiumizeAPI
 from apis.alldebrid_api import AllDebridAPI
+from apis.torbox_api import TorBoxAPI
 from modules.utils import make_thread_list
 from modules.settings_reader import get_setting
 from modules.settings import display_sleep_time, enabled_debrids_check
 from modules.kodi_utils import sleep, show_busy_dialog, hide_busy_dialog, notification, monitor, local_string as ls
 
-rd_api, pm_api, ad_api = RealDebridAPI(), PremiumizeAPI(), AllDebridAPI()
+rd_api, pm_api, ad_api, tb_api = RealDebridAPI(), PremiumizeAPI(), AllDebridAPI(), TorBoxAPI()
 plswait_str, checking_debrid_str, remaining_debrid_str = ls(32577), ls(32578), ls(32579)
-debrid_list = [('Real-Debrid', 'rd', rd_api), ('Premiumize.me', 'pm', pm_api), ('AllDebrid', 'ad', ad_api)]
+debrid_list = [('Real-Debrid', 'rd', rd_api), ('Premiumize.me', 'pm', pm_api), ('AllDebrid', 'ad', ad_api), ('TorBox', 'tb', tb_api)]
 line = '%s[CR]%s[CR]%s'
 timeout = 20.0
 
@@ -21,15 +22,7 @@ def debrid_enabled():
 	return [i[0] for i in debrid_list if enabled_debrids_check(i[1])]
 
 def debrid_type_enabled(debrid_type, enabled_debrids):
-	def _type_is_enabled(short_name):
-		value = get_setting('%s.%s.enabled' % (short_name, debrid_type))
-		if value == 'true':
-			return True
-		# Some Fen Jr builds are missing ad.torrent.enabled / ad.hoster.enabled in settings.xml.
-		if short_name == 'ad' and value in ('', None):
-			return True
-		return False
-	return [i[0] for i in debrid_list if i[0] in enabled_debrids and _type_is_enabled(i[1])]
+	return [i[0] for i in debrid_list if i[0] in enabled_debrids and get_setting('%s.%s.enabled' % (i[1], debrid_type)) == 'true']
 
 def debrid_valid_hosts(enabled_debrids):
 	def _get_hosts(function):
@@ -58,11 +51,11 @@ class DebridCheck:
 		self.progress_dialog = progress_dialog
 		self.sleep_time = display_sleep_time()
 		self.cached_hashes, self.main_threads = [], []
-		self.ad_cached_hashes, self.pm_cached_hashes, self.rd_cached_hashes = [], [], []
+		self.ad_cached_hashes, self.pm_cached_hashes, self.rd_cached_hashes, self.tb_cached_hashes = [], [], [], []
 		self.processing_hashes = False
 		self._query_local_cache()
 		main_threads_append = self.main_threads.append
-		debrid_runners = {'Real-Debrid': self.RD_check, 'Premiumize.me': self.PM_check, 'AllDebrid': self.AD_check}
+		debrid_runners = {'Real-Debrid': self.RD_check, 'Premiumize.me': self.PM_check, 'AllDebrid': self.AD_check, 'TorBox': self.TB_check}
 		for item in debrid_enabled: main_threads_append(Thread(target=debrid_runners[item], name=item))
 		if self.main_threads:
 			[i.start() for i in self.main_threads]
@@ -71,7 +64,8 @@ class DebridCheck:
 				self.monitor_processing()
 				if self.processing_hashes: self.debrid_check_dialog()
 		self._kill_progress_dialog()
-		return {'rd_cached_hashes': self.rd_cached_hashes, 'pm_cached_hashes': self.pm_cached_hashes, 'ad_cached_hashes': self.ad_cached_hashes}
+		return {'rd_cached_hashes': self.rd_cached_hashes, 'pm_cached_hashes': self.pm_cached_hashes,
+				'ad_cached_hashes': self.ad_cached_hashes, 'tb_cached_hashes': self.tb_cached_hashes}
 
 	def cached_check(self, debrid):
 		cached_list = [i[0] for i in self.cached_hashes if i[1] == debrid and i[2] == 'True']
@@ -118,14 +112,34 @@ class DebridCheck:
 		try:
 			ad_cache = ad_cache['magnets']
 			for i in ad_cache:
+				hash_value = str(i.get('hash', '')).lower()
 				cached = 'False'
-				if i['instant'] == True:
-					cached_append(i['hash'])
+				if i.get('instant') == True and hash_value:
+					cached_append(hash_value)
 					cached = 'True'
-				process_append((i['hash'], cached))
+				if hash_value:
+					process_append((hash_value, cached))
 		except:
 			for i in unchecked_hashes: process_append((i, 'False'))
 		self._add_to_local_cache(process_list, 'ad')
+
+	def TB_check(self):
+		self.tb_cached_hashes, unchecked_hashes = self.cached_check('tb')
+		if not unchecked_hashes: return
+		tb_cache = tb_api.check_cache(unchecked_hashes)
+		if not tb_cache: return
+		cached_hashes = set(tb_api._extract_cached_hashes(tb_cache))
+		cached_append = self.tb_cached_hashes.append
+		process_list = []
+		process_append = process_list.append
+		for i in unchecked_hashes:
+			hash_value = str(i).lower()
+			cached = 'False'
+			if hash_value in cached_hashes:
+				cached_append(hash_value)
+				cached = 'True'
+			process_append((hash_value, cached))
+		self._add_to_local_cache(process_list, 'tb')
 
 	def monitor_processing(self):
 		while not self.processing_hashes:
