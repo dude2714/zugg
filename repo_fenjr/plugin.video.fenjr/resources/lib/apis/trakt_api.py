@@ -12,7 +12,8 @@ from modules.requests_utils import make_session
 from modules.utils import sort_list, sort_for_article, make_thread_list, jsondate_to_datetime as js2date
 
 ls, logger = kodi_utils.local_string, kodi_utils.logger
-CLIENT_ID = get_setting('trakt.client_id') or '5dd9e3603df7cb000a249219447e7bf1581cbf9577f25fbc2b73ebd2a8cc22a8'
+CLIENT_ID = get_setting('trakt.client_id') or '645b0f46df29d27e63c4a8d5fff158edd0bef0a6a5d32fc12c1b82388be351af'
+CLIENT_SECRET = get_setting('trakt.client_secret') or '422a282ef5fe4b5c47bc60425c009ac3047ebd10a7f6af790303875419f18f98'
 trakt_icon = kodi_utils.translate_path('special://home/addons/plugin.video.fenjr/resources/media/trakt.png')
 trakt_str = ls(32037)
 API_ENDPOINT = 'https://api.trakt.tv/%s'
@@ -50,20 +51,30 @@ def call_trakt(path, params={}, data=None, is_delete=False, with_auth=True, meth
 	headers = {'Content-Type': 'application/json', 'trakt-api-version': '2', 'trakt-api-key': CLIENT_ID}
 	if pagination: params['page'] = page
 	response = send_query()
+	if response is None:
+		return None
 	if response.status_code == 401:
 		if kodi_utils.player.isPlaying() == False:
 			if with_auth and kodi_utils.confirm_dialog(heading='%s %s' % (ls(32057), trakt_str), text=32741) and trakt_authenticate():
 				response = send_query()
 			else: pass
 		else: return
+	elif response.status_code in (303, 403):
+		error_notification('Trakt Error', 'HTTP %s (%s)' % (response.status_code, path))
+		return None
 	elif response.status_code == 429:
 		headers = response.headers
 		if 'Retry-After' in headers:
-			kodi_utils.sleep(1000 * headers['Retry-After'])
+			try: retry_after = int(headers['Retry-After'])
+			except: retry_after = 1
+			kodi_utils.sleep(1000 * max(retry_after, 1))
 			response = send_query()
 	elif response.status_code == 502:
 		trakt_refresh_token()
 		response = send_query()
+	if response is None or response.status_code >= 400:
+		error_notification('Trakt Error', 'HTTP %s (%s)' % (getattr(response, 'status_code', 'unknown'), path))
+		return None
 	response.encoding = 'utf-8'
 	try: result = response.json()
 	except: result = None
@@ -548,6 +559,8 @@ def get_trakt(params):
 	result = call_trakt(params['path'] % params.get('path_insert', ''), params=params.get('params', {}), data=params.get('data'),
 						is_delete=params.get('is_delete', False), with_auth=params.get('with_auth', False), method=params.get('method'),
 						pagination=params.get('pagination', True), page=params.get('page'))
+	if result is None:
+		return [] if params.get('pagination', True) else None
 	return result[0] if params.get('pagination', True) else result
 
 def make_trakt_slug(name):
@@ -580,7 +593,11 @@ def trakt_sync_activities(force_update=False):
 	trakt_cache.clear_trakt_calendar()
 	try: latest = trakt_get_activity()
 	except: return 'failed'
+	if not latest or 'all' not in latest:
+		return 'failed'
 	cached = trakt_cache.reset_activity(latest)
+	if not cached or 'all' not in cached:
+		return 'failed'
 	if not _compare(latest['all'], cached['all']):
 		trakt_cache.clear_trakt_list_contents_data('liked_lists')
 		return 'not needed'

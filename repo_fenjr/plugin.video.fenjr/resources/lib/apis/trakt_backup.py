@@ -11,8 +11,8 @@ _session = make_session('https://api.trakt.tv')
 class Trakt():
 	def __init__(self):
 		self.api_endpoint = 'https://api.trakt.tv/%s'
-		self.client_id = get_setting('trakt.client_id') or '5dd9e3603df7cb000a249219447e7bf1581cbf9577f25fbc2b73ebd2a8cc22a8'
-		self.client_secret = get_setting('trakt.client_secret') or '6bd3cc8d726b0b8090628d559ffe87b4ffbdcbd636ad24dd788003ced3a8298a'
+		self.client_id = get_setting('trakt.client_id') or '645b0f46df29d27e63c4a8d5fff158edd0bef0a6a5d32fc12c1b82388be351af'
+		self.client_secret = get_setting('trakt.client_secret') or '422a282ef5fe4b5c47bc60425c009ac3047ebd10a7f6af790303875419f18f98'
 		try: self.expires_at = float(get_setting('trakt.expires'))
 		except: self.expires_at = 0.0
 		self.token = get_setting('trakt.token')

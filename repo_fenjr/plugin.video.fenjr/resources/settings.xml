@@ -23,8 +23,8 @@
         <setting label="32101" type="lsep" />
         <setting id="datetime.offset" label="32045" type="slider" default="0" range="-15,1,15" option="int" />
         <!-- Hidden -->
-        <setting id="trakt.client_id" type="text" default="5dd9e3603df7cb000a249219447e7bf1581cbf9577f25fbc2b73ebd2a8cc22a8" visible="false" />
-        <setting id="trakt.client_secret" type="text" default="6bd3cc8d726b0b8090628d559ffe87b4ffbdcbd636ad24dd788003ced3a8298a" visible="false" />
+                <setting id="trakt.client_id" type="text" default="645b0f46df29d27e63c4a8d5fff158edd0bef0a6a5d32fc12c1b82388be351af" visible="false" />
+                <setting id="trakt.client_secret" type="text" default="422a282ef5fe4b5c47bc60425c009ac3047ebd10a7f6af790303875419f18f98" visible="false" />
         <setting id="trakt.expires" type="text" default="" visible="false" />
         <setting id="trakt.token" type="text" default="" visible="false" />
         <setting id="trakt.refresh" type="text" default="" visible="false" />
