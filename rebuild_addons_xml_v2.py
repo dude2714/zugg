@@ -37,11 +37,17 @@ def rebuild_addons_xml(repo_path):
                 if addon_xml_str:
                     try:
                         root = ET.fromstring(addon_xml_str)
-                        for addon_elem in root.findall('addon'):
-                            addon_id = addon_elem.get('id')
-                            addon_version = addon_elem.get('version')
-                            addon_list.append(addon_elem)
+                        if root.tag == 'addon':
+                            addon_id = root.get('id')
+                            addon_version = root.get('version')
+                            addon_list.append(root)
                             print(f"  ✓ {addon_id} v{addon_version}")
+                        else:
+                            for addon_elem in root.findall('addon'):
+                                addon_id = addon_elem.get('id')
+                                addon_version = addon_elem.get('version')
+                                addon_list.append(addon_elem)
+                                print(f"  ✓ {addon_id} v{addon_version}")
                     except Exception as e:
                         print(f"  ✗ Parse error {item}: {e}")
     
