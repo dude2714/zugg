@@ -69,7 +69,7 @@
       <fanart>fanart.png</fanart>
     </assets>
   </extension>
-</addon><addon id="repository.fenjr" name="[B][COLOR red]Fen Jr[/COLOR] Repo[/B]" version="1.0.7" provider-name="Tiki">
+</addon><addon id="repository.fenjr" name="[B][COLOR red]Fen Jr[/COLOR] Repo[/B]" version="1.0.10" provider-name="Tiki">
   <requires><import addon="xbmc.python" version="3.0.0" /></requires>
   <extension point="xbmc.addon.repository" name="Fen Jr Repo">
     <dir>
@@ -88,7 +88,7 @@
     <description lang="en">Repository package for Fen Jr only.</description>
     <platform>all</platform>
     <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
-    <assets><icon>icon.png</icon><fanart>fanart.jpg</fanart></assets>
+    <assets><icon>icon_v109.png</icon><fanart>fanart_v109.png</fanart></assets>
   </extension>
 </addon><addon id="script.module.certifi" name="certifi" version="2023.5.7" provider-name="Certifi">
   <requires>
