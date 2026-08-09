@@ -275,7 +275,7 @@ def clear_cache(cache_type, silent=False):
 		from apis import furk_api, easynews_api
 		furk_api.clear_media_results_database()
 		easynews_api.clear_media_results_database()
-		for item in ('pm_cloud', 'rd_cloud', 'ad_cloud', 'folders'): clear_cache(item, silent=True)
+		for item in ('pm_cloud', 'rd_cloud', 'ad_cloud', 'tb_cloud', 'folders'): clear_cache(item, silent=True)
 	elif cache_type == 'external_scrapers':
 		from caches.providers_cache import ExternalProvidersCache
 		from caches.debrid_cache import DebridCache
@@ -301,6 +301,10 @@ def clear_cache(cache_type, silent=False):
 		if not _confirm(): return
 		from apis.alldebrid_api import AllDebridAPI
 		success = AllDebridAPI().clear_cache()
+	elif cache_type == 'tb_cloud':
+		if not _confirm(): return
+		from apis.torbox_api import TorBoxAPI
+		success = TorBoxAPI().clear_cache()
 	elif cache_type == 'folders':
 		from caches.main_cache import main_cache
 		main_cache.delete_all_folderscrapers()
@@ -316,7 +320,7 @@ def clear_all_cache():
 	kodi_utils.progressDialog.create('Fen', '')
 	caches = (('meta', '%s %s' % (ls(32527), ls(32524))), ('internal_scrapers', '%s %s' % (ls(32096), ls(32524))), ('external_scrapers', '%s %s' % (ls(32118), ls(32524))),
 			('trakt', ls(32087)), ('imdb', '%s %s' % (ls(32064), ls(32524))), ('list', '%s %s' % (ls(32815), ls(32524))),
-			('pm_cloud', '%s %s' % (ls(32061), ls(32524))), ('rd_cloud', '%s %s' % (ls(32054), ls(32524))), ('ad_cloud', '%s %s' % (ls(32063), ls(32524))))
+			('pm_cloud', '%s %s' % (ls(32061), ls(32524))), ('rd_cloud', '%s %s' % (ls(32054), ls(32524))), ('ad_cloud', '%s %s' % (ls(32063), ls(32524))), ('tb_cloud', 'TorBox %s' % ls(32524)))
 	for count, cache_type in enumerate(caches, 1):
 		try:
 			kodi_utils.progressDialog.update(int(float(count) / float(len(caches)) * 100), line % (ls(32816), cache_type[1]))

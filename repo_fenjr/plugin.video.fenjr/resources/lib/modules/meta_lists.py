@@ -108,7 +108,7 @@ networks = (
 		{'id':14,'name':'PBS','logo': 'https://i.imgur.com/r9qeDJY.png'},                 {'id':16,'name':'CBS','logo': 'https://i.imgur.com/8OT8igR.png'},
 		{'id':19,'name':'FOX','logo': 'https://i.imgur.com/6vc0Iov.png'},                 {'id':21,'name':'The WB','logo': 'https://i.imgur.com/rzfVME6.png'},
 		{'id':24,'name':'BET','logo': 'https://i.imgur.com/ZpGJ5UQ.png'},                 {'id':30,'name':'USA Network','logo': 'https://i.imgur.com/Doccw9E.png'},
-		{'id':32,'name':'CBC','logo': 'https://i.imgur.com/unQ7WCZ.png'},                 {'id':173,'name':'AT-X','logo': 'https://i.imgur.com/JshJYGN.png'},
+		{'id':23,'name':'CBC','logo': 'https://i.imgur.com/unQ7WCZ.png'},                 {'id':173,'name':'AT-X','logo': 'https://i.imgur.com/JshJYGN.png'},
 		{'id':33,'name':'MTV','logo': 'https://i.imgur.com/QM6DpNW.png'},                 {'id':34,'name':'Lifetime','logo': 'https://i.imgur.com/tvYbhen.png'},
 		{'id':35,'name':'Nick Junior','logo': 'https://i.imgur.com/leuCWYt.png'},         {'id':41,'name':'TNT','logo': 'https://i.imgur.com/WnzpAGj.png'},
 		{'id':43,'name':'National Geographic','logo': 'https://i.imgur.com/XCGNKVQ.png'}, {'id':47,'name':'Comedy Central','logo': 'https://i.imgur.com/ko6XN77.png'},

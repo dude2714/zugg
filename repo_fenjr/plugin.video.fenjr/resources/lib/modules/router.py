@@ -286,6 +286,19 @@ def routing(argv2):
 		elif mode == 'alldebrid.ad_account_info':
 			from indexers.alldebrid import ad_account_info
 			ad_account_info()
+	elif 'torbox' in mode:
+		if mode == 'torbox.tb_torrent_cloud':
+			from indexers.torbox import tb_torrent_cloud
+			tb_torrent_cloud()
+		elif mode == 'torbox.browse_tb_cloud':
+			from indexers.torbox import browse_tb_cloud
+			browse_tb_cloud(params['id'])
+		elif mode == 'torbox.resolve_tb':
+			from indexers.torbox import resolve_tb
+			resolve_tb(params)
+		elif mode == 'torbox.tb_account_info':
+			from indexers.torbox import tb_account_info
+			tb_account_info()
 	elif '_settings' in mode:
 		if mode == 'open_settings':
 			from modules.nav_utils import open_settings

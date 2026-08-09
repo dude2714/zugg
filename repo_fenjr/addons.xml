@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addons><addon id="plugin.video.fenjr" version="2.10.14" name="Fen Jr" provider-name="Tiki">
+<addons><addon id="plugin.video.fenjr" version="2.10.15" name="Fen Jr" provider-name="Tiki">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" version="2.19.1" />
@@ -63,7 +63,7 @@
     <reuselanguageinvoker>true</reuselanguageinvoker>
     <description lang="en">Mainly used for Furk and Easynews (web) account access. Can also utilize Fenomscrapers AND a debrid service.[CR][CR]This addon simply searches websites for content. The author of this addon does not host any of the content which is found and has no affiliation with any of the content providers</description>
     <disclaimer lang="en">The author is not responsible for the use of this addon.[CR][CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.[CR][CR]This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</disclaimer>
-    <news>2.10.13: cache-bust rebuild with restored startup entry scripts and full package payload.</news>
+    <news>2.10.15: fixed CBC network listings and added TorBox service navigation.</news>
     <assets>
       <icon>icon.png</icon>
       <fanart>fanart.png</fanart>
