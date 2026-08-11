@@ -165,6 +165,7 @@ class navigator:
         self.addDirectoryItem(32016, 'tvNetworks', 'networks.png', 'DefaultTVShows.png')
         self.addDirectoryItem(32014, 'tvLanguages', 'languages.png', 'DefaultTVShows.png')
         self.addDirectoryItem(32015, 'tvCertificates', 'certificates.png', 'DefaultTVShows.png')
+        self.addDirectoryItem('TV Shows 24/7', 'watchonline_menu', 'channels.png', 'DefaultTVShows.png')
         self.addDirectoryItem('TV Show Mosts', 'tvMosts', 'featured.png', 'DefaultTVShows.png')
         self.addDirectoryItem(32017, 'tvshows&url=trending', 'people-watching.png', 'DefaultRecentlyAddedEpisodes.png')
         self.addDirectoryItem(32018, 'tvshows&url=popular', 'most-popular.png', 'DefaultTVShows.png')

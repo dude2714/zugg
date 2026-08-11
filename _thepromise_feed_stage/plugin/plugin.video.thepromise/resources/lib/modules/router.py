@@ -257,6 +257,14 @@ def routing(_argv):
         from resources.lib.indexers import channels
         channels.channels().get()
 
+    elif action == 'watchonline_menu':
+        from resources.lib.indexers.plugins import watchonline
+        watchonline.Indexer().root()
+
+    elif action == 'watchonline_channels':
+        from resources.lib.indexers import channels
+        channels.channels().get()
+
     elif action == 'tvshows':
         from resources.lib.indexers import tvshows
         tvshows.tvshows().get(url)
