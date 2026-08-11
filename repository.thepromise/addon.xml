@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<addon id="repository.thepromise" name="ThePromise Repository" version="1.0.4" provider-name="ThePromise">
+<addon id="repository.thepromise" name="ThePromise Repository" version="1.0.5" provider-name="ThePromise">
     <extension point="xbmc.addon.repository" name="ThePromise Repository">
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/dude2714/zugg/main/thepromise.addons.xml</info>
