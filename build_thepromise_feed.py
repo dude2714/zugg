@@ -12,7 +12,7 @@ files = [
     "plugin.video.thepromise-22.4.36.zip",
     "script.module.thepromise.magneto-1.0.1.zip",
     "script.module.promisescrapers-22.4.31.zip",
-    "script.module.resolveurl-5.1.206.zip",
+    "script.module.resolveurl-5.1.207.zip",
     "script.module.pyqrcode-1.0.0.zip",
     "script.module.cocoscrapers-1.0.39.zip",
     "script.module.fenomscrapers-2.10.8.zip",
