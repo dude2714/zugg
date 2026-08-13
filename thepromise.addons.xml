@@ -63,7 +63,7 @@
       <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="script.module.pyqrcode" name="pyqrcode compatibility" version="1.2.2+matrix.5" provider-name="Local Compatibility Shim">
+</addon><addon id="script.module.pyqrcode" name="pyqrcode compatibility" version="1.2.2.5" provider-name="Local Compatibility Shim">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>

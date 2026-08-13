@@ -13,7 +13,7 @@ files = [
     "script.module.thepromise.magneto-1.0.1.zip",
     "script.module.promisescrapers-22.4.31.zip",
     "script.module.resolveurl-5.1.208.zip",
-    "script.module.pyqrcode-1.2.2+matrix.5.zip",
+    "script.module.pyqrcode-1.2.2.5.zip",
     "script.module.cocoscrapers-1.0.39.zip",
     "script.module.fenomscrapers-2.10.8.zip",
     "script.module.viperscrapers-1.5.1.zip",
