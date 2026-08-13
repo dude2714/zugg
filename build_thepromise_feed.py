@@ -8,7 +8,7 @@ feed = root / "thepromise.addons.xml"
 feed_md5 = root / "thepromise.addons.xml.md5"
 
 files = [
-    "repository.thepromise-1.0.5.zip",
+    "repository.thepromise-1.0.6.zip",
     "plugin.video.thepromise-22.4.36.zip",
     "script.module.thepromise.magneto-1.0.1.zip",
     "script.module.promisescrapers-22.4.31.zip",

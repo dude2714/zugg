@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addons><addon id="repository.thepromise" name="ThePromise Repository" version="1.0.5" provider-name="ThePromise">
+<addons><addon id="repository.thepromise" name="ThePromise Repository" version="1.0.6" provider-name="ThePromise">
     <extension point="xbmc.addon.repository" name="ThePromise Repository">
         <dir>
-            <info compressed="false">https://raw.githubusercontent.com/dude2714/zugg/main/thepromise.addons.xml</info>
-            <datadir zip="true">https://raw.githubusercontent.com/dude2714/zugg/main/</datadir>
-            <checksum>https://raw.githubusercontent.com/dude2714/zugg/main/thepromise.addons.xml.md5</checksum>
+            <info compressed="false">https://dude2714.github.io/zugg/thepromise.addons.xml</info>
+            <datadir zip="true">https://dude2714.github.io/zugg/</datadir>
+            <checksum>https://dude2714.github.io/zugg/thepromise.addons.xml.md5</checksum>
         </dir>
     </extension>
     <extension point="xbmc.addon.metadata">

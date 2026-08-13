@@ -1,5 +1,6 @@
 $ErrorActionPreference = 'Stop'
-$base = 'C:\Users\johns\OneDrive\Desktop\123Venom.github.io'
+$base = Split-Path -Parent $PSScriptRoot
+$zipBuilder = Join-Path $PSScriptRoot 'build-kodi-zip.py'
 
 $copies = @(
     @{ Source = Join-Path $base 'repository.venom\icon.png'; Destination = Join-Path $base 'repo_pov\repository.pov\icon.png' },
@@ -40,9 +41,12 @@ $povAddonVersion = $povAddon.addon.version
 [xml]$fenforkRepoAddon = Get-Content -LiteralPath (Join-Path $base 'repo_fenfork\repository.fenfork\addon.xml')
 $fenforkRepoVersion = $fenforkRepoAddon.addon.version
 
+[xml]$fenforkAddon = Get-Content -LiteralPath (Join-Path $base 'plugin.video.fenfork\addon.xml')
+$fenforkAddonVersion = $fenforkAddon.addon.version
+
 $zipTargets = @(
     @{ Folder = Join-Path $base '_pov_check\plugin.video.pov'; Zip = Join-Path $base ("repo_pov\plugin.video.pov-{0}.zip" -f $povAddonVersion) },
-    @{ Folder = Join-Path $base 'plugin.video.fenfork'; Zip = Join-Path $base 'repo_fenfork\plugin.video.fenfork-3.5.08.zip' },
+    @{ Folder = Join-Path $base 'plugin.video.fenfork'; Zip = Join-Path $base ("repo_fenfork\plugin.video.fenfork-{0}.zip" -f $fenforkAddonVersion) },
     @{ Folder = Join-Path $base 'repo_pov\repository.pov'; Zip = Join-Path $base ("repo_pov\repository.pov-{0}.zip" -f $povRepoVersion) },
     @{ Folder = Join-Path $base 'repo_fenfork\repository.fenfork'; Zip = Join-Path $base ("repo_fenfork\repository.fenfork-{0}.zip" -f $fenforkRepoVersion) }
 )
@@ -51,7 +55,7 @@ foreach ($target in $zipTargets) {
     if (Test-Path $target.Zip) {
         Remove-Item -Force $target.Zip
     }
-    Compress-Archive -Path $target.Folder -DestinationPath $target.Zip -Force
+    python $zipBuilder $target.Folder $target.Zip
 }
 
 Write-Output 'BUILT_SPLIT_REPOS'
